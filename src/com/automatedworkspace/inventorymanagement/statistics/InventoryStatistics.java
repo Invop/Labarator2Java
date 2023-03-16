@@ -10,11 +10,11 @@ import java.io.*;
 
 
 public class InventoryStatistics {
+    private static final String filePath = "src/com/automatedworkspace/files/Inventory.xlsx";
 
 
     public static void main(String[] args) throws Exception {
 
-        String filePath = "src/com/automatedworkspace/files/Inventory.xlsx";
 
         Workbook workbook = WorkbookFactory.create(new File(filePath));
 
