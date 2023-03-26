@@ -5,6 +5,7 @@ import javax.swing.*;
 /**
  *Потрібно зробити 4 панелі, 1 Додати Постачальника, 2 Створити товар, 3 Додати Товар до існуючого, 4 вибір між ними
  *
+
  *Постачальник :
  * Отримати назву + лейбл
  * лейбл для виведення статусу Доданий/Існує
@@ -17,7 +18,7 @@ import javax.swing.*;
  * Отримати Ціну за 1 +лейбл
  * Отримати Нижню межу поповнення + лебл
  * Отримати групу? + лейбл (JComboBox)
- * OK/Cancel buttons?????
+ * OK/Cancel buttons????? ok
  *
  * Додати товар :
  * Отримати Кількість + лейбл
@@ -38,4 +39,23 @@ import javax.swing.*;
  * для 4панелі хз, щоб 4 кнопки було+лейбл
  */
 public class AddItemForm {
+
+
+    private JPanel CreateFormBrand;
+    private JLabel AddBrandLabel;
+    private JLabel AddIDLabel;
+    private JTextField AddIDField;
+    private JLabel NameLabel;
+    private JTextField AddNameField;
+    private JLabel ManufacturerLabel;
+    private JComboBox AddManufacturerBox;
+    private JLabel PriceLabel;
+    private JTextField AddPriceField;
+    private JLabel LimitLabel;
+    private JTextField AddLimitField;
+    private JLabel GroupLabel;
+    private JComboBox AddGroupBox;
+    private JButton OkButton;
+    private JButton CancelButton;
+
 }
