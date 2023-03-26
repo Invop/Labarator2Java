@@ -38,7 +38,7 @@ import javax.swing.*;
  * Розміри панелей 1280x720 (Основні)
  * для 4панелі хз, щоб 4 кнопки було+лейбл
  */
-public class AddItemForm {
+public class AddItemForm extends JDialog{
 
 
     private JPanel CreateFormBrand;
@@ -58,4 +58,16 @@ public class AddItemForm {
     private JButton OkButton;
     private JButton CancelButton;
 
+    public AddItemForm(JFrame parent) {
+        super(parent);
+        setVisible(true);
+        setSize(900,720);
+        setContentPane(CreateFormBrand);
+        setLocationRelativeTo(parent);
+
+    }
+
+    public static void main(String[] args) {
+        AddItemForm addItemForm = new AddItemForm(null);
+    }
 }
