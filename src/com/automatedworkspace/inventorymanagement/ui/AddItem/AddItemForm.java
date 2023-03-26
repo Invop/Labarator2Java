@@ -1,4 +1,4 @@
-package com.automatedworkspace.inventorymanagement.ui;
+package com.automatedworkspace.inventorymanagement.ui.AddItem;
 
 import javax.swing.*;
 
