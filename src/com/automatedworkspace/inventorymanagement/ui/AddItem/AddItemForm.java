@@ -49,8 +49,7 @@ public class AddItemForm extends JDialog {
 		AddManufacturerBox.addItem("Item 1");
 		AddManufacturerBox.addItem("Item 2");
 		FieldsThatOnlyHandleNumbers();
-		OkButton.setEnabled(false);
-		DocumentListener();
+		checkFields();
 
 		Cancel();
 		CloseApp();
@@ -71,6 +70,7 @@ public class AddItemForm extends JDialog {
 	}
 
 	private void checkFields() {
+		DocumentListener();
 		boolean id = !AddIDField.getText().equals("");
 		boolean name = !AddNameField.getText().equals("");
 		boolean price = !AddPriceField.getText().equals("");
@@ -80,8 +80,6 @@ public class AddItemForm extends JDialog {
 
 		OkButton.setEnabled(id && name && price && limit && manufacturer && group);
 	}
-
-
 	/**
 	 * The entry point of application.
 	 *
@@ -90,7 +88,6 @@ public class AddItemForm extends JDialog {
 	public static void main(String[] args) {
 		AddItemForm addItemForm = new AddItemForm(null);
 	}
-
 	/**
 	 * System.exit(0)
 	 */
@@ -103,11 +100,10 @@ public class AddItemForm extends JDialog {
 			}
 		});
 	}
-
 	private void Cancel() {
 		CancelButton.addActionListener(e -> {
 			dispose();
-			// new SelectiondAddForm(null).setVisible(true);
+			// new AddToExistingForm(null);
 		});
 
 	}
