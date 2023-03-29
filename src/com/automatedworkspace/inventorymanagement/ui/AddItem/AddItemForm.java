@@ -6,15 +6,17 @@ import javax.swing.event.DocumentListener;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.PlainDocument;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
+import java.io.*;
+import java.util.logging.Logger;
+
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 
 public class AddItemForm extends JDialog {
 
-
+	private static int NotNullRows = 3;
 	private JPanel CreateFormBrand;
 	private JLabel AddBrandLabel;
 	private JLabel AddIDLabel;
@@ -31,6 +33,15 @@ public class AddItemForm extends JDialog {
 	private JComboBox<String> AddGroupBox;
 	private JButton OkButton;
 	private JButton CancelButton;
+
+
+	private String AddIdText;
+	private String AddNameText;
+	private int AddPriceInt;
+	private int AddLimitInt;
+	private String AddManufacturerText;
+	private String AddGroupText;
+
 
 	/**
 	 * Instantiates a new Add item form.
@@ -49,9 +60,9 @@ public class AddItemForm extends JDialog {
 		AddManufacturerBox.addItem("Item 1");
 		AddManufacturerBox.addItem("Item 2");
 		FieldsThatOnlyHandleNumbers();
-		checkFields();
-
-		Cancel();
+		Listener();
+		IfOkPressed();
+		IfCancelPressed();
 		CloseApp();
 	}
 
@@ -60,33 +71,51 @@ public class AddItemForm extends JDialog {
 		AddLimitField.setDocument(new NumericFilter());
 	}
 
-	private void DocumentListener() {
-		AddIDField.getDocument().addDocumentListener(new MyDocumentListener());
-		AddNameField.getDocument().addDocumentListener(new MyDocumentListener());
-		AddPriceField.getDocument().addDocumentListener(new MyDocumentListener());
-		AddLimitField.getDocument().addDocumentListener(new MyDocumentListener());
-		AddManufacturerBox.addItemListener(new MyItemListener());
-		AddGroupBox.addItemListener(new MyItemListener());
-	}
 
+	private void Listener() {
+		// create document listener
+		DocumentListener documentListener = new DocumentListener() {
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				checkFields();
+			}
+
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				checkFields();
+			}
+
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				checkFields();
+			}
+		};
+
+		// add document listener to each text field
+		AddIDField.getDocument().addDocumentListener(documentListener);
+		AddNameField.getDocument().addDocumentListener(documentListener);
+		AddPriceField.getDocument().addDocumentListener(documentListener);
+		AddLimitField.getDocument().addDocumentListener(documentListener);
+
+		// add action listener to the "OK" button to clear the memory from the listener
+		OkButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// remove document listener from each text field
+				AddIDField.getDocument().removeDocumentListener(documentListener);
+				AddNameField.getDocument().removeDocumentListener(documentListener);
+				AddPriceField.getDocument().removeDocumentListener(documentListener);
+				AddLimitField.getDocument().removeDocumentListener(documentListener);
+			}
+		});
+	}
 	private void checkFields() {
-		DocumentListener();
-		boolean id = !AddIDField.getText().equals("");
-		boolean name = !AddNameField.getText().equals("");
-		boolean price = !AddPriceField.getText().equals("");
-		boolean limit = !AddLimitField.getText().equals("");
-		boolean manufacturer = AddManufacturerBox.getSelectedIndex() != -1;
-		boolean group = AddGroupBox.getSelectedIndex() != -1;
-
-		OkButton.setEnabled(id && name && price && limit && manufacturer && group);
-	}
-	/**
-	 * The entry point of application.
-	 *
-	 * @param args the input arguments
-	 */
-	public static void main(String[] args) {
-		AddItemForm addItemForm = new AddItemForm(null);
+		if (AddIDField.getText().isEmpty() || AddNameField.getText().isEmpty() ||
+				AddPriceField.getText().isEmpty() || AddLimitField.getText().isEmpty()) {
+			OkButton.setEnabled(false);
+		} else {
+			OkButton.setEnabled(true);
+		}
 	}
 	/**
 	 * System.exit(0)
@@ -100,7 +129,17 @@ public class AddItemForm extends JDialog {
 			}
 		});
 	}
-	private void Cancel() {
+	private void IfOkPressed(){
+		OkButton.addActionListener(e -> {
+			try {
+				AddNewElementToSheet();
+				dispose();
+			} catch (IOException ex) {
+				throw new RuntimeException(ex);
+			}
+		});
+	}
+	private void IfCancelPressed() {
 		CancelButton.addActionListener(e -> {
 			dispose();
 			// new AddToExistingForm(null);
@@ -108,38 +147,34 @@ public class AddItemForm extends JDialog {
 
 	}
 
+	public void AddNewElementToSheet() throws IOException {
+		FileInputStream filePath = new FileInputStream("src/com/automatedworkspace/files/Inventory.xlsx");
+		Workbook workbook = WorkbookFactory.create(filePath);
+		Sheet sheet = workbook.getSheetAt(0);
+		int row = NotNullRows;
+		while(sheet.getRow(row) != null && sheet.getRow(row).getCell(2) != null && !sheet.getRow(row).getCell(3).toString().isEmpty()) {
+			row++;
+		}
+		NotNullRows=row;
+		sheet.getRow(row).getCell(2).setCellValue(AddIDField.getText());
+		sheet.getRow(row).getCell(3).setCellValue(AddNameField.getText());
+		sheet.getRow(row).getCell(4).setCellValue((String) AddManufacturerBox.getSelectedItem());
+		sheet.getRow(row).getCell(5).setCellValue(Integer.valueOf(AddPriceField.getText()));
+		sheet.getRow(row).getCell(8).setCellValue(Integer.valueOf(AddLimitField.getText()));
+		sheet.getRow(row).getCell(12).setCellValue((String) AddGroupBox.getSelectedItem());
+		filePath.close();
+		try {
+
+			FileOutputStream out = new FileOutputStream("src/com/automatedworkspace/files/Inventory.xlsx");
+			workbook.write(out);
+			out.close();
+			workbook.close();
+		} catch (FileNotFoundException ex) {
+			System.out.println("eer");
+		}
+	}
+
 //sub classes
-
-	/**
-	 * The type My document listener.
-	 */
-	private class MyDocumentListener implements DocumentListener {
-		@Override
-		public void changedUpdate(DocumentEvent e) {
-			checkFields();
-		}
-
-		@Override
-		public void removeUpdate(DocumentEvent e) {
-			checkFields();
-		}
-
-		@Override
-		public void insertUpdate(DocumentEvent e) {
-			checkFields();
-		}
-	}
-
-	/**
-	 * The type My item listener.
-	 */
-	private class MyItemListener implements ItemListener {
-
-		@Override
-		public void itemStateChanged(ItemEvent e) {
-			checkFields();
-		}
-	}
 
 	private static class NumericFilter extends PlainDocument {
 		@Override
