@@ -31,7 +31,7 @@ EditSupplierForm - клас для редагування існуючих по�
 SelectionEditForm - класс для вибору між 4 варіантами  (вибір із 3 + Cancel?)
 
 у пакеті "ui.DeleteItem":
-<p>DeleteItemForm - клас для видалення товару (ComboBox ?  + Ok/Cancel)</p>
+DeleteItemForm - клас для видалення товару (ComboBox ?  + Ok/Cancel)
 DeleteGroupForm - клас для видалення групи товарів (ComboBox ?  + Ok/Cancel)
 DeleteSupplierForm - клас для видалення постачальника (ComboBox ?  + Ok/Cancel)
 
