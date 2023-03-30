@@ -1,4 +1,4 @@
-package com.automatedworkspace.inventorymanagement.ui.AddItem;
+package com.automatedworkspace.inventorymanagement.ui.Nomenclature;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;

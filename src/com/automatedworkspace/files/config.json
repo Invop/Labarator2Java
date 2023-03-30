@@ -1,3 +1,14 @@
 {
-  "notNullRows": 4
+  "notNullRows": 6,
+  "namesList": [
+    "asd",
+    "qq",
+    "qwe",
+    "kurwa"
+  ],
+  "IDsList": [
+    "as",
+    "asqw",
+    "bs"
+  ]
 }

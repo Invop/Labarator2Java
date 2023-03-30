@@ -1,7 +1,11 @@
 package com.automatedworkspace.inventorymanagement.statistics;
 import java.io.*;
+import java.util.List;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
+import javax.swing.*;
 
 public class ConfigManager {
 
@@ -12,6 +16,7 @@ public class ConfigManager {
 		try (Writer writer = new FileWriter(JSON_FILE_PATH)) {
 			gson.toJson(config, writer);
 		}
+
 	}
 
 	public static Config readConfig() throws IOException {
@@ -20,5 +25,7 @@ public class ConfigManager {
 			return gson.fromJson(reader, Config.class);
 		}
 	}
+
+
 
 }

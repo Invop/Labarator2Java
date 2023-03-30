@@ -9,12 +9,14 @@ import javax.swing.event.DocumentListener;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.PlainDocument;
+import java.awt.Color;
 import java.awt.event.*;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
 import java.io.File;
+import java.util.List;
 
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.*;
@@ -40,8 +42,8 @@ public class AddItemForm extends JDialog {
 	private JComboBox<String> AddGroupBox;
 	private JButton OkButton;
 	private JButton CancelButton;
-
 	private static final String JSON_FILE_PATH = "src/com/automatedworkspace/files/config.json";
+
 	/**
 	 * Instantiates a new Add item form.
 	 *
@@ -54,23 +56,23 @@ public class AddItemForm extends JDialog {
 		setSize(900, 720);
 		setContentPane(CreateFormBrand);
 		setLocationRelativeTo(parent);
+
 		AddGroupBox.addItem("Item 1");
 		AddGroupBox.addItem("Item 2");
 		AddManufacturerBox.addItem("Item 1");
 		AddManufacturerBox.addItem("Item 2");
+
+		OkButton.setEnabled(false);
 		FieldsThatOnlyHandleNumbers();
 		Listener();
 		IfOkPressed();
 		IfCancelPressed();
 		CloseApp();
 	}
-
 	private void FieldsThatOnlyHandleNumbers() {
 		AddPriceField.setDocument(new NumericFilter());
 		AddLimitField.setDocument(new NumericFilter());
 	}
-
-
 	private void Listener() {
 		// create document listener
 		DocumentListener documentListener = new DocumentListener() {
@@ -96,6 +98,10 @@ public class AddItemForm extends JDialog {
 		AddPriceField.getDocument().addDocumentListener(documentListener);
 		AddLimitField.getDocument().addDocumentListener(documentListener);
 
+		// add combo box to listener
+		AddManufacturerBox.addActionListener((e) -> checkFields());
+		AddGroupBox.addActionListener((e) -> checkFields());
+
 		// add action listener to the "OK" button to clear the memory from the listener
 		OkButton.addActionListener(new ActionListener() {
 			@Override
@@ -113,12 +119,10 @@ public class AddItemForm extends JDialog {
 				AddPriceField.getText().isEmpty() || AddLimitField.getText().isEmpty()) {
 			OkButton.setEnabled(false);
 		} else {
+			OkButton.setForeground(Color.BLACK);
 			OkButton.setEnabled(true);
 		}
 	}
-	/**
-	 * System.exit(0)
-	 */
 	private void CloseApp() {
 		addWindowListener(new WindowAdapter() {
 			@Override
@@ -146,7 +150,7 @@ public class AddItemForm extends JDialog {
 
 	}
 
-	public void addRowToExcelTable() throws IOException {
+	private void addRowToExcelTable() throws IOException {
 		// Get the current not null rows from the config file
 		Config config = ConfigManager.readConfig();
 		int notNullRows = config.getNotNullRows();
@@ -156,11 +160,22 @@ public class AddItemForm extends JDialog {
 		Workbook workbook = WorkbookFactory.create(filePath);
 		Sheet sheet = workbook.getSheetAt(0);
 
+
+		// Check if the table is empty
+		if ( sheet.getRow(4).getCell(2) == null) {
+			// Table is empty, set notNullRows to 3
+			notNullRows = 3;
+		}
 		// Find the first empty row
 		int row = notNullRows;
 		while (sheet.getRow(row) != null && sheet.getRow(row).getCell(2) != null && !sheet.getRow(row).getCell(3).toString().isEmpty()) {
 			row++;
 		}
+
+		// Update the config file
+		config.setNotNullRows(row + 1);
+		ConfigManager.writeConfig(config);
+
 		// Fill in the row with data
 		Row newRow = sheet.getRow(row);
 		if (newRow == null) {
@@ -170,14 +185,15 @@ public class AddItemForm extends JDialog {
 		if (cell == null) {
 			cell = newRow.createCell(2);
 		}
+		addIDToConfig(AddIDField.getText());
 		cell.setCellValue(AddIDField.getText());
 
 		cell = newRow.getCell(3);
 		if (cell == null) {
 			cell = newRow.createCell(3);
 		}
+		addNameToConfig(AddNameField.getText());
 		cell.setCellValue(AddNameField.getText());
-
 		cell = newRow.getCell(4);
 		if (cell == null) {
 			cell = newRow.createCell(4);
@@ -202,18 +218,56 @@ public class AddItemForm extends JDialog {
 		}
 		cell.setCellValue((String) AddGroupBox.getSelectedItem());
 
-
-		// Update the config file
-		config.setNotNullRows(notNullRows + 1);
-		ConfigManager.writeConfig(config);
-
 		// Save the workbook
 		FileOutputStream out = new FileOutputStream("src/com/automatedworkspace/files/Inventory.xlsx");
 		workbook.write(out);
 		out.close();
 		workbook.close();
 	}
+	private void addNameToConfig(String newName) throws IOException {
+		// Read the config file
+		Config config = ConfigManager.readConfig();
 
+		// Check if the name already exists in the config file
+		List<String> nameList = config.getNamesList();
+		if (nameList.contains(newName)) {
+			// Ask user for a new name if it already exists
+			while (nameList.contains(newName)) {
+				newName = JOptionPane.showInputDialog(null, "Name already exists in config file. Please enter a new name:");
+			}
+		}
+		AddNameField.setText(newName);
+
+		// Add the new name to the list
+		nameList.add(newName);
+		config.setNamesList(nameList);
+
+		// Write the updated config file
+		ConfigManager.writeConfig(config);
+		JOptionPane.showMessageDialog(null, "Name added to config file");
+	}
+
+	private void addIDToConfig(String newID) throws IOException {
+		// Read the config file
+		Config config = ConfigManager.readConfig();
+
+		// Check if the ID already exists in the config file
+		List<String> idList = config.getIDList();
+		if (idList.contains(newID)) {
+			// Ask user for a new name if it already exists
+			while (idList.contains(newID)) {
+				newID = JOptionPane.showInputDialog(null, "ID already exists in config file. Please enter a new ID:");
+			}
+		}
+		AddIDField.setText(newID);
+		// Add the new ID to the list
+		idList.add(newID);
+		config.setIDList(idList);
+
+		// Write the updated config file
+		ConfigManager.writeConfig(config);
+		JOptionPane.showMessageDialog(null, "ID added to config file");
+	}
 
 //sub classes
 
