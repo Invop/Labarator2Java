@@ -1,5 +1,8 @@
 package com.automatedworkspace.inventorymanagement.ui.AddItem;
 
+import com.automatedworkspace.inventorymanagement.statistics.Config;
+import com.automatedworkspace.inventorymanagement.statistics.ConfigManager;
+
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -7,16 +10,20 @@ import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.PlainDocument;
 import java.awt.event.*;
-import java.io.*;
-import java.util.logging.Logger;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
+import java.io.File;
+
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 
 public class AddItemForm extends JDialog {
 
-	private static int NotNullRows = 3;
+
 	private JPanel CreateFormBrand;
 	private JLabel AddBrandLabel;
 	private JLabel AddIDLabel;
@@ -34,15 +41,7 @@ public class AddItemForm extends JDialog {
 	private JButton OkButton;
 	private JButton CancelButton;
 
-
-	private String AddIdText;
-	private String AddNameText;
-	private int AddPriceInt;
-	private int AddLimitInt;
-	private String AddManufacturerText;
-	private String AddGroupText;
-
-
+	private static final String JSON_FILE_PATH = "src/com/automatedworkspace/files/config.json";
 	/**
 	 * Instantiates a new Add item form.
 	 *
@@ -132,11 +131,11 @@ public class AddItemForm extends JDialog {
 	private void IfOkPressed(){
 		OkButton.addActionListener(e -> {
 			try {
-				AddNewElementToSheet();
-				dispose();
+				addRowToExcelTable();
 			} catch (IOException ex) {
 				throw new RuntimeException(ex);
 			}
+			dispose();
 		});
 	}
 	private void IfCancelPressed() {
@@ -147,32 +146,74 @@ public class AddItemForm extends JDialog {
 
 	}
 
-	public void AddNewElementToSheet() throws IOException {
+	public void addRowToExcelTable() throws IOException {
+		// Get the current not null rows from the config file
+		Config config = ConfigManager.readConfig();
+		int notNullRows = config.getNotNullRows();
+
+		// Open the Excel workbook
 		FileInputStream filePath = new FileInputStream("src/com/automatedworkspace/files/Inventory.xlsx");
 		Workbook workbook = WorkbookFactory.create(filePath);
 		Sheet sheet = workbook.getSheetAt(0);
-		int row = NotNullRows;
-		while(sheet.getRow(row) != null && sheet.getRow(row).getCell(2) != null && !sheet.getRow(row).getCell(3).toString().isEmpty()) {
+
+		// Find the first empty row
+		int row = notNullRows;
+		while (sheet.getRow(row) != null && sheet.getRow(row).getCell(2) != null && !sheet.getRow(row).getCell(3).toString().isEmpty()) {
 			row++;
 		}
-		NotNullRows=row;
-		sheet.getRow(row).getCell(2).setCellValue(AddIDField.getText());
-		sheet.getRow(row).getCell(3).setCellValue(AddNameField.getText());
-		sheet.getRow(row).getCell(4).setCellValue((String) AddManufacturerBox.getSelectedItem());
-		sheet.getRow(row).getCell(5).setCellValue(Integer.valueOf(AddPriceField.getText()));
-		sheet.getRow(row).getCell(8).setCellValue(Integer.valueOf(AddLimitField.getText()));
-		sheet.getRow(row).getCell(12).setCellValue((String) AddGroupBox.getSelectedItem());
-		filePath.close();
-		try {
-
-			FileOutputStream out = new FileOutputStream("src/com/automatedworkspace/files/Inventory.xlsx");
-			workbook.write(out);
-			out.close();
-			workbook.close();
-		} catch (FileNotFoundException ex) {
-			System.out.println("eer");
+		// Fill in the row with data
+		Row newRow = sheet.getRow(row);
+		if (newRow == null) {
+			newRow = sheet.createRow(row);
 		}
+		Cell cell = newRow.getCell(2);
+		if (cell == null) {
+			cell = newRow.createCell(2);
+		}
+		cell.setCellValue(AddIDField.getText());
+
+		cell = newRow.getCell(3);
+		if (cell == null) {
+			cell = newRow.createCell(3);
+		}
+		cell.setCellValue(AddNameField.getText());
+
+		cell = newRow.getCell(4);
+		if (cell == null) {
+			cell = newRow.createCell(4);
+		}
+		cell.setCellValue((String) AddManufacturerBox.getSelectedItem());
+
+		cell = newRow.getCell(5);
+		if (cell == null) {
+			cell = newRow.createCell(5);
+		}
+		cell.setCellValue(Integer.valueOf(AddPriceField.getText()));
+
+		cell = newRow.getCell(8);
+		if (cell == null) {
+			cell = newRow.createCell(8);
+		}
+		cell.setCellValue(Integer.valueOf(AddLimitField.getText()));
+
+		cell = newRow.getCell(12);
+		if (cell == null) {
+			cell = newRow.createCell(12);
+		}
+		cell.setCellValue((String) AddGroupBox.getSelectedItem());
+
+
+		// Update the config file
+		config.setNotNullRows(notNullRows + 1);
+		ConfigManager.writeConfig(config);
+
+		// Save the workbook
+		FileOutputStream out = new FileOutputStream("src/com/automatedworkspace/files/Inventory.xlsx");
+		workbook.write(out);
+		out.close();
+		workbook.close();
 	}
+
 
 //sub classes
 
