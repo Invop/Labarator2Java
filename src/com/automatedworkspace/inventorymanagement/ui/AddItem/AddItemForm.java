@@ -149,7 +149,6 @@ public class AddItemForm extends JDialog {
 		});
 
 	}
-
 	private void addRowToExcelTable() throws IOException {
 		// Get the current not null rows from the config file
 		Config config = ConfigManager.readConfig();
@@ -244,9 +243,7 @@ public class AddItemForm extends JDialog {
 
 		// Write the updated config file
 		ConfigManager.writeConfig(config);
-		JOptionPane.showMessageDialog(null, "Name added to config file");
 	}
-
 	private void addIDToConfig(String newID) throws IOException {
 		// Read the config file
 		Config config = ConfigManager.readConfig();
@@ -266,11 +263,8 @@ public class AddItemForm extends JDialog {
 
 		// Write the updated config file
 		ConfigManager.writeConfig(config);
-		JOptionPane.showMessageDialog(null, "ID added to config file");
 	}
-
 //sub classes
-
 	private static class NumericFilter extends PlainDocument {
 		@Override
 		public void insertString(int offs, String str, AttributeSet a) throws BadLocationException {
