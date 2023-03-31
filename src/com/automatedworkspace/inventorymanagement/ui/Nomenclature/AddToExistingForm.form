@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="com.automatedworkspace.inventorymanagement.ui.AddItem.AddToExistingForm">
-  <grid id="27dc6" binding="PanelAddForm" layout-manager="GridLayoutManager" row-count="8" column-count="6" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="com.automatedworkspace.inventorymanagement.ui.Nomenclature.AddToExistingForm">
+  <grid id="27dc6" binding="PanelAddForm" layout-manager="GridLayoutManager" row-count="8" column-count="12" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
-      <xy x="20" y="20" width="500" height="400"/>
+      <xy x="20" y="148" width="505" height="272"/>
     </constraints>
     <properties>
       <preferredSize width="1280" height="720"/>
@@ -21,18 +21,9 @@
           <text value="Додати товар"/>
         </properties>
       </component>
-      <component id="eea09" class="javax.swing.JLabel" binding="LabelChooseForm">
-        <constraints>
-          <grid row="1" column="0" row-span="1" col-span="6" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <font name="Times New Roman" size="18"/>
-          <text value="Виберіть товар:"/>
-        </properties>
-      </component>
       <component id="7c45e" class="javax.swing.JLabel" binding="LabelNumber">
         <constraints>
-          <grid row="3" column="0" row-span="1" col-span="6" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="3" column="0" row-span="1" col-span="12" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <font name="Times New Roman" size="18"/>
@@ -41,7 +32,7 @@
       </component>
       <component id="770dc" class="javax.swing.JTextField" binding="NumberField">
         <constraints>
-          <grid row="4" column="0" row-span="1" col-span="6" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+          <grid row="4" column="0" row-span="1" col-span="12" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
           </grid>
         </constraints>
@@ -49,20 +40,12 @@
       </component>
       <component id="39ee6" class="javax.swing.JLabel" binding="IntervalLabel">
         <constraints>
-          <grid row="5" column="0" row-span="1" col-span="6" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <font name="Times New Roman" size="18"/>
           <text value="Введіть інтервал поставок:"/>
         </properties>
-      </component>
-      <component id="e65c8" class="javax.swing.JTextField" binding="IntervalField">
-        <constraints>
-          <grid row="6" column="0" row-span="1" col-span="6" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-            <preferred-size width="150" height="-1"/>
-          </grid>
-        </constraints>
-        <properties/>
       </component>
       <component id="59ea1" class="javax.swing.JButton" binding="OKButton">
         <constraints>
@@ -74,9 +57,9 @@
           <text value="OK"/>
         </properties>
       </component>
-      <component id="84b8f" class="javax.swing.JButton" binding="buttonCancel">
+      <component id="84b8f" class="javax.swing.JButton" binding="CancelButton">
         <constraints>
-          <grid row="7" column="1" row-span="1" col-span="5" vsize-policy="0" hsize-policy="7" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="7" column="7" row-span="1" col-span="5" vsize-policy="0" hsize-policy="7" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <text value="Cancel"/>
@@ -84,10 +67,27 @@
       </component>
       <component id="e4358" class="javax.swing.JComboBox" binding="ChooseComboBox">
         <constraints>
-          <grid row="2" column="0" row-span="1" col-span="6" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="2" column="0" row-span="1" col-span="12" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties/>
       </component>
+      <component id="eea09" class="javax.swing.JLabel" binding="LabelChooseForm">
+        <constraints>
+          <grid row="1" column="0" row-span="1" col-span="6" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <font name="Times New Roman" size="18"/>
+          <text value="Виберіть товар:"/>
+        </properties>
+      </component>
+      <grid id="434c4" binding="DatePanel" layout-manager="BorderLayout" hgap="0" vgap="0">
+        <constraints>
+          <grid row="6" column="0" row-span="1" col-span="12" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children/>
+      </grid>
     </children>
   </grid>
 </form>
