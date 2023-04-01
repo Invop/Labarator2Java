@@ -84,7 +84,7 @@ public class AddGroupForm extends JDialog{
 
         // Add the new group to the list
         groupList.add(newGroup);
-        config.setSupplierList(groupList);
+        config.setGroupList(groupList);
 
         // Write the updated config file
         ConfigManager.writeConfig(config);
