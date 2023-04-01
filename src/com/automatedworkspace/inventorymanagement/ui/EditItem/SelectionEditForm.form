@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="com.automatedworkspace.inventorymanagement.ui.EditItem.SelectionEditForm">
-  <grid id="98e9f" binding="EditSelectionPanel" layout-manager="GridLayoutManager" row-count="5" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+  <grid id="36e3c" binding="EditItemPanel" layout-manager="GridLayoutManager" row-count="5" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
       <xy x="20" y="97" width="399" height="323"/>
@@ -10,42 +10,43 @@
     </properties>
     <border type="none"/>
     <children>
-      <spacer id="e4fbf">
+      <component id="baadc" class="javax.swing.JButton" binding="EditItemButton">
         <constraints>
-          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="1" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
-        </constraints>
-      </spacer>
-      <component id="51028" class="javax.swing.JButton" binding="EditItemButton">
-        <constraints>
-          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="2" hsize-policy="2" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="1" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="Редагувати Товар"/>
+          <text value="Edit Товар"/>
         </properties>
       </component>
-      <spacer id="67c04">
+      <component id="c77d8" class="javax.swing.JButton" binding="EditGroupButton">
         <constraints>
-          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="1" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
-        </constraints>
-      </spacer>
-      <component id="5a5f2" class="javax.swing.JButton" binding="EditGroupButton">
-        <constraints>
-          <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="2" hsize-policy="2" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="1" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="Редагувати Групу"/>
+          <text value="групу"/>
         </properties>
       </component>
-      <spacer id="c7e58">
+      <component id="0a707" class="javax.swing.JButton" binding="EditSupplierButton">
         <constraints>
-          <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="1" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
-        </constraints>
-      </spacer>
-      <component id="6aa45" class="javax.swing.JButton" binding="EditSupplierButton">
-        <constraints>
-          <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="2" hsize-policy="2" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="1" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="Редагувати Постачальника"/>
+          <text value="постачальника"/>
         </properties>
-      </
+      </component>
+      <component id="f0575" class="javax.swing.JButton" binding="EditHomeButton">
+        <constraints>
+          <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="1" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Home"/>
+        </properties>
+      </component>
+      <spacer id="cfa37">
+        <constraints>
+          <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="1" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+      </spacer>
+    </children>
+  </grid>
+</form>
