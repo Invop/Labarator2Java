@@ -23,7 +23,6 @@ import java.util.List;
 
 public class AddToExistingForm extends JDialog{
     private JPanel PanelAddForm;
-    private JLabel LabelAddForm;
     private JLabel LabelChooseForm;
     private JComboBox<String> ChooseComboBox;
     private JLabel LabelNumber;

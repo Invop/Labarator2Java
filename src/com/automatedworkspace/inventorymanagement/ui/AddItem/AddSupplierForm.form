@@ -10,15 +10,6 @@
     </properties>
     <border type="none"/>
     <children>
-      <component id="b5e9c" class="javax.swing.JLabel" binding="AddSupplierLabel">
-        <constraints>
-          <grid row="0" column="1" row-span="1" col-span="4" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <font name="Times New Roman" size="24"/>
-          <text value="Створення нового постачальника"/>
-        </properties>
-      </component>
       <component id="6b089" class="javax.swing.JLabel" binding="NameSupplierLabel">
         <constraints>
           <grid row="1" column="1" row-span="1" col-span="4" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>

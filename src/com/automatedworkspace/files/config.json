@@ -1,13 +1,21 @@
 {
   "notNullRows": 6,
   "namesList": [
-    "Tovar",
-    "Tovar1",
-    "Tovar2"
+    "Tovar01",
+    "Tovar02",
+    "Tovar03"
   ],
   "IDsList": [
-    "In0001",
-    "In0002",
-    "In0003"
+    "Id01",
+    "Id02",
+    "Id03"
+  ],
+  "GroupList": [
+    "Group1",
+    "Group2"
+  ],
+  "SupplierList": [
+    "Sup1",
+    "Sup2"
   ]
 }
