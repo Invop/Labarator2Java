@@ -42,6 +42,8 @@ public class AddItemForm extends JDialog {
 	private JComboBox<String> AddGroupBox;
 	private JButton OkButton;
 	private JButton CancelButton;
+	private JLabel IntervalLabel;
+	private JTextField textField1;
 	private static final String JSON_FILE_PATH = "src/com/automatedworkspace/files/config.json";
 
 	/**
