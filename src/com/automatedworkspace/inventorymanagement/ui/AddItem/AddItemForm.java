@@ -40,7 +40,7 @@ public class AddItemForm extends JDialog {
 	private JButton CancelButton;
 	private JLabel IntervalLabel;
 	private JTextField IntervalField;
-	private static final String EXEL_FILE_PATH = "src/com/automatedworkspace/files/Inventory.xlsx";
+	public static final String EXEL_FILE_PATH = "src/com/automatedworkspace/files/Inventory.xlsx";
 
 	/**
 	 * Instantiates a new Add item form.

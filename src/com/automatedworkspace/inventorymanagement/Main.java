@@ -7,6 +7,6 @@ import com.automatedworkspace.inventorymanagement.ui.Nomenclature.AddToExistingF
 
 public class Main {
 	public static void main(String[] args) {
-		AddItemForm addItemForm = new AddItemForm(null);
+		AddToExistingForm addItemForm = new AddToExistingForm(null);
 	}
 }
