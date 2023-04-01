@@ -1,37 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="com.automatedworkspace.inventorymanagement.ui.AddItem.SelectionAddForm">
-<grid id="7643c" binding="rootPanel" layout-manager="GridLayoutManager" row-count="2" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="0" vgap="0">
-      <margin top="0" left="0" bottom="0" right="0" />
-      <constraints>
-        <xy x="20" y="20" width="360" height="360" />
-      </constraints>
-      <properties />
-      <border type="none" />
-      <children>
-        <button id="9e79" binding="addGroupButton" text="Add Group">
-          <constraints>
-            <grid row="0" column="0" />
-            <preferred-size width="160" height="80" />
-          </constraints>
-        </button>
-        <button id="2f22" binding="addItemButton" text="Add Item">
-          <constraints>
-            <grid row="0" column="1" />
-            <preferred-size width="160" height="80" />
-          </constraints>
-        </button>
-        <button id="01bb" binding="addSupplierButton" text="Add Supplier">
-          <constraints>
-            <grid row="1" column="0" />
-            <preferred-size width="160" height="80" />
-          </constraints>
-        </button>
-        <button id="3bd3" binding="homeButton" text="Home">
-          <constraints>
-            <grid row="1" column="1" />
-            <preferred-size width="160" height="80" />
-          </constraints>
-        </button>
-      </children>
-    </grid>
+  <grid id="7c80e" binding="mainPanel">
+    <constraints>
+      <xy x="20" y="20" width="360" height="360" />
+    </constraints>
+    <properties>
+      <property name="border" value="border" />
+    </properties>
+    <children>
+      <button id="6de5d" binding="addGroupButton">
+        <constraints>
+          <xy x="40" y="40" width="150" height="50" />
+        </constraints>
+        <properties>
+          <property name="text" value="Add Group" />
+        </properties>
+      </button>
+      <button id="7d85c" binding="addItemButton">
+        <constraints>
+          <xy x="210" y="40" width="150" height="50" />
+        </constraints>
+        <properties>
+          <property name="text" value="Add Item" />
+        </properties>
+      </button>
+      <button id="8a1d7" binding="addSupplierButton">
+        <constraints>
+          <xy x="40" y="120" width="150" height="50" />
+        </constraints>
+        <properties>
+          <property name="text" value="Add Supplier" />
+        </properties>
+      </button>
+      <button id="9c4e0" binding="homeButton">
+        <constraints>
+          <xy x="210" y="120" width="150" height="50" />
+        </constraints>
+        <properties>
+          <property name="text" value="Home" />
+        </properties>
+      </button>
+    </children>
+  </grid>
 </form>
