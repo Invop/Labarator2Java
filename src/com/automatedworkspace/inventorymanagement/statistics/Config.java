@@ -1,5 +1,7 @@
 package com.automatedworkspace.inventorymanagement.statistics;
 
+import com.automatedworkspace.inventorymanagement.ui.Nomenclature.Delivery;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,4 +72,5 @@ public class Config {
 	public void setIntervalList(List<Integer> intervalList) {
 		IntervalList = intervalList;
 	}
+
 }
