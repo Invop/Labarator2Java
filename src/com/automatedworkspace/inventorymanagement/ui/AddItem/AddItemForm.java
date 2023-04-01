@@ -15,25 +15,21 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import java.io.File;
 import java.util.List;
 
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 
 public class AddItemForm extends JDialog {
 
 
 	private JPanel CreateFormBrand;
-	private JLabel AddBrandLabel;
 	private JLabel AddIDLabel;
 	private JTextField AddIDField;
 	private JLabel NameLabel;
 	private JTextField AddNameField;
-	private JLabel ManufacturerLabel;
-	private JComboBox AddManufacturerBox;
+	private JLabel SupplierLabel;
+	private JComboBox<String> AddSupplierBox;
 	private JLabel PriceLabel;
 	private JTextField AddPriceField;
 	private JLabel LimitLabel;
@@ -43,8 +39,9 @@ public class AddItemForm extends JDialog {
 	private JButton OkButton;
 	private JButton CancelButton;
 	private JLabel IntervalLabel;
-	private JTextField textField1;
+	private JTextField IntervalField;
 	private static final String JSON_FILE_PATH = "src/com/automatedworkspace/files/config.json";
+	private static final String EXEL_FILE_PATH = "src/com/automatedworkspace/files/Inventory.xlsx";
 
 	/**
 	 * Instantiates a new Add item form.
@@ -53,17 +50,16 @@ public class AddItemForm extends JDialog {
 	 */
 	public AddItemForm(JFrame parent) {
 		super(parent);
-
+		setSize(500,450);
 		setVisible(true);
-		setSize(900, 720);
 		setContentPane(CreateFormBrand);
 		setLocationRelativeTo(parent);
-
-		AddGroupBox.addItem("Item 1");
-		AddGroupBox.addItem("Item 2");
-		AddManufacturerBox.addItem("Item 1");
-		AddManufacturerBox.addItem("Item 2");
-
+		try {
+			AddSuppliersToComboBox();
+			AddGroupsToComboBox();
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
 		OkButton.setEnabled(false);
 		FieldsThatOnlyHandleNumbers();
 		Listener();
@@ -71,9 +67,42 @@ public class AddItemForm extends JDialog {
 		IfCancelPressed();
 		CloseApp();
 	}
+	private void AddGroupsToComboBox() throws IOException {
+		// Read the config file
+		Config config = ConfigManager.readConfig();
+		// Check if the name already exists in the config file
+		List<String> groupList = config.getGroupList();
+
+		if (groupList.isEmpty()) {
+			// No items in the list
+			JOptionPane.showMessageDialog(null, "No Groups in the list");
+		} else {
+			// Add items to the AddGroupBox
+			for (String group : groupList) {
+				AddGroupBox.addItem(group);
+			}
+		}
+	}
+	private void AddSuppliersToComboBox() throws IOException {
+		// Read the config file
+		Config config = ConfigManager.readConfig();
+		// Check if the name already exists in the config file
+		List<String> supplierList = config.getSupplierList();
+
+		if (supplierList.isEmpty()) {
+			// No items in the list
+			JOptionPane.showMessageDialog(null, "No Suppliers in the list");
+		} else {
+			// Add items to the AddGroupBox
+			for (String supplier : supplierList) {
+				AddSupplierBox.addItem(supplier);
+			}
+		}
+	}
 	private void FieldsThatOnlyHandleNumbers() {
 		AddPriceField.setDocument(new NumericFilter());
 		AddLimitField.setDocument(new NumericFilter());
+		IntervalField.setDocument(new NumericFilter());
 	}
 	private void Listener() {
 		// create document listener
@@ -101,7 +130,7 @@ public class AddItemForm extends JDialog {
 		AddLimitField.getDocument().addDocumentListener(documentListener);
 
 		// add combo box to listener
-		AddManufacturerBox.addActionListener((e) -> checkFields());
+		AddSupplierBox.addActionListener((e) -> checkFields());
 		AddGroupBox.addActionListener((e) -> checkFields());
 
 		// add action listener to the "OK" button to clear the memory from the listener
@@ -157,7 +186,7 @@ public class AddItemForm extends JDialog {
 		int notNullRows = config.getNotNullRows();
 
 		// Open the Excel workbook
-		FileInputStream filePath = new FileInputStream("src/com/automatedworkspace/files/Inventory.xlsx");
+		FileInputStream filePath = new FileInputStream(EXEL_FILE_PATH);
 		Workbook workbook = WorkbookFactory.create(filePath);
 		Sheet sheet = workbook.getSheetAt(0);
 
@@ -199,7 +228,7 @@ public class AddItemForm extends JDialog {
 		if (cell == null) {
 			cell = newRow.createCell(4);
 		}
-		cell.setCellValue((String) AddManufacturerBox.getSelectedItem());
+		cell.setCellValue((String) AddSupplierBox.getSelectedItem());
 
 		cell = newRow.getCell(5);
 		if (cell == null) {
@@ -213,6 +242,12 @@ public class AddItemForm extends JDialog {
 		}
 		cell.setCellValue(Integer.valueOf(AddLimitField.getText()));
 
+		cell = newRow.getCell(9);
+		if (cell == null) {
+			cell = newRow.createCell(9);
+		}
+		cell.setCellValue(Integer.valueOf(IntervalField.getText()));
+
 		cell = newRow.getCell(12);
 		if (cell == null) {
 			cell = newRow.createCell(12);
@@ -220,7 +255,7 @@ public class AddItemForm extends JDialog {
 		cell.setCellValue((String) AddGroupBox.getSelectedItem());
 
 		// Save the workbook
-		FileOutputStream out = new FileOutputStream("src/com/automatedworkspace/files/Inventory.xlsx");
+		FileOutputStream out = new FileOutputStream(EXEL_FILE_PATH);
 		workbook.write(out);
 		out.close();
 		workbook.close();
