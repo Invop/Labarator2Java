@@ -1,45 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="com.automatedworkspace.inventorymanagement.ui.AddItem.SelectionAddForm">
-  <grid id="7c80e" binding="mainPanel" row-count="2" column-count="1">
+  <grid id="grid" binding="SelectionAddPanel" layout-manager="GridLayoutManager" row-count="5" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+    <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
-      <xy x="20" y="20" width="360" height="360" />
+      <xy x="0" y="0" width="400" height="400"/>
     </constraints>
-    <properties>
-      <property name="border" value="border" />
-    </properties>
+    <border type="none"/>
     <children>
-      <button id="6de5d" binding="addGroupButton">
+      <component id="addGroupBtn" class="javax.swing.JButton" binding="addGroupBtn">
         <constraints>
-          <xy x="40" y="40" width="150" height="50" />
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <property name="text" value="Add Group" />
+          <text value="Add Group"/>
         </properties>
-      </button>
-      <button id="7d85c" binding="addItemButton">
+      </component>
+      <component id="addItemBtn" class="javax.swing.JButton" binding="addItemBtn">
         <constraints>
-          <xy x="210" y="40" width="150" height="50" />
+          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <property name="text" value="Add Item" />
+          <text value="Add Item"/>
         </properties>
-      </button>
-      <button id="8a1d7" binding="addSupplierButton">
+      </component>
+      <component id="addSupplierBtn" class="javax.swing.JButton" binding="addSupplierBtn">
         <constraints>
-          <xy x="40" y="120" width="150" height="50" />
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <property name="text" value="Add Supplier" />
+          <text value="Add Supplier"/>
         </properties>
-      </button>
-      <button id="9c4e0" binding="homeButton">
+      </component>
+      <component id="homeBtn" class="javax.swing.JButton" binding="homeBtn">
         <constraints>
-          <xy x="210" y="120" width="150" height="50" />
+          <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <property name="text" value="Home" />
+          <text value="Home"/>
         </properties>
-      </button>
+      </component>
     </children>
   </grid>
 </form>
