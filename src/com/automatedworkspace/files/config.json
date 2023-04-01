@@ -1,14 +1,16 @@
 {
-  "notNullRows": 6,
+  "notNullRows": 11,
   "namesList": [
-    "Tovar01",
-    "Tovar02",
-    "Tovar03"
+    "tov01",
+    "tov02",
+    "tov3",
+    "tov4"
   ],
   "IDsList": [
     "Id01",
     "Id02",
-    "Id03"
+    "Id03",
+    "Id04"
   ],
   "GroupList": [
     "Group1",
@@ -17,5 +19,17 @@
   "SupplierList": [
     "Sup1",
     "Sup2"
+  ],
+  "LimitList": [
+    312,
+    4,
+    132,
+    88
+  ],
+  "IntervalList": [
+    33,
+    10,
+    7,
+    8
   ]
 }

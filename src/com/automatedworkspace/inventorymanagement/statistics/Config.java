@@ -10,6 +10,8 @@ public class Config {
 	private List<String> IDsList = new ArrayList<>();
 	private List<String> GroupList = new ArrayList<>();
 	private List<String> SupplierList = new ArrayList<>();
+	private List<Integer> LimitList = new ArrayList<>();
+	private List<Integer> IntervalList = new ArrayList<>();
 
 	public int getNotNullRows() {
 		return notNullRows;
@@ -51,5 +53,21 @@ public class Config {
 
 	public void setSupplierList(List<String> supplierList) {
 		SupplierList = supplierList;
+	}
+
+	public List<Integer> getLimitList() {
+		return LimitList;
+	}
+
+	public void setLimitList(List<Integer> limitList) {
+		LimitList = limitList;
+	}
+
+	public List<Integer> getIntervalList() {
+		return IntervalList;
+	}
+
+	public void setIntervalList(List<Integer> intervalList) {
+		IntervalList = intervalList;
 	}
 }

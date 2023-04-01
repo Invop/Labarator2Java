@@ -40,7 +40,6 @@ public class AddItemForm extends JDialog {
 	private JButton CancelButton;
 	private JLabel IntervalLabel;
 	private JTextField IntervalField;
-	private static final String JSON_FILE_PATH = "src/com/automatedworkspace/files/config.json";
 	private static final String EXEL_FILE_PATH = "src/com/automatedworkspace/files/Inventory.xlsx";
 
 	/**
@@ -128,6 +127,7 @@ public class AddItemForm extends JDialog {
 		AddNameField.getDocument().addDocumentListener(documentListener);
 		AddPriceField.getDocument().addDocumentListener(documentListener);
 		AddLimitField.getDocument().addDocumentListener(documentListener);
+		IntervalField.getDocument().addDocumentListener(documentListener);
 
 		// add combo box to listener
 		AddSupplierBox.addActionListener((e) -> checkFields());
@@ -142,6 +142,7 @@ public class AddItemForm extends JDialog {
 				AddNameField.getDocument().removeDocumentListener(documentListener);
 				AddPriceField.getDocument().removeDocumentListener(documentListener);
 				AddLimitField.getDocument().removeDocumentListener(documentListener);
+				IntervalField.getDocument().removeDocumentListener(documentListener);
 			}
 		});
 	}
@@ -240,12 +241,14 @@ public class AddItemForm extends JDialog {
 		if (cell == null) {
 			cell = newRow.createCell(8);
 		}
+		addLimitToConfig(Integer.valueOf(AddLimitField.getText()));
 		cell.setCellValue(Integer.valueOf(AddLimitField.getText()));
 
 		cell = newRow.getCell(9);
 		if (cell == null) {
 			cell = newRow.createCell(9);
 		}
+		addIntervalToConfig(Integer.valueOf(IntervalField.getText()));
 		cell.setCellValue(Integer.valueOf(IntervalField.getText()));
 
 		cell = newRow.getCell(12);
@@ -301,7 +304,29 @@ public class AddItemForm extends JDialog {
 		// Write the updated config file
 		ConfigManager.writeConfig(config);
 	}
-//sub classes
+	private void addLimitToConfig(Integer newLimit) throws IOException {
+		// Read the config file
+		Config config = ConfigManager.readConfig();
+
+		// Check if the ID already exists in the config file
+		List<Integer> LimitList = config.getLimitList();
+		// Add the new Limit to the list
+		LimitList.add(newLimit);
+		config.setLimitList(LimitList);
+		ConfigManager.writeConfig(config);
+	}
+	private void addIntervalToConfig(Integer newInterval) throws IOException {
+		// Read the config file
+		Config config = ConfigManager.readConfig();
+
+		// Check if the ID already exists in the config file
+		List<Integer> IntervalList = config.getIntervalList();
+		// Add the new Limit to the list
+		IntervalList.add(newInterval);
+		config.setIntervalList(IntervalList);
+		ConfigManager.writeConfig(config);
+	}
+	//sub classes
 	private static class NumericFilter extends PlainDocument {
 		@Override
 		public void insertString(int offs, String str, AttributeSet a) throws BadLocationException {
