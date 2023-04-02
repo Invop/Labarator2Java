@@ -148,7 +148,7 @@ public class AddItemForm extends JDialog {
 	}
 	private void checkFields() {
 		if (AddIDField.getText().isEmpty() || AddNameField.getText().isEmpty() ||
-				AddPriceField.getText().isEmpty() || AddLimitField.getText().isEmpty()) {
+				AddPriceField.getText().isEmpty() || AddLimitField.getText().isEmpty() || IntervalField.getText().isEmpty()) {
 			OkButton.setEnabled(false);
 		} else {
 			OkButton.setForeground(Color.BLACK);
@@ -172,12 +172,13 @@ public class AddItemForm extends JDialog {
 				throw new RuntimeException(ex);
 			}
 			dispose();
+			new SelectionAddForm(null);
 		});
 	}
 	private void IfCancelPressed() {
 		CancelButton.addActionListener(e -> {
 			dispose();
-			// new AddToExistingForm(null);
+			new SelectionAddForm(null);
 		});
 
 	}

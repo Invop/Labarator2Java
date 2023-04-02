@@ -2,12 +2,14 @@ package com.automatedworkspace.inventorymanagement.ui;
 
 import javax.swing.*;
 
-public class InventoryManagementUI {
+public class InventoryManagementUI extends JDialog{
     private JPanel InventoryManagementPanel;
 
-    public InventoryManagementUI(){
-        InventoryManagementPanel = new JPanel();
-        InventoryManagementPanel.setVisible(true);
+    public InventoryManagementUI(JFrame parent){
+        super(parent);
+	    setVisible(true);
+	    setSize(400, 300);
+	    setContentPane(InventoryManagementPanel);
     }
 
 }
