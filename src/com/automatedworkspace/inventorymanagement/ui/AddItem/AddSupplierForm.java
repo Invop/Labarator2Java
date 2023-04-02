@@ -106,12 +106,13 @@ public class AddSupplierForm extends JDialog{
 				throw new RuntimeException(ex);
 			}
 			dispose();
+			new SelectionAddForm(null);
 		});
 	}
 	private void IfCancelPressed() {
 		CancelAddSupplierButton.addActionListener(e -> {
 			dispose();
-			// new AddToExistingForm(null);
+			new SelectionAddForm(null);
 		});
 
 	}
