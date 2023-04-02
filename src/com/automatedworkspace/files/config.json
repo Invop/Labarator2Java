@@ -1,20 +1,14 @@
 {
-  "notNullRows": 9,
+  "notNullRows": 7,
   "namesList": [
     "b",
     "bb",
-    "bbb",
-    "bbbb",
-    "Tov5",
-    "Tov6"
+    "bbbbb"
   ],
   "IDsList": [
     "a",
     "aa",
-    "aaa",
-    "aaaa",
-    "In0005",
-    "In0006"
+    "aaaaa"
   ],
   "GroupList": [
     "Group1",
@@ -27,19 +21,13 @@
     "Sup3"
   ],
   "LimitList": [
-    32,
     132,
-    42,
-    231,
-    45,
-    32
+    132,
+    6516
   ],
   "IntervalList": [
-    21,
-    33,
-    12,
-    321,
-    2,
-    44
+    132,
+    312,
+    561
   ]
 }
