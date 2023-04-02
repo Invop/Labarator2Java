@@ -106,12 +106,13 @@ public class AddGroupForm extends JDialog{
                 throw new RuntimeException(ex);
             }
             dispose();
+            new SelectionAddForm(null);
         });
     }
     private void IfCancelPressed() {
         CancelAddGroupButton.addActionListener(e -> {
             dispose();
-            // new AddToExistingForm(null);
+            new SelectionAddForm(null);
         });
 
     }
