@@ -14,6 +14,7 @@ public class Config {
 	private List<String> SupplierList = new ArrayList<>();
 	private List<Integer> LimitList = new ArrayList<>();
 	private List<Integer> IntervalList = new ArrayList<>();
+	private List<Integer> itemGroupList = new ArrayList<>();
 
 	public int getNotNullRows() {
 		return notNullRows;
@@ -73,4 +74,12 @@ public class Config {
 		IntervalList = intervalList;
 	}
 
+
+	public List<Integer> getItemGroupList() {
+		return itemGroupList;
+	}
+
+	public void setItemGroupList(List<Integer> itemGroupList) {
+		this.itemGroupList = itemGroupList;
+	}
 }

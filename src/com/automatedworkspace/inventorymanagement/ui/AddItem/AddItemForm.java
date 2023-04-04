@@ -256,8 +256,8 @@ public class AddItemForm extends JDialog {
 		if (cell == null) {
 			cell = newRow.createCell(12);
 		}
+		AddItemGroupToConfig(AddGroupBox.getSelectedIndex());
 		cell.setCellValue((String) AddGroupBox.getSelectedItem());
-
 		// Save the workbook
 		FileOutputStream out = new FileOutputStream(EXEL_FILE_PATH);
 		workbook.write(out);
@@ -325,6 +325,17 @@ public class AddItemForm extends JDialog {
 		// Add the new Limit to the list
 		IntervalList.add(newInterval);
 		config.setIntervalList(IntervalList);
+		ConfigManager.writeConfig(config);
+	}
+	private void AddItemGroupToConfig(int newGroup)throws IOException{
+		// Read the config file
+		Config config = ConfigManager.readConfig();
+
+		// Check if the ID already exists in the config file
+		List<Integer> itemGroupList = config.getItemGroupList();
+		// Add the new Limit to the list
+		itemGroupList.add(newGroup);
+		config.setItemGroupList(itemGroupList);
 		ConfigManager.writeConfig(config);
 	}
 	//sub classes
