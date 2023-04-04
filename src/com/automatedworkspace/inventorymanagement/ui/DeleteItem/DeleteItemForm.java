@@ -88,6 +88,8 @@ public class DeleteItemForm extends JDialog{
                             config.getLimitList().remove(selectedIdx);
                             config.getIDList().remove(selectedIdx);
                             config.getIntervalList().remove(selectedIdx);
+                            config.setNotNullRows(config.getNotNullRows()-1);
+                            config.getItemGroupList().remove(selectedIdx);
                             ConfigManager.writeConfig(config);
 
                             DeleteItemComboBox.removeItemAt(selectedIdx);
