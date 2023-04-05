@@ -230,6 +230,7 @@ public class AddItemForm extends JDialog {
 		if (cell == null) {
 			cell = newRow.createCell(4);
 		}
+		addSupplierStatusToConfig(AddSupplierBox.getSelectedIndex());
 		cell.setCellValue((String) AddSupplierBox.getSelectedItem());
 
 		cell = newRow.getCell(5);
@@ -256,7 +257,7 @@ public class AddItemForm extends JDialog {
 		if (cell == null) {
 			cell = newRow.createCell(12);
 		}
-		AddItemGroupToConfig(AddGroupBox.getSelectedIndex());
+		addItemGroupToConfig(AddGroupBox.getSelectedIndex());
 		cell.setCellValue((String) AddGroupBox.getSelectedItem());
 		// Save the workbook
 		FileOutputStream out = new FileOutputStream(EXEL_FILE_PATH);
@@ -327,7 +328,7 @@ public class AddItemForm extends JDialog {
 		config.setIntervalList(IntervalList);
 		ConfigManager.writeConfig(config);
 	}
-	private void AddItemGroupToConfig(int newGroup)throws IOException{
+	private void addItemGroupToConfig(int newGroup)throws IOException{
 		// Read the config file
 		Config config = ConfigManager.readConfig();
 
@@ -338,6 +339,15 @@ public class AddItemForm extends JDialog {
 		config.setItemGroupList(itemGroupList);
 		ConfigManager.writeConfig(config);
 	}
+	private void addSupplierStatusToConfig(int newSupplier) throws IOException {
+			// Read the config file
+			Config config = ConfigManager.readConfig();
+			List<Integer> supplierList = config.getItemSupplierList();
+			supplierList.add(newSupplier);
+			config.setItemSupplierList(supplierList);
+			ConfigManager.writeConfig(config);
+	}
+
 	//sub classes
 	private static class NumericFilter extends PlainDocument {
 		@Override
