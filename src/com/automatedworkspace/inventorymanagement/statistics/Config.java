@@ -15,6 +15,7 @@ public class Config {
 	private List<Integer> LimitList = new ArrayList<>();
 	private List<Integer> IntervalList = new ArrayList<>();
 	private List<Integer> itemGroupList = new ArrayList<>();
+	private List<Integer> ItemSupplierList = new ArrayList<>();
 
 	public int getNotNullRows() {
 		return notNullRows;
@@ -40,7 +41,6 @@ public class Config {
 		this.IDsList = idList;
 	}
 
-
 	public List<String> getGroupList() {
 		return GroupList;
 	}
@@ -48,7 +48,6 @@ public class Config {
 	public void setGroupList(List<String> groupList) {
 		GroupList = groupList;
 	}
-
 
 	public List<String> getSupplierList() {
 		return SupplierList;
@@ -74,12 +73,19 @@ public class Config {
 		IntervalList = intervalList;
 	}
 
-
 	public List<Integer> getItemGroupList() {
 		return itemGroupList;
 	}
 
 	public void setItemGroupList(List<Integer> itemGroupList) {
 		this.itemGroupList = itemGroupList;
+	}
+
+	public List<Integer> getItemSupplierList() {
+		return ItemSupplierList;
+	}
+
+	public void setItemSupplierList(List<Integer> itemSupplierList) {
+		ItemSupplierList = itemSupplierList;
 	}
 }

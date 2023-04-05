@@ -6,6 +6,10 @@ import com.automatedworkspace.inventorymanagement.statistics.ConfigManager;
 import com.automatedworkspace.inventorymanagement.statistics.DeliveryConfig;
 import com.toedter.calendar.JDateChooser;
 import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFFormulaEvaluator;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -147,10 +151,15 @@ public class AddToExistingForm extends JDialog{
         Config config= ConfigManager.readConfig();
         List<Integer> limitList = config.getLimitList();
         List<String> nameList = config.getNamesList();
+        List<Integer> itemSuppList = config.getItemSupplierList();
         int selectedIdx = ChooseComboBox.getSelectedIndex();
         int limit = limitList.get(selectedIdx);
         int inputNum;
         int response = 0;
+        if(itemSuppList.get(selectedIdx)==null){
+            JOptionPane.showMessageDialog(this,"Постачальника більше не існує, створіть нового та відредагуйте вибраний товар");
+            return;
+        }
         try {
             inputNum = Integer.parseInt(NumberField.getText());
         } catch (NumberFormatException e) {
@@ -170,7 +179,7 @@ public class AddToExistingForm extends JDialog{
             // Open the Excel workbook
             FileInputStream filePath = new FileInputStream(EXEL_FILE_PATH);
             Workbook workbook = WorkbookFactory.create(filePath);
-            Sheet sheet = workbook.getSheetAt(0);
+            XSSFSheet sheet = (XSSFSheet) workbook.getSheetAt(0);
             Row newRow = sheet.getRow(selectedIdx+3);
             Cell cell = newRow.getCell(10);
             if (cell == null) {
@@ -183,6 +192,7 @@ public class AddToExistingForm extends JDialog{
             }
             int prevValue = (int) cell.getNumericCellValue();
             cell.setCellValue(prevValue+inputNum);
+            workbook.setForceFormulaRecalculation(true);
             // Save the workbook
             FileOutputStream out = new FileOutputStream(EXEL_FILE_PATH);
             workbook.write(out);
@@ -217,8 +227,6 @@ public class AddToExistingForm extends JDialog{
         config.setDeliveries(deliveries);
         ConfigManager.writeIn(config);
     }
-
-
     //sub classes
     private static class NumericFilter extends PlainDocument {
         @Override

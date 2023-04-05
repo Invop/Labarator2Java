@@ -6,6 +6,9 @@ import com.automatedworkspace.inventorymanagement.statistics.ConfigManager;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFFormulaEvaluator;
+import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 
 import javax.swing.*;
@@ -31,7 +34,7 @@ public class DeleteItemForm extends JDialog{
         setVisible(true);
         setContentPane(DeleteItemPanel);
         setLocationRelativeTo(parent);
-        DeleteItem();
+
         IfOkPressed();
         IfCancelPressed();
         CloseApp();
@@ -48,60 +51,62 @@ public class DeleteItemForm extends JDialog{
     }
     private void IfOkPressed(){
         OKDeleteItemButton.addActionListener(e -> {
+            try {
+                DeleteItem();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
             dispose();
+            new SelectionDeleteForm(null);
         });
     }
     private void IfCancelPressed() {
         CancelDeleteItemButton.addActionListener(e -> {
             dispose();
+            new SelectionDeleteForm(null);
         });
 
     }
-    private void DeleteItem() {
-        try {
+    private void DeleteItem() throws IOException {
+
             Config config = ConfigManager.readConfig();
             List<String> nameList = config.getNamesList();
             DeleteItemComboBox.removeAllItems();
             for (String name : nameList) {
                 DeleteItemComboBox.addItem(name);
             }
-            DeleteItemComboBox.addActionListener(e -> {
-                int selectedIdx = DeleteItemComboBox.getSelectedIndex();
-                if (selectedIdx != -1) {
-                    int rowIdx = selectedIdx + 3; // values start from row 3
-                    try {
-                        FileInputStream filePath = new FileInputStream(EXEL_FILE_PATH);
-                        Workbook workbook = WorkbookFactory.create(filePath);
-                        XSSFSheet sheet = (XSSFSheet) workbook.getSheetAt(0);
-                        Row row = sheet.getRow(rowIdx);
-                        if (row != null) {
-                            sheet.removeRow(row);
+            int selectedIdx = DeleteItemComboBox.getSelectedIndex();
+            if (selectedIdx != -1) {
+                int rowIdx = selectedIdx + 3; // values start from row 3
 
-                            // shift rows to fill in the gap
-                            sheet.shiftRows(rowIdx + 1, sheet.getLastRowNum(), -1);
-                            FileOutputStream out = new FileOutputStream(EXEL_FILE_PATH);
-                            workbook.write(out);
-                            out.close();
-                            workbook.close();
-                            // remove the item from config
-                            config.getNamesList().remove(selectedIdx);
-                            config.getLimitList().remove(selectedIdx);
-                            config.getIDList().remove(selectedIdx);
-                            config.getIntervalList().remove(selectedIdx);
-                            config.setNotNullRows(config.getNotNullRows()-1);
-                            config.getItemGroupList().remove(selectedIdx);
-                            ConfigManager.writeConfig(config);
+                FileInputStream filePath = new FileInputStream(EXEL_FILE_PATH);
+                Workbook workbook = WorkbookFactory.create(filePath);
+                XSSFSheet sheet = (XSSFSheet) workbook.getSheetAt(0);
+                Row row = sheet.getRow(rowIdx);
+                if (row != null) {
+                    sheet.removeRow(row);
 
-                            DeleteItemComboBox.removeItemAt(selectedIdx);
-                        }
-                    } catch (IOException ex) {
-                        throw new RuntimeException(ex);
-                    }
+                    // shift rows to fill in the gap
+                    sheet.shiftRows(rowIdx + 1, sheet.getLastRowNum(), -1);
+                    workbook.setForceFormulaRecalculation(true);
+                    FileOutputStream out = new FileOutputStream(EXEL_FILE_PATH);
+                    workbook.write(out);
+                    out.close();
+                    workbook.close();
+                    // remove the item from config
+                    config.getNamesList().remove(selectedIdx);
+                    config.getLimitList().remove(selectedIdx);
+                    config.getIDList().remove(selectedIdx);
+                    config.getIntervalList().remove(selectedIdx);
+                    config.setNotNullRows(config.getNotNullRows() - 1);
+                    config.getItemGroupList().remove(selectedIdx);
+                    ConfigManager.writeConfig(config);
+
+                    DeleteItemComboBox.removeItemAt(selectedIdx);
                 }
-            });
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
-        }
+            }
+
+
     }
 
 }
