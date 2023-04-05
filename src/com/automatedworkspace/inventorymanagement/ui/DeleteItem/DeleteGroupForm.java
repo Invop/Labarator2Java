@@ -7,6 +7,7 @@ import com.automatedworkspace.inventorymanagement.statistics.ConfigManager;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellReference;
 import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFFormulaEvaluator;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 
@@ -34,7 +35,7 @@ public class DeleteGroupForm extends JDialog{
         setContentPane(DeleteGroupPanel);
         setLocationRelativeTo(parent);
         try {
-            addToGroupComboBox();
+            addGroupToComboBox();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -60,15 +61,17 @@ public class DeleteGroupForm extends JDialog{
                 throw new RuntimeException(ex);
             }
             dispose();
+            new SelectionDeleteForm(null);
         });
     }
     private void IfCancelPressed() {
         CancelDeleteGroupButton.addActionListener(e -> {
             dispose();
+            new SelectionDeleteForm(null);
         });
 
     }
-    private void addToGroupComboBox() throws IOException {
+    private void addGroupToComboBox() throws IOException {
         // Load the configuration file
         Config config = ConfigManager.readConfig();
         List<String> groupList = config.getGroupList();
@@ -104,7 +107,7 @@ public class DeleteGroupForm extends JDialog{
                 config.getItemGroupList().remove(i);
             }
         }
-        setValuesInColumnB(sheet,3);
+        workbook.setForceFormulaRecalculation(true);
         filePath.close();
         GroupList.remove(selectedIdx);
         ConfigManager.writeConfig(config);
@@ -114,26 +117,7 @@ public class DeleteGroupForm extends JDialog{
         workbook.close();
         ConfigManager.writeConfig(config);
     }
-    public void setValuesInColumnB(XSSFSheet sheet, int startRow) {
-        for (int i = startRow; i <= sheet.getLastRowNum(); i++) {
-            XSSFRow row = sheet.getRow(i);
-            if (row == null) {
-                row = sheet.createRow(i);
-            }
-            XSSFCell cell = row.getCell(1); // 1 - номер столбца B
-            if (cell == null) {
-                cell = row.createCell(1);
-            }
-            String formula = "ЕСЛИОШИБКА((InventoryList!G" + (i+1) + ":G" + (i+1) + "<=InventoryList!I" + (i+1) + ":I" + (i+1) + ")*(InventoryList!L" + (i+1) + ":L" + (i+1) + "=\"\")*valHighlight,0)";
-            cell.setCellFormula(formula);
-            cell = row.getCell(7);
-            if (cell == null) {
-                cell = row.createCell(7);
-            }
-             formula = "(InventoryList!F" + (i+1) + ":F" + (i+1) + "*InventoryList!G" + (i+1) + ":G" + (i+1) + ")";
-            cell.setCellFormula(formula);
-        }
-    }
-//=@InventoryList!F4:F4*@InventoryList!G4:G4
+    //            String formula = "ЕСЛИОШИБКА((InventoryList!G" + (i+1) + ":G" + (i+1) + "<=InventoryList!I" + (i+1) + ":I" + (i+1) + ")*(InventoryList!L" + (i+1) + ":L" + (i+1) + "=\"\")*valHighlight,0)";
+//InventoryList!F" + (i+1) + ":F" + (i+1) + "*InventoryList!G" + (i+1) + ":G" + (i+1) + ")"
 
 }
