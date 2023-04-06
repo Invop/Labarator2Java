@@ -7,7 +7,8 @@ import com.google.gson.GsonBuilder;
 public class ConfigManager {
 
 	private static final String JSON_FILE_PATH = "src/com/automatedworkspace/files/config.json";
-	private static final String JSON_IN_FILE_PATH = "src/com/automatedworkspace/files/in.json";
+	private static final String JSON_IN_OUT_FILE_PATH = "src/com/automatedworkspace/files/InAndOut.json";
+
 
 	public static void writeConfig(Config config) throws IOException {
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -24,17 +25,19 @@ public class ConfigManager {
 		}
 	}
 
-	public static void writeIn(DeliveryConfig config) throws IOException{
+	public static void writeInOut(DeliveryConfig config) throws IOException{
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
-		try (Writer writer = new FileWriter(JSON_IN_FILE_PATH)) {
+		try (Writer writer = new FileWriter(JSON_IN_OUT_FILE_PATH)) {
 			gson.toJson(config, writer);
 		}
 	}
 
-	public static DeliveryConfig readIn() throws IOException {
+	public static DeliveryConfig readInOut() throws IOException {
 		Gson gson = new Gson();
-		try (Reader reader = new FileReader(JSON_IN_FILE_PATH)) {
+		try (Reader reader = new FileReader(JSON_IN_OUT_FILE_PATH)) {
 			return gson.fromJson(reader, DeliveryConfig.class);
 		}
 	}
+
+
 }

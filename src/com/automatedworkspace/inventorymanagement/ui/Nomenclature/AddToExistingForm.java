@@ -6,9 +6,6 @@ import com.automatedworkspace.inventorymanagement.statistics.ConfigManager;
 import com.automatedworkspace.inventorymanagement.statistics.DeliveryConfig;
 import com.toedter.calendar.JDateChooser;
 import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.xssf.usermodel.XSSFCell;
-import org.apache.poi.xssf.usermodel.XSSFFormulaEvaluator;
-import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 
 import javax.swing.*;
@@ -17,10 +14,8 @@ import javax.swing.event.DocumentListener;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.PlainDocument;
-import java.awt.*;
 import java.awt.event.*;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -46,12 +41,14 @@ public class AddToExistingForm extends JDialog{
     public AddToExistingForm(JFrame parent) {
         super(parent);
         setVisible(true);
-        setSize(900, 300);
+        setSize(400, 250);
         setContentPane(PanelAddForm);
         setLocationRelativeTo(parent);
         FieldsThatOnlyHandleNumbers();
+        OKButton.setEnabled(false);
         //calendar
         DatePanel.add(DateChooser);
+        DateChooser.setMinSelectableDate(new Date()); // Set the minimum date to today's date
         try {
             GetItemNames();
         } catch (IOException e) {
@@ -174,7 +171,7 @@ public class AddToExistingForm extends JDialog{
             if (!checkDateInterval(config, selectedDate)) {
                 return;
             }
-            saveDelivery(nameList.get(selectedIdx), inputNum, selectedDate);
+            saveDeliveryIn(nameList.get(selectedIdx), inputNum, selectedDate);
 
             // Open the Excel workbook
             FileInputStream filePath = new FileInputStream(EXEL_FILE_PATH);
@@ -216,8 +213,8 @@ public class AddToExistingForm extends JDialog{
             return true;
         }
     }
-    private void saveDelivery(String name, int size, Date date) throws IOException {
-        DeliveryConfig config = ConfigManager.readIn();
+    private void saveDeliveryIn(String name, int size, Date date) throws IOException {
+        DeliveryConfig config = ConfigManager.readInOut();
         List<Delivery> deliveries = new ArrayList<>();
         if (config != null && config.getDeliveries() != null) {
             deliveries = config.getDeliveries();
@@ -225,7 +222,7 @@ public class AddToExistingForm extends JDialog{
         Delivery delivery = new Delivery(name, size, date);
         deliveries.add(delivery);
         config.setDeliveries(deliveries);
-        ConfigManager.writeIn(config);
+        ConfigManager.writeInOut(config);
     }
     //sub classes
     private static class NumericFilter extends PlainDocument {

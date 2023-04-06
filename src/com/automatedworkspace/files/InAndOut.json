@@ -49,6 +49,23 @@
       "name": "b2",
       "size": 1,
       "date": "Apr 11, 2023, 8:26:33 PM"
+    },
+    {
+      "name": "b2",
+      "size": 20,
+      "date": "Apr 12, 2023, 12:13:25 AM"
+    }
+  ],
+  "deliveriesOut": [
+    {
+      "name": "b2",
+      "size": 20,
+      "date": "Apr 12, 2023, 12:13:25 AM"
+    },
+    {
+      "name": "b2",
+      "size": 7,
+      "date": "Apr 8, 2023, 12:15:16 AM"
     }
   ]
 }
