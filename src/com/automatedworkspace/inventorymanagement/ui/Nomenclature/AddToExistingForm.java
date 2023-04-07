@@ -4,6 +4,7 @@ import com.automatedworkspace.inventorymanagement.statistics.Config;
 import com.automatedworkspace.inventorymanagement.statistics.ConfigManager;
 
 import com.automatedworkspace.inventorymanagement.statistics.DeliveryConfig;
+import com.automatedworkspace.inventorymanagement.ui.InventoryManagementUI;
 import com.toedter.calendar.JDateChooser;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -106,7 +107,7 @@ public class AddToExistingForm extends JDialog{
     private void IfCancelPressed() {
         CancelButton.addActionListener(e -> {
             dispose();
-            // new AddToExistingForm(null);
+            new InventoryManagementUI(null);
         });
 
     }
