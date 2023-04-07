@@ -1,5 +1,6 @@
 package com.automatedworkspace.inventorymanagement;
 
+import com.automatedworkspace.inventorymanagement.search.ItemSearcher;
 import com.automatedworkspace.inventorymanagement.ui.AddItem.AddGroupForm;
 import com.automatedworkspace.inventorymanagement.ui.AddItem.AddItemForm;
 import com.automatedworkspace.inventorymanagement.ui.AddItem.AddSupplierForm;
@@ -11,8 +12,15 @@ import com.automatedworkspace.inventorymanagement.ui.DeleteItem.SelectionDeleteF
 import com.automatedworkspace.inventorymanagement.ui.Nomenclature.AddToExistingForm;
 import com.automatedworkspace.inventorymanagement.ui.Nomenclature.WriteOffFromExistingForm;
 
+import java.io.IOException;
+
 public class Main {
 	public static void main(String[] args) {
-		WriteOffFromExistingForm addItemForm = new WriteOffFromExistingForm(null);
+		ItemSearcher searcher = new ItemSearcher();
+		try {
+			searcher.search();
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
 	}
 }
