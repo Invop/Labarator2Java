@@ -104,7 +104,8 @@ public class InventoryManagementUI extends JDialog{
 		findButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				displayInfoInTableName();
+				if(byNameRadioButton.isSelected())displayInfoInTableNameID(true);
+				if(byIdRadioButton.isSelected())displayInfoInTableNameID(false);
 			}
 		});
 	}
@@ -192,35 +193,55 @@ public class InventoryManagementUI extends JDialog{
 			return new Object[0][0];
 		}
 	}
-	private void displayInfoInTableName() {
+	private void displayInfoInTableNameID(boolean isName) {
 		Object[][] dataFromRowThree = getDataFromRowThree();
 		String name = textFieldNameId.getText().trim();
 		if (name.isEmpty()) {
-			JOptionPane.showMessageDialog(this, "Please enter a name to search");
-			return;
+			if(isName) {
+				JOptionPane.showMessageDialog(this, "Please enter a name to search");
+				return;
+			}
+			else{
+				JOptionPane.showMessageDialog(this, "Please enter an ID to search");
+				return;
+			}
 		}
 
 		try (Workbook workbook = WorkbookFactory.create(new File(EXEL_FILE_PATH))) {
 			Sheet sheet = workbook.getSheetAt(0);
 			int rowIdx = -1;
-			for (Row row : sheet) {
-				if (row.getRowNum() >= 3 && row.getCell(3) != null && row.getCell(3).getStringCellValue().equalsIgnoreCase(name)) {
-					rowIdx = row.getRowNum();
-					break;
+			if(isName) {
+				for (Row row : sheet) {
+					if (row.getRowNum() >= 3 && row.getCell(3) != null && row.getCell(3).getStringCellValue().equalsIgnoreCase(name)) {
+						rowIdx = row.getRowNum();
+						break;
+					}
+				}
+				if (rowIdx < 0) {
+					JOptionPane.showMessageDialog(this, "Name not found");
+					textFieldNameId.setText("");
+					return;
 				}
 			}
-			if (rowIdx < 0) {
-				JOptionPane.showMessageDialog(this, "Name not found");
-				textFieldNameId.setText("");
-				return;
+			else{
+				for (Row row : sheet) {
+					if (row.getRowNum() >= 3 && row.getCell(2) != null && row.getCell(2).getStringCellValue().equalsIgnoreCase(name)) {
+						rowIdx = row.getRowNum();
+						break;
+					}
+				}
+				if (rowIdx < 0) {
+					JOptionPane.showMessageDialog(this, "ID not found");
+					textFieldNameId.setText("");
+					return;
+				}
 			}
-
 			Object[][] searchData = new Object[1][12];
 			Row row = sheet.getRow(rowIdx);
 			for (int i = 0; i < 12; i++) {
 				Cell cell = row.getCell(i + 1);
 				if(i==0){
-					if(row.getCell(6).getNumericCellValue()>=row.getCell(7).getNumericCellValue() || row.getCell(11).getStringCellValue().equals("Так")){
+					if(row.getCell(5).getNumericCellValue()>=row.getCell(7).getNumericCellValue() || row.getCell(11).getStringCellValue().equals("Так")){
 						searchData[0][i]="True";
 					}
 					else searchData[0][i]="False";
