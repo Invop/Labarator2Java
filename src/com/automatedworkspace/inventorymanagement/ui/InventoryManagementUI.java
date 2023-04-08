@@ -226,7 +226,7 @@ public class InventoryManagementUI extends JDialog{
 					else searchData[0][i]="False";
 				}
 				else if (i == 6) {
-					double product = row.getCell(5).getNumericCellValue() * row.getCell(6).getNumericCellValue(); // вычисляем произведение значений столбцов 6 и 7
+					double product = row.getCell(5).getNumericCellValue() * row.getCell(6).getNumericCellValue();
 					searchData[0][i] = product;
 				}
 				else if (cell.getCellType() == CellType.NUMERIC) {
