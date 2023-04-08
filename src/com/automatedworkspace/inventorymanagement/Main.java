@@ -1,6 +1,5 @@
 package com.automatedworkspace.inventorymanagement;
 
-import com.automatedworkspace.inventorymanagement.search.ItemSearcher;
 import com.automatedworkspace.inventorymanagement.ui.AddItem.AddGroupForm;
 import com.automatedworkspace.inventorymanagement.ui.AddItem.AddItemForm;
 import com.automatedworkspace.inventorymanagement.ui.AddItem.AddSupplierForm;
