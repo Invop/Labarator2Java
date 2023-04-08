@@ -1,13 +1,54 @@
 {
-  "notNullRows": 6,
+  "notNullRows": 8,
   "namesList": [
-    "Tovar",
-    "Tovar1",
-    "Tovar2"
+    "a1",
+    "a2",
+    "a3",
+    "b1",
+    "b2"
   ],
   "IDsList": [
-    "In0001",
-    "In0002",
-    "In0003"
+    "a1",
+    "a2",
+    "a3",
+    "bb",
+    "b2"
+  ],
+  "GroupList": [
+    "Group1",
+    "Group2",
+    "Group3"
+  ],
+  "SupplierList": [
+    "Sup2",
+    "Sup3"
+  ],
+  "LimitList": [
+    1,
+    1,
+    1,
+    1,
+    3
+  ],
+  "IntervalList": [
+    1,
+    1,
+    1,
+    1,
+    3
+  ],
+  "itemGroupList": [
+    0,
+    1,
+    2,
+    0,
+    2
+  ],
+  "ItemSupplierList": [
+    null,
+    null,
+    null,
+    1,
+    2
   ]
 }

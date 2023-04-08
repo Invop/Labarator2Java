@@ -1,16 +1,193 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="com.automatedworkspace.inventorymanagement.ui.InventoryManagementUI">
-  <grid id="27dc6" binding="InventoryManagementPanel" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+  <grid id="27dc6" binding="MainPanel" layout-manager="GridLayoutManager" row-count="4" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
-      <xy x="20" y="20" width="1280" height="720"/>
+      <xy x="20" y="20" width="1198" height="626"/>
     </constraints>
     <properties>
-      <minimumSize width="1280" height="720"/>
       <preferredSize width="1280" height="720"/>
-      <visible value="true"/>
     </properties>
     <border type="none"/>
-    <children/>
+    <children>
+      <hspacer id="1cde5">
+        <constraints>
+          <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+      </hspacer>
+      <grid id="d5fff" binding="ButtonsPanel" layout-manager="GridLayoutManager" row-count="3" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints>
+          <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="551c1" class="javax.swing.JButton" binding="addButton" default-binding="true">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Add"/>
+            </properties>
+          </component>
+          <component id="82215" class="javax.swing.JButton" binding="editButton" default-binding="true">
+            <constraints>
+              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Edit"/>
+            </properties>
+          </component>
+          <component id="b691f" class="javax.swing.JButton" binding="deleteButton" default-binding="true">
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Delete"/>
+            </properties>
+          </component>
+          <component id="a75f9" class="javax.swing.JButton" binding="importButton" default-binding="true">
+            <constraints>
+              <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Import"/>
+            </properties>
+          </component>
+          <component id="35eea" class="javax.swing.JButton" binding="exportButton" default-binding="true">
+            <constraints>
+              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Export"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <grid id="c2b3f" binding="ProductSearchPanel" layout-manager="GridLayoutManager" row-count="6" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints>
+          <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <vspacer id="266ed">
+            <constraints>
+              <grid row="1" column="1" row-span="5" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+            </constraints>
+          </vspacer>
+          <component id="6ac88" class="javax.swing.JButton" binding="findButton" default-binding="true">
+            <constraints>
+              <grid row="1" column="3" row-span="5" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Find"/>
+            </properties>
+          </component>
+          <component id="ab2ce" class="javax.swing.JRadioButton" binding="byGroupRadioButton" default-binding="true">
+            <constraints>
+              <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="By Group"/>
+            </properties>
+          </component>
+          <component id="482e6" class="javax.swing.JRadioButton" binding="byNameRadioButton" default-binding="true">
+            <constraints>
+              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="By Name"/>
+            </properties>
+          </component>
+          <component id="21d2" class="javax.swing.JRadioButton" binding="byIdRadioButton" default-binding="true">
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <selected value="false"/>
+              <text value="By Id"/>
+            </properties>
+          </component>
+          <component id="f70c2" class="javax.swing.JLabel" binding="searchLabel">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="4" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Product search"/>
+            </properties>
+          </component>
+          <component id="7ba80" class="javax.swing.JRadioButton" binding="bySupplierRadioButton" default-binding="true">
+            <constraints>
+              <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="By Supplier"/>
+            </properties>
+          </component>
+          <toolbar id="5d174" binding="toolBar">
+            <constraints>
+              <grid row="1" column="2" row-span="5" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="-1" height="20"/>
+              </grid>
+            </constraints>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <component id="31071" class="javax.swing.JTextField" binding="textFieldNameId">
+                <constraints/>
+                <properties>
+                  <visible value="false"/>
+                </properties>
+              </component>
+              <component id="65185" class="javax.swing.JComboBox" binding="comboBoxGroupSupplier">
+                <constraints/>
+                <properties>
+                  <actionCommand value="comboBoxChanged"/>
+                  <model/>
+                  <visible value="false"/>
+                </properties>
+              </component>
+              <component id="1f599" class="javax.swing.JTextField" binding="fromField">
+                <constraints/>
+                <properties>
+                  <visible value="true"/>
+                </properties>
+              </component>
+              <component id="77cf1" class="javax.swing.JTextField" binding="toField">
+                <constraints/>
+                <properties>
+                  <visible value="true"/>
+                </properties>
+              </component>
+            </children>
+          </toolbar>
+          <component id="43f15" class="javax.swing.JRadioButton" binding="byPriceFromToRadioButton" default-binding="true">
+            <constraints>
+              <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <selected value="false"/>
+              <text value="By Price (From-&gt;To)"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <component id="78d4f" class="javax.swing.JTable" binding="table">
+        <constraints>
+          <grid row="0" column="0" row-span="4" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
+            <preferred-size width="600" height="50"/>
+          </grid>
+        </constraints>
+        <properties>
+          <autoResizeMode value="3"/>
+          <enabled value="true"/>
+          <preferredScrollableViewportSize width="600" height="400"/>
+          <visible value="true"/>
+        </properties>
+      </component>
+    </children>
   </grid>
 </form>
