@@ -162,7 +162,6 @@ public class InventoryManagementUI extends JDialog{
 		comboBoxGroupSupplier.setEnabled(true);
 		comboBoxGroupSupplier.setVisible(true);
 	}
-
 	private void populateTable(Object[][] data) {
 		DefaultTableModel model = new DefaultTableModel(data, new Object[]{"Column 1", "Column 2", "Column 3", "Column 4", "Column 5", "Column 6", "Column 7", "Column 8", "Column 9", "Column 10", "Column 11", "Column 12"});
 		table.setModel(model);
@@ -226,9 +225,9 @@ public class InventoryManagementUI extends JDialog{
 					}
 					else searchData[0][i]="False";
 				}
-				else if (i == 6) { // если индекс столбца равен 7 (восьмому столбцу)
+				else if (i == 6) {
 					double product = row.getCell(5).getNumericCellValue() * row.getCell(6).getNumericCellValue(); // вычисляем произведение значений столбцов 6 и 7
-					searchData[0][i] = product; // добавляем результат в массив данных
+					searchData[0][i] = product;
 				}
 				else if (cell.getCellType() == CellType.NUMERIC) {
 					searchData[0][i] = (int) cell.getNumericCellValue();
