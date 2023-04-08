@@ -204,7 +204,7 @@ public class InventoryManagementUI extends JDialog{
 			Sheet sheet = workbook.getSheetAt(0);
 			int rowIdx = -1;
 			for (Row row : sheet) {
-				if (row.getRowNum() >= 3 && row.getCell(3).getStringCellValue().equalsIgnoreCase(name)) {
+				if (row.getRowNum() >= 3 && row.getCell(3) != null && row.getCell(3).getStringCellValue().equalsIgnoreCase(name)) {
 					rowIdx = row.getRowNum();
 					break;
 				}
