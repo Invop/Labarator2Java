@@ -1,5 +1,6 @@
 package com.automatedworkspace.inventorymanagement.ui;
 
+import com.automatedworkspace.inventorymanagement.ui.AddItem.AddItemForm;
 import com.automatedworkspace.inventorymanagement.ui.AddItem.SelectionAddForm;
 import com.automatedworkspace.inventorymanagement.ui.DeleteItem.SelectionDeleteForm;
 import com.automatedworkspace.inventorymanagement.ui.Nomenclature.AddToExistingForm;
@@ -8,6 +9,9 @@ import org.apache.poi.ss.usermodel.*;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.PlainDocument;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -53,6 +57,7 @@ public class InventoryManagementUI extends JDialog{
 		setSize(1280, 720);
 		setContentPane(MainPanel);
 		setLocationRelativeTo(parent);
+		FieldsThatOnlyHandleNumbers();
 		btnListeners();
 		radioListeners();
 		toolBar.setFloatable(false);
@@ -104,8 +109,18 @@ public class InventoryManagementUI extends JDialog{
 		findButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(byNameRadioButton.isSelected())displayInfoInTableNameID(true);
-				if(byIdRadioButton.isSelected())displayInfoInTableNameID(false);
+				if(byNameRadioButton.isSelected()) {
+					displayInfoInTableNameID(true);
+					System.gc();
+				}
+				if(byIdRadioButton.isSelected()) {
+					displayInfoInTableNameID(false);
+					System.gc();
+				}
+				if(byPriceFromToRadioButton.isSelected()) {
+					displayInfoInTablePrice();
+					System.gc();
+				}
 			}
 		});
 	}
@@ -198,11 +213,11 @@ public class InventoryManagementUI extends JDialog{
 		String name = textFieldNameId.getText().trim();
 		if (name.isEmpty()) {
 			if(isName) {
-				JOptionPane.showMessageDialog(this, "Please enter a name to search");
+				JOptionPane.showMessageDialog(this, "Please enter a name to search","Error",JOptionPane.ERROR_MESSAGE);
 				return;
 			}
 			else{
-				JOptionPane.showMessageDialog(this, "Please enter an ID to search");
+				JOptionPane.showMessageDialog(this, "Please enter an ID to search","Error",JOptionPane.ERROR_MESSAGE);
 				return;
 			}
 		}
@@ -218,7 +233,7 @@ public class InventoryManagementUI extends JDialog{
 					}
 				}
 				if (rowIdx < 0) {
-					JOptionPane.showMessageDialog(this, "Name not found");
+					JOptionPane.showMessageDialog(this, "Name not found","Error",JOptionPane.ERROR_MESSAGE);
 					textFieldNameId.setText("");
 					return;
 				}
@@ -264,9 +279,93 @@ public class InventoryManagementUI extends JDialog{
 
 			populateTable(updatedData);
 		} catch (IOException e) {
+			JOptionPane.showMessageDialog(this, "Failed to read Excel file: " + e.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
+		}
+	}
+	private void displayInfoInTablePrice() {
+		Object[][] dataFromRowThree = getDataFromRowThree();
+		int from=0, to=0;
+
+		if (fromField.getText().isEmpty() || toField.getText().isEmpty()) {
+			// Display an error message to the user
+			JOptionPane.showMessageDialog(null, "Please enter a valid integer in both fields.", "Error", JOptionPane.ERROR_MESSAGE);
+		} else {
+			// Parse the input as integers
+			from = Integer.parseInt(fromField.getText());
+			to = Integer.parseInt(toField.getText());
+		}
+
+		List<Object[]> matchingRows = new ArrayList<>();
+		try (Workbook workbook = WorkbookFactory.create(new File(EXEL_FILE_PATH))) {
+			Sheet sheet = workbook.getSheetAt(0);
+			for (Row row : sheet) {
+				if (row.getRowNum() >= 3) {
+					Cell priceCell = row.getCell(5);
+					if (priceCell != null && priceCell.getCellType() == CellType.NUMERIC) {
+						int price = (int) priceCell.getNumericCellValue();
+						if (price >= from && price <= to) {
+							Object[] rowData = new Object[12];
+							for (int i = 0; i < 12; i++) {
+
+								Cell cell = row.getCell(i + 1);
+								if(i==0){
+									if(row.getCell(5).getNumericCellValue()>=row.getCell(7).getNumericCellValue() || row.getCell(11).getStringCellValue().equals("Так")){
+										rowData[i]="True";
+									}
+									else rowData[i]="False";
+								}
+								else if (i == 6) {
+									double product = row.getCell(5).getNumericCellValue() * row.getCell(6).getNumericCellValue();
+									rowData[i] = product;
+								}
+								else if (cell.getCellType() == CellType.FORMULA) {
+									rowData[i] = cell.getCellFormula();
+								} else if (cell.getCellType() == CellType.NUMERIC) {
+									rowData[i] = (int) cell.getNumericCellValue();
+								} else {
+									rowData[i] = cell.getStringCellValue();
+								}
+							}
+							matchingRows.add(rowData);
+						}
+					}
+				}
+			}
+
+		} catch (IOException e) {
 			JOptionPane.showMessageDialog(this, "Failed to read Excel file: " + e.getMessage());
+			return;
+		}
+
+		Object[][] data = new Object[matchingRows.size() + 1][12];
+		data[0] = dataFromRowThree[0]; // copy the header from row 3
+		for (int i = 0; i < matchingRows.size(); i++) {
+			data[i + 1] = matchingRows.get(i); // copy the matching rows
+		}
+		populateTable(data);
+	}
+
+	//sub classes
+	private static class NumericFilter extends PlainDocument {
+		@Override
+		public void insertString(int offs, String str, AttributeSet a) throws BadLocationException {
+			if (str == null) {
+				return;
+			}
+
+			char[] chars = str.toCharArray();
+			StringBuilder sb = new StringBuilder();
+			for (char ch : chars) {
+				if (Character.isDigit(ch)) {
+					sb.append(ch);
+				}
+			}
+			super.insertString(offs, sb.toString(), a);
 		}
 	}
 
-
+	private void FieldsThatOnlyHandleNumbers() {
+		fromField.setDocument(new NumericFilter());
+		toField.setDocument(new NumericFilter());
+	}
 }
