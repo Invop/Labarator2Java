@@ -159,6 +159,7 @@ public class AddToExistingForm extends JDialog{
             JOptionPane.showMessageDialog(this,"Постачальника більше не існує, створіть нового та відредагуйте вибраний товар");
             dispose();
             new SelectionAddForm(null);
+            return;
         }
         try {
             inputNum = Integer.parseInt(NumberField.getText());

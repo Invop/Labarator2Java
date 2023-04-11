@@ -290,10 +290,10 @@ public class InventoryManagementUI extends JDialog{
 			for (int i = 0; i < 12; i++) {
 				Cell cell = row.getCell(i + 1);
 				if(i==0){
-					if(row.getCell(5).getNumericCellValue()>=row.getCell(7).getNumericCellValue() || row.getCell(11).getStringCellValue().equals("Так")){
-						searchData[0][i]="True";
+					if(row.getCell(6).getNumericCellValue()>=row.getCell(8).getNumericCellValue() || row.getCell(12).getStringCellValue().equals("Так")){
+						searchData[0][i]="False";
 					}
-					else searchData[0][i]="False";
+					else searchData[0][i]="True";
 				}
 				else if (i == 6) {
 					double product = row.getCell(5).getNumericCellValue() * row.getCell(6).getNumericCellValue();
@@ -343,10 +343,10 @@ public class InventoryManagementUI extends JDialog{
 
 								Cell cell = row.getCell(i + 1);
 								if(i==0){
-									if(row.getCell(5).getNumericCellValue()>=row.getCell(7).getNumericCellValue() || row.getCell(11).getStringCellValue().equals("Так")){
-										rowData[i]="True";
+									if(row.getCell(6).getNumericCellValue()>=row.getCell(8).getNumericCellValue() || row.getCell(12).getStringCellValue().equals("Так")){
+										rowData[i]="False";
 									}
-									else rowData[i]="False";
+									else 	rowData[i]="True";
 								}
 								else if (i == 6) {
 									double product = row.getCell(5).getNumericCellValue() * row.getCell(6).getNumericCellValue();
@@ -399,10 +399,10 @@ public class InventoryManagementUI extends JDialog{
 							for (int i = 0; i < 12; i++) {
 								Cell cell = row.getCell(i + 1);
 								if(i==0){
-									if(row.getCell(5).getNumericCellValue()>=row.getCell(7).getNumericCellValue() || row.getCell(11).getStringCellValue().equals("Так")){
-										rowData[i]="True";
+									if(row.getCell(6).getNumericCellValue()>=row.getCell(8).getNumericCellValue() || row.getCell(12).getStringCellValue().equals("Так")){
+										rowData[i]="False";
 									}
-									else rowData[i]="False";
+									else rowData[i]="True";
 								}
 								else if (i == 6) {
 									double product = row.getCell(5).getNumericCellValue() * row.getCell(6).getNumericCellValue();

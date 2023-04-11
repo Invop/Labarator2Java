@@ -56,6 +56,8 @@ public class AddItemForm extends JDialog {
 		try {
 			AddSuppliersToComboBox();
 			AddGroupsToComboBox();
+			if(AddGroupBox.getItemCount()==0 || AddSupplierBox.getItemCount()==0){dispose();
+				new SelectionAddForm(null);}
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
@@ -194,7 +196,7 @@ public class AddItemForm extends JDialog {
 
 
 		// Check if the table is empty
-		if ( sheet.getRow(4).getCell(2) == null) {
+		if ( sheet.getRow(3).getCell(2).getStringCellValue().isEmpty()) {
 			// Table is empty, set notNullRows to 3
 			notNullRows = 3;
 		}

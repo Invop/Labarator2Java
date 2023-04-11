@@ -105,6 +105,7 @@ public class DeleteGroupForm extends JDialog{
                 config.getIntervalList().remove(i);
                 config.setNotNullRows(config.getNotNullRows() - 1);
                 config.getItemGroupList().remove(i);
+                config.getItemSupplierList().remove(i);
             }
         }
         workbook.setForceFormulaRecalculation(true);
