@@ -1,5 +1,7 @@
 package com.automatedworkspace.inventorymanagement.ui;
 
+import com.automatedworkspace.inventorymanagement.statistics.Config;
+import com.automatedworkspace.inventorymanagement.statistics.ConfigManager;
 import com.automatedworkspace.inventorymanagement.ui.AddItem.AddItemForm;
 import com.automatedworkspace.inventorymanagement.ui.AddItem.SelectionAddForm;
 import com.automatedworkspace.inventorymanagement.ui.DeleteItem.SelectionDeleteForm;
@@ -41,7 +43,7 @@ public class InventoryManagementUI extends JDialog{
 	private JRadioButton byIdRadioButton;
 	private JRadioButton bySupplierRadioButton;
 	private JTextField textFieldNameId;
-	private JComboBox comboBoxGroupSupplier;
+	private JComboBox<String> comboBoxGroupSupplier;
 	private JRadioButton byPriceFromToRadioButton;
 	private JTextField fromField;
 	private JTextField toField;
@@ -121,6 +123,23 @@ public class InventoryManagementUI extends JDialog{
 					displayInfoInTablePrice();
 					System.gc();
 				}
+				if(byGroupRadioButton.isSelected()){
+					try {
+						displayInfoInTableGroupSupplier(true);
+
+					} catch (IOException ex) {
+						throw new RuntimeException(ex);
+					}
+					System.gc();
+				}
+				if(bySupplierRadioButton.isSelected()){
+					try {
+						displayInfoInTableGroupSupplier(false);
+					} catch (IOException ex) {
+						throw new RuntimeException(ex);
+					}
+					System.gc();
+				}
 			}
 		});
 	}
@@ -140,7 +159,22 @@ public class InventoryManagementUI extends JDialog{
 		} else if (selectedRadioButton.equals(byPriceFromToRadioButton)) {
 			showPriceFields();
 		} else if (selectedRadioButton.equals(byGroupRadioButton) || selectedRadioButton.equals(bySupplierRadioButton)) {
+			comboBoxGroupSupplier.removeAllItems();
+			Config config = null;
+			try {
+				config = ConfigManager.readConfig();
+			} catch (IOException e) {
+				throw new RuntimeException(e);
+			}
 			showSupplierOrGroupFields();
+			if(selectedRadioButton.equals(byGroupRadioButton)){
+				List<String> groupList = config.getGroupList();
+				for (String group :groupList){comboBoxGroupSupplier.addItem(group);	}
+			}
+			else{
+				List<String> supplierList = config.getSupplierList();
+				for (String supp : supplierList) {comboBoxGroupSupplier.addItem(supp);}
+			}
 		}
 	}
 	private void showNameOrIdFields() {
@@ -344,7 +378,58 @@ public class InventoryManagementUI extends JDialog{
 		}
 		populateTable(data);
 	}
+	private void displayInfoInTableGroupSupplier(boolean isGroup) throws IOException {
+		Object[][] dataFromRowThree = getDataFromRowThree();
+		List<Object[]> matchingRows = new ArrayList<>();
+		try (Workbook workbook = WorkbookFactory.create(new File(EXEL_FILE_PATH))) {
+			Sheet sheet = workbook.getSheetAt(0);
+			for (Row row : sheet) {
+				if (row.getRowNum() >= 3) {
+					Cell cellSG;
+					if(!isGroup) {
+						cellSG = row.getCell(4);
+					}
+					else {
+						cellSG = row.getCell(12);
+					}
+					if (cellSG != null && cellSG.getCellType() == CellType.STRING) {
+						String name = cellSG.getStringCellValue();
+						if(name.equals(comboBoxGroupSupplier.getSelectedItem()))
+						{   Object[] rowData = new Object[12];
+							for (int i = 0; i < 12; i++) {
+								Cell cell = row.getCell(i + 1);
+								if(i==0){
+									if(row.getCell(5).getNumericCellValue()>=row.getCell(7).getNumericCellValue() || row.getCell(11).getStringCellValue().equals("Так")){
+										rowData[i]="True";
+									}
+									else rowData[i]="False";
+								}
+								else if (i == 6) {
+									double product = row.getCell(5).getNumericCellValue() * row.getCell(6).getNumericCellValue();
+									rowData[i] = product;
+								}
+								else if (cell.getCellType() == CellType.FORMULA) {
+									rowData[i] = cell.getCellFormula();
+								} else if (cell.getCellType() == CellType.NUMERIC) {
+									rowData[i] = (int) cell.getNumericCellValue();
+								} else {
+									rowData[i] = cell.getStringCellValue();
+								}
+							}
+							matchingRows.add(rowData);
+						}
+					}
+				}
+			}
+		}
+		Object[][] data = new Object[matchingRows.size() + 1][12];
+		data[0] = dataFromRowThree[0]; // copy the header from row 3
+		for (int i = 0; i < matchingRows.size(); i++) {
+			data[i + 1] = matchingRows.get(i); // copy the matching rows
+		}
+		populateTable(data);
 
+	}
 	//sub classes
 	private static class NumericFilter extends PlainDocument {
 		@Override
@@ -363,7 +448,6 @@ public class InventoryManagementUI extends JDialog{
 			super.insertString(offs, sb.toString(), a);
 		}
 	}
-
 	private void FieldsThatOnlyHandleNumbers() {
 		fromField.setDocument(new NumericFilter());
 		toField.setDocument(new NumericFilter());

@@ -74,8 +74,13 @@ public class DeleteSupplierForm extends JDialog{
         List<Integer> itemSuppList = config.getItemSupplierList();
         int selectedIndx = DeleteSupplierComboBox.getSelectedIndex();
         for (int i = itemSuppList.size() - 1; i >= 0; i--){
-            if(itemSuppList.get(i)==selectedIndx){
-                itemSuppList.set(i,null);
+            if (itemSuppList.get(i)!=-1 && itemSuppList.get(i)!=selectedIndx){
+                if(itemSuppList.get(i)!=0) {
+                    itemSuppList.set(i, itemSuppList.get(i) - 1);
+                }
+            }
+            else if(itemSuppList.get(i)!=-1 && itemSuppList.get(i)==selectedIndx){
+                itemSuppList.set(i,-1);
             }
         }
         suppList.remove(selectedIndx);
