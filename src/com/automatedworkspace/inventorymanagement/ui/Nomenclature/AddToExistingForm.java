@@ -4,6 +4,7 @@ import com.automatedworkspace.inventorymanagement.statistics.Config;
 import com.automatedworkspace.inventorymanagement.statistics.ConfigManager;
 
 import com.automatedworkspace.inventorymanagement.statistics.DeliveryConfig;
+import com.automatedworkspace.inventorymanagement.ui.AddItem.SelectionAddForm;
 import com.automatedworkspace.inventorymanagement.ui.InventoryManagementUI;
 import com.toedter.calendar.JDateChooser;
 import org.apache.poi.ss.usermodel.*;
@@ -154,9 +155,10 @@ public class AddToExistingForm extends JDialog{
         int limit = limitList.get(selectedIdx);
         int inputNum;
         int response = 0;
-        if(itemSuppList.get(selectedIdx)==null){
+        if(itemSuppList.get(selectedIdx)==-1){
             JOptionPane.showMessageDialog(this,"Постачальника більше не існує, створіть нового та відредагуйте вибраний товар");
-            return;
+            dispose();
+            new SelectionAddForm(null);
         }
         try {
             inputNum = Integer.parseInt(NumberField.getText());

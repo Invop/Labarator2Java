@@ -1,16 +1,12 @@
 {
-  "notNullRows": 8,
+  "notNullRows": 6,
   "namesList": [
-    "a1",
     "a2",
-    "a3",
     "b1",
     "b2"
   ],
   "IDsList": [
-    "a1",
     "a2",
-    "a3",
     "bb",
     "b2"
   ],
@@ -26,21 +22,15 @@
   "LimitList": [
     1,
     1,
-    1,
-    1,
     3
   ],
   "IntervalList": [
     1,
     1,
-    1,
-    1,
     3
   ],
   "itemGroupList": [
-    0,
     1,
-    2,
     0,
     2
   ],

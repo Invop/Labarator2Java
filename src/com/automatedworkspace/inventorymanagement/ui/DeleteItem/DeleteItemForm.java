@@ -34,7 +34,11 @@ public class DeleteItemForm extends JDialog{
         setVisible(true);
         setContentPane(DeleteItemPanel);
         setLocationRelativeTo(parent);
-
+        try {
+            addToComboBox();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         IfOkPressed();
         IfCancelPressed();
         CloseApp();
@@ -67,14 +71,18 @@ public class DeleteItemForm extends JDialog{
         });
 
     }
+    private void addToComboBox() throws IOException {
+        Config config = ConfigManager.readConfig();
+        List<String> nameList = config.getNamesList();
+        DeleteItemComboBox.removeAllItems();
+        for (String name : nameList) {
+            DeleteItemComboBox.addItem(name);
+        }
+    }
     private void DeleteItem() throws IOException {
 
             Config config = ConfigManager.readConfig();
-            List<String> nameList = config.getNamesList();
-            DeleteItemComboBox.removeAllItems();
-            for (String name : nameList) {
-                DeleteItemComboBox.addItem(name);
-            }
+
             int selectedIdx = DeleteItemComboBox.getSelectedIndex();
             if (selectedIdx != -1) {
                 int rowIdx = selectedIdx + 3; // values start from row 3
