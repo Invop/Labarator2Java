@@ -142,7 +142,6 @@ public class WriteOffFromExistingForm extends JDialog{
 			dispose();
 			new InventoryManagementUI(null);
 		});
-
 	}
 
 	public void writeOff() throws IOException {
@@ -165,18 +164,24 @@ public class WriteOffFromExistingForm extends JDialog{
 
 		// Get the input quantity from the NumberField
 		int inputQuantity = Integer.parseInt(NumberField.getText());
-
+		String newQuantityString=null;
 		// Check if the input quantity is negative or greater than the current quantity
 		while (inputQuantity < 0 || inputQuantity > currentQuantity) {
 			// Display a message to prompt the user to enter a new quantity
 			String message = "Please enter a positive quantity that is less than or equal to the current quantity (" + currentQuantity + ")";
 			JOptionPane.showMessageDialog(PanelWriteOffForm, message);
-
+			JOptionPane a = new JOptionPane();
 			// Get the new input quantity from the user
-			String newQuantityString = JOptionPane.showInputDialog(PanelWriteOffForm, "Enter a new quantity:");
-			inputQuantity = Integer.parseInt(newQuantityString);
+			newQuantityString = a.showInputDialog(PanelWriteOffForm, "Enter a new quantity:");
+			if(newQuantityString!=null && !newQuantityString.equals(""))inputQuantity = Integer.parseInt(newQuantityString);
+			else {
+				a.getRootFrame().dispose();
+				break;
+
+			}
 		}
-		Date selectedDate = DateChooser.getDate();
+		if(newQuantityString!=null && !newQuantityString.equals(""))
+		{Date selectedDate = DateChooser.getDate();
 		// Update the Excel sheet with the new quantity
 		double newQuantity = currentQuantity - inputQuantity;
 		newRow.getCell(6).setCellValue(newQuantity);
@@ -186,7 +191,7 @@ public class WriteOffFromExistingForm extends JDialog{
 		FileOutputStream out = new FileOutputStream(EXEL_FILE_PATH);
 		workbook.write(out);
 		out.close();
-		workbook.close();
+		workbook.close();}
 	}
 	private void saveDeliveryOut(String name, int size, Date date) throws IOException {
 		DeliveryConfig config = ConfigManager.readInOut();
