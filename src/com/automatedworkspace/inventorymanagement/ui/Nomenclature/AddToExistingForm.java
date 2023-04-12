@@ -175,7 +175,7 @@ public class AddToExistingForm extends JDialog{
             if (!checkDateInterval(config, selectedDate)) {
                 return;
             }
-            saveDeliveryIn(nameList.get(selectedIdx), inputNum, selectedDate);
+            saveDeliveryIn(nameList.get(selectedIdx), inputNum, selectedDate,config.getItemGroupList().get(selectedIdx),config.getItemSupplierList().get(selectedIdx));
 
             // Open the Excel workbook
             FileInputStream filePath = new FileInputStream(EXEL_FILE_PATH);
@@ -217,13 +217,13 @@ public class AddToExistingForm extends JDialog{
             return true;
         }
     }
-    private void saveDeliveryIn(String name, int size, Date date) throws IOException {
+    private void saveDeliveryIn(String name, int size, Date date,int group , int supplier) throws IOException {
         DeliveryConfig config = ConfigManager.readInOut();
         List<Delivery> deliveries = new ArrayList<>();
         if (config != null && config.getDeliveries() != null) {
             deliveries = config.getDeliveries();
         }
-        Delivery delivery = new Delivery(name, size, date);
+        Delivery delivery = new Delivery(name, size, date,group,supplier);
         deliveries.add(delivery);
         config.setDeliveries(deliveries);
         ConfigManager.writeInOut(config);

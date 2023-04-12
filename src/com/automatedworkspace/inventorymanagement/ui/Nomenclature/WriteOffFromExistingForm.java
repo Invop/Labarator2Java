@@ -180,26 +180,25 @@ public class WriteOffFromExistingForm extends JDialog{
 
 			}
 		}
-		if(newQuantityString!=null && !newQuantityString.equals(""))
-		{Date selectedDate = DateChooser.getDate();
+		Date selectedDate = DateChooser.getDate();
 		// Update the Excel sheet with the new quantity
 		double newQuantity = currentQuantity - inputQuantity;
 		newRow.getCell(6).setCellValue(newQuantity);
-		saveDeliveryOut(nameList.get(selectedIdx), inputQuantity, selectedDate);
+		saveDeliveryOut(nameList.get(selectedIdx), inputQuantity, selectedDate,config.getItemGroupList().get(selectedIdx),config.getItemSupplierList().get(selectedIdx));
 		// Save and close the workbook
 		workbook.setForceFormulaRecalculation(true);
 		FileOutputStream out = new FileOutputStream(EXEL_FILE_PATH);
 		workbook.write(out);
 		out.close();
-		workbook.close();}
+		workbook.close();
 	}
-	private void saveDeliveryOut(String name, int size, Date date) throws IOException {
+	private void saveDeliveryOut(String name, int size, Date date,int group,int supp) throws IOException {
 		DeliveryConfig config = ConfigManager.readInOut();
 		List<Delivery> deliveriesOut = new ArrayList<>();
 		if (config != null && config.getDeliveriesOut() != null) {
 			deliveriesOut = config.getDeliveriesOut();
 		}
-		Delivery delivery = new Delivery(name, size, date);
+		Delivery delivery = new Delivery(name, size, date,group,supp);
 		deliveriesOut.add(delivery);
 		config.setDeliveriesOut(deliveriesOut);
 		ConfigManager.writeInOut(config);

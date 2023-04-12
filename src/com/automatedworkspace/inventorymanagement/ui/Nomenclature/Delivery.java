@@ -6,10 +6,14 @@ public class Delivery {
 	private int size;
 	private Date date;
 
-	public Delivery(String name, int size, Date date) {
+	private int groupIndex;
+	private int supplierIndex;
+	public Delivery(String name, int size, Date date,int groupIndex,int supplierIndex) {
 		this.name = name;
 		this.size = size;
 		this.date = date;
+		this.groupIndex = groupIndex;
+		this.supplierIndex = supplierIndex;
 	}
 
 	public String getName() {
@@ -39,5 +43,21 @@ public class Delivery {
 	@Override
 	public String toString() {
 		return "Name: " + name + "\nSize: " + size + "\nDate: " + date.toString();
+	}
+
+	public int getGroupIndex() {
+		return groupIndex;
+	}
+
+	public void setGroupIndex(int groupIndex) {
+		this.groupIndex = groupIndex;
+	}
+
+	public int getSupplierIndex() {
+		return supplierIndex;
+	}
+
+	public void setSupplierIndex(int supplierIndex) {
+		this.supplierIndex = supplierIndex;
 	}
 }

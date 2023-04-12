@@ -2,7 +2,7 @@ package com.automatedworkspace.inventorymanagement.ui;
 
 import com.automatedworkspace.inventorymanagement.statistics.Config;
 import com.automatedworkspace.inventorymanagement.statistics.ConfigManager;
-import com.automatedworkspace.inventorymanagement.ui.AddItem.AddItemForm;
+import com.automatedworkspace.inventorymanagement.statistics.InventoryStatistics;
 import com.automatedworkspace.inventorymanagement.ui.AddItem.SelectionAddForm;
 import com.automatedworkspace.inventorymanagement.ui.DeleteItem.SelectionDeleteForm;
 import com.automatedworkspace.inventorymanagement.ui.Nomenclature.AddToExistingForm;
@@ -22,11 +22,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Enumeration;
 import java.util.List;
 
 import static com.automatedworkspace.inventorymanagement.ui.AddItem.AddItemForm.EXEL_FILE_PATH;
-import static javax.swing.ButtonGroup.*;
 
 public class InventoryManagementUI extends JDialog{
 	private JPanel MainPanel;
@@ -50,7 +48,7 @@ public class InventoryManagementUI extends JDialog{
 	private JPanel ProductSearchPanel;
 	private JPanel ButtonsPanel;
 	private JToolBar toolBar;
-
+	private JButton statisticsButton;
 
 
 	public InventoryManagementUI(JFrame parent){
@@ -107,7 +105,13 @@ public class InventoryManagementUI extends JDialog{
 				new WriteOffFromExistingForm(null);
 			}
 		});
-
+		statisticsButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				new InventoryStatistics(null);
+			}
+		});
 		findButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
