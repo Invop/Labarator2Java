@@ -142,6 +142,8 @@ public class InventoryStatistics extends JDialog {
 
 	private void populateTable(Object[][] data) {
 		DefaultTableModel model = new DefaultTableModel(data, new Object[]{"Item", "Size", "Date", "Group", "Supplier"});
+
+		table.setModel(model);
 		for (int i = model.getRowCount() - 1; i >= 0; i--) {
 			boolean isEmpty = true;
 			for (int j = 0; j < model.getColumnCount(); j++) {
@@ -154,11 +156,7 @@ public class InventoryStatistics extends JDialog {
 				model.removeRow(i);
 			}
 		}
-		table.setModel(model);
-		table.getColumnModel().getColumn(0).setPreferredWidth(100);
-		for (int i = 1; i < 5; i++) {
-			table.getColumnModel().getColumn(i).setPreferredWidth(100);
-		}
+
 
 	}
 
@@ -187,8 +185,9 @@ public class InventoryStatistics extends JDialog {
 		int rows = config.getDeliveriesOut().size();
 		int indx = comboBoxGroupSupplier.getSelectedIndex();
 		Object[][] dataIn = showStatGroupIn();
-
+		System.out.println(indx);
 		Object[][] data = new Object[rows][5];
+
 		for (int i = 0; i < rows; i++) {
 			if (config.getDeliveriesOut().get(i).getGroupIndex() == indx) {
 				data[i][0] = config.getDeliveriesOut().get(i).getName();
@@ -197,11 +196,14 @@ public class InventoryStatistics extends JDialog {
 				data[i][3] = configMain.getGroupList().get(config.getDeliveriesOut().get(i).getGroupIndex());
 				data[i][4] = configMain.getSupplierList().get(config.getDeliveriesOut().get(i).getSupplierIndex());
 			}
-		}
 
-		Object[][] updatedData = new Object[dataIn.length + 1][5];
+
+		}
+		Object[][] updatedData = new Object[dataIn.length + rows][5];
 		System.arraycopy(dataIn, 0, updatedData, 0, dataIn.length);
-		updatedData[dataIn.length] = data[0];
+		for (int i = 0; i < data.length; i++) {
+			updatedData[dataIn.length + i] = data[i];
+		}
 		populateTable(updatedData);
 	}
 
@@ -240,13 +242,13 @@ public class InventoryStatistics extends JDialog {
 				data[i][3] = configMain.getGroupList().get(config.getDeliveriesOut().get(i).getGroupIndex());
 				data[i][4] = configMain.getSupplierList().get(config.getDeliveriesOut().get(i).getSupplierIndex());
 			}
-
-			Object[][] updatedData = new Object[dataIn.length + 1][5];
-			System.arraycopy(dataIn, 0, updatedData, 0, dataIn.length);
-			updatedData[dataIn.length] = data[0];
-			populateTable(updatedData);
 		}
-
+		Object[][] updatedData = new Object[dataIn.length + rows][5];
+		System.arraycopy(dataIn, 0, updatedData, 0, dataIn.length);
+		for (int i = 0; i < data.length; i++) {
+			updatedData[dataIn.length + i] = data[i];
+		}
+		populateTable(updatedData);
 	}
 
 	private Object[][] showAllStatIN() throws IOException {
@@ -273,6 +275,7 @@ public class InventoryStatistics extends JDialog {
 
 		Object[][] data = new Object[rows][5];
 		for (int i = 0; i < rows; i++) {
+			System.out.println(1);
 			data[i][0] = config.getDeliveriesOut().get(i).getName();
 			data[i][1] = "-" + config.getDeliveriesOut().get(i).getSize();
 			data[i][2] = config.getDeliveriesOut().get(i).getDate();
@@ -280,9 +283,11 @@ public class InventoryStatistics extends JDialog {
 			data[i][4] = configMain.getSupplierList().get(config.getDeliveriesOut().get(i).getSupplierIndex());
 		}
 
-		Object[][] updatedData = new Object[dataIn.length + 1][5];
+		Object[][] updatedData = new Object[dataIn.length + rows][5];
 		System.arraycopy(dataIn, 0, updatedData, 0, dataIn.length);
-		updatedData[dataIn.length] = data[0];
+		for (int i = 0; i < data.length; i++) {
+			updatedData[dataIn.length + i] = data[i];
+		}
 		populateTable(updatedData);
 	}
 
