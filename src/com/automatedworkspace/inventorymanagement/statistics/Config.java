@@ -1,7 +1,5 @@
 package com.automatedworkspace.inventorymanagement.statistics;
 
-import com.automatedworkspace.inventorymanagement.ui.Nomenclature.Delivery;
-
 import java.util.ArrayList;
 import java.util.List;
 

@@ -14,8 +14,6 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.PlainDocument;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
@@ -26,7 +24,7 @@ import java.util.List;
 
 import static com.automatedworkspace.inventorymanagement.ui.AddItem.AddItemForm.EXEL_FILE_PATH;
 
-public class InventoryManagementUI extends JDialog{
+public class InventoryManagementUI extends JDialog {
 	private JPanel MainPanel;
 	private JTable table;
 	private JButton addButton;
@@ -51,7 +49,7 @@ public class InventoryManagementUI extends JDialog{
 	private JButton statisticsButton;
 
 
-	public InventoryManagementUI(JFrame parent){
+	public InventoryManagementUI(JFrame parent) {
 		super(parent);
 		setVisible(true);
 		setSize(1280, 720);
@@ -70,83 +68,64 @@ public class InventoryManagementUI extends JDialog{
 		});
 
 	}
-	private void btnListeners(){
-		addButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				dispose();
-				new SelectionAddForm(null);
-			}
-		});
-		editButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
 
-			}
+	private void btnListeners() {
+		addButton.addActionListener(e -> {
+			dispose();
+			new SelectionAddForm(null);
 		});
-		deleteButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				dispose();
-				new SelectionDeleteForm(null);
-			}
-		});
-		importButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				dispose();
-				new AddToExistingForm(null);
-			}
-		});
-		exportButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				dispose();
-				new WriteOffFromExistingForm(null);
-			}
-		});
-		statisticsButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				dispose();
-				new InventoryStatistics(null);
-			}
-		});
-		findButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if(byNameRadioButton.isSelected()) {
-					displayInfoInTableNameID(true);
-					System.gc();
-				}
-				if(byIdRadioButton.isSelected()) {
-					displayInfoInTableNameID(false);
-					System.gc();
-				}
-				if(byPriceFromToRadioButton.isSelected()) {
-					displayInfoInTablePrice();
-					System.gc();
-				}
-				if(byGroupRadioButton.isSelected()){
-					try {
-						displayInfoInTableGroupSupplier(true);
+		editButton.addActionListener(e -> {
 
-					} catch (IOException ex) {
-						throw new RuntimeException(ex);
-					}
-					System.gc();
+		});
+		deleteButton.addActionListener(e -> {
+			dispose();
+			new SelectionDeleteForm(null);
+		});
+		importButton.addActionListener(e -> {
+			dispose();
+			new AddToExistingForm(null);
+		});
+		exportButton.addActionListener(e -> {
+			dispose();
+			new WriteOffFromExistingForm(null);
+		});
+		statisticsButton.addActionListener(e -> {
+			dispose();
+			new InventoryStatistics(null);
+		});
+		findButton.addActionListener(e -> {
+			if (byNameRadioButton.isSelected()) {
+				displayInfoInTableNameID(true);
+				System.gc();
+			}
+			if (byIdRadioButton.isSelected()) {
+				displayInfoInTableNameID(false);
+				System.gc();
+			}
+			if (byPriceFromToRadioButton.isSelected()) {
+				displayInfoInTablePrice();
+				System.gc();
+			}
+			if (byGroupRadioButton.isSelected()) {
+				try {
+					displayInfoInTableGroupSupplier(true);
+
+				} catch (IOException ex) {
+					throw new RuntimeException(ex);
 				}
-				if(bySupplierRadioButton.isSelected()){
-					try {
-						displayInfoInTableGroupSupplier(false);
-					} catch (IOException ex) {
-						throw new RuntimeException(ex);
-					}
-					System.gc();
+				System.gc();
+			}
+			if (bySupplierRadioButton.isSelected()) {
+				try {
+					displayInfoInTableGroupSupplier(false);
+				} catch (IOException ex) {
+					throw new RuntimeException(ex);
 				}
+				System.gc();
 			}
 		});
 	}
+
 	private void radioListeners() {
 		byIdRadioButton.addActionListener(e -> onRadioSelected(byIdRadioButton));
 		byNameRadioButton.addActionListener(e -> onRadioSelected(byNameRadioButton));
@@ -154,6 +133,7 @@ public class InventoryManagementUI extends JDialog{
 		byPriceFromToRadioButton.addActionListener(e -> onRadioSelected(byPriceFromToRadioButton));
 		bySupplierRadioButton.addActionListener(e -> onRadioSelected(bySupplierRadioButton));
 	}
+
 	private void onRadioSelected(JRadioButton selectedRadioButton) {
 		List<JRadioButton> radioButtons = Arrays.asList(byIdRadioButton, byNameRadioButton, byGroupRadioButton, byPriceFromToRadioButton, bySupplierRadioButton);
 		radioButtons.stream().filter(r -> !r.equals(selectedRadioButton)).forEach(r -> r.setSelected(false));
@@ -164,23 +144,27 @@ public class InventoryManagementUI extends JDialog{
 			showPriceFields();
 		} else if (selectedRadioButton.equals(byGroupRadioButton) || selectedRadioButton.equals(bySupplierRadioButton)) {
 			comboBoxGroupSupplier.removeAllItems();
-			Config config = null;
+			Config config;
 			try {
 				config = ConfigManager.readConfig();
 			} catch (IOException e) {
 				throw new RuntimeException(e);
 			}
 			showSupplierOrGroupFields();
-			if(selectedRadioButton.equals(byGroupRadioButton)){
+			if (selectedRadioButton.equals(byGroupRadioButton)) {
 				List<String> groupList = config.getGroupList();
-				for (String group :groupList){comboBoxGroupSupplier.addItem(group);	}
-			}
-			else{
+				for (String group : groupList) {
+					comboBoxGroupSupplier.addItem(group);
+				}
+			} else {
 				List<String> supplierList = config.getSupplierList();
-				for (String supp : supplierList) {comboBoxGroupSupplier.addItem(supp);}
+				for (String supp : supplierList) {
+					comboBoxGroupSupplier.addItem(supp);
+				}
 			}
 		}
 	}
+
 	private void showNameOrIdFields() {
 		textFieldNameId.setEnabled(true);
 		textFieldNameId.setVisible(true);
@@ -194,6 +178,7 @@ public class InventoryManagementUI extends JDialog{
 		toolBar.repaint();
 
 	}
+
 	private void showPriceFields() {
 		textFieldNameId.setEnabled(false);
 		textFieldNameId.setVisible(false);
@@ -206,6 +191,7 @@ public class InventoryManagementUI extends JDialog{
 		toolBar.revalidate();
 		toolBar.repaint();
 	}
+
 	private void showSupplierOrGroupFields() {
 		textFieldNameId.setEnabled(false);
 		textFieldNameId.setVisible(false);
@@ -216,6 +202,7 @@ public class InventoryManagementUI extends JDialog{
 		comboBoxGroupSupplier.setEnabled(true);
 		comboBoxGroupSupplier.setVisible(true);
 	}
+
 	private void populateTable(Object[][] data) {
 		DefaultTableModel model = new DefaultTableModel(data, new Object[]{"Column 1", "Column 2", "Column 3", "Column 4", "Column 5", "Column 6", "Column 7", "Column 8", "Column 9", "Column 10", "Column 11", "Column 12"});
 		table.setModel(model);
@@ -224,6 +211,7 @@ public class InventoryManagementUI extends JDialog{
 			table.getColumnModel().getColumn(i).setPreferredWidth(50);
 		}
 	}
+
 	private Object[][] getDataFromRowThree() {
 		try (Workbook workbook = WorkbookFactory.create(new File(EXEL_FILE_PATH))) {
 			Sheet sheet = workbook.getSheetAt(0);
@@ -246,16 +234,16 @@ public class InventoryManagementUI extends JDialog{
 			return new Object[0][0];
 		}
 	}
+
 	private void displayInfoInTableNameID(boolean isName) {
 		Object[][] dataFromRowThree = getDataFromRowThree();
 		String name = textFieldNameId.getText().trim();
 		if (name.isEmpty()) {
-			if(isName) {
-				JOptionPane.showMessageDialog(this, "Please enter a name to search","Error",JOptionPane.ERROR_MESSAGE);
+			if (isName) {
+				JOptionPane.showMessageDialog(this, "Please enter a name to search", "Error", JOptionPane.ERROR_MESSAGE);
 				return;
-			}
-			else{
-				JOptionPane.showMessageDialog(this, "Please enter an ID to search","Error",JOptionPane.ERROR_MESSAGE);
+			} else {
+				JOptionPane.showMessageDialog(this, "Please enter an ID to search", "Error", JOptionPane.ERROR_MESSAGE);
 				return;
 			}
 		}
@@ -263,7 +251,7 @@ public class InventoryManagementUI extends JDialog{
 		try (Workbook workbook = WorkbookFactory.create(new File(EXEL_FILE_PATH))) {
 			Sheet sheet = workbook.getSheetAt(0);
 			int rowIdx = -1;
-			if(isName) {
+			if (isName) {
 				for (Row row : sheet) {
 					if (row.getRowNum() >= 3 && row.getCell(3) != null && row.getCell(3).getStringCellValue().equalsIgnoreCase(name)) {
 						rowIdx = row.getRowNum();
@@ -271,12 +259,11 @@ public class InventoryManagementUI extends JDialog{
 					}
 				}
 				if (rowIdx < 0) {
-					JOptionPane.showMessageDialog(this, "Name not found","Error",JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(this, "Name not found", "Error", JOptionPane.ERROR_MESSAGE);
 					textFieldNameId.setText("");
 					return;
 				}
-			}
-			else{
+			} else {
 				for (Row row : sheet) {
 					if (row.getRowNum() >= 3 && row.getCell(2) != null && row.getCell(2).getStringCellValue().equalsIgnoreCase(name)) {
 						rowIdx = row.getRowNum();
@@ -293,19 +280,16 @@ public class InventoryManagementUI extends JDialog{
 			Row row = sheet.getRow(rowIdx);
 			for (int i = 0; i < 12; i++) {
 				Cell cell = row.getCell(i + 1);
-				if(i==0){
-					if(row.getCell(6).getNumericCellValue()>=row.getCell(8).getNumericCellValue() || row.getCell(12).getStringCellValue().equals("Так")){
-						searchData[0][i]="False";
-					}
-					else searchData[0][i]="True";
-				}
-				else if (i == 6) {
+				if (i == 0) {
+					if (row.getCell(6).getNumericCellValue() >= row.getCell(8).getNumericCellValue() || row.getCell(12).getStringCellValue().equals("Так")) {
+						searchData[0][i] = "False";
+					} else searchData[0][i] = "True";
+				} else if (i == 6) {
 					double product = row.getCell(5).getNumericCellValue() * row.getCell(6).getNumericCellValue();
 					searchData[0][i] = product;
-				}
-				else if (cell.getCellType() == CellType.NUMERIC) {
+				} else if (cell.getCellType() == CellType.NUMERIC) {
 					searchData[0][i] = (int) cell.getNumericCellValue();
-				} else if(cell.getCellType() == CellType.STRING){
+				} else if (cell.getCellType() == CellType.STRING) {
 					searchData[0][i] = cell.getStringCellValue();
 				}
 			}
@@ -317,12 +301,13 @@ public class InventoryManagementUI extends JDialog{
 
 			populateTable(updatedData);
 		} catch (IOException e) {
-			JOptionPane.showMessageDialog(this, "Failed to read Excel file: " + e.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(this, "Failed to read Excel file: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 		}
 	}
+
 	private void displayInfoInTablePrice() {
 		Object[][] dataFromRowThree = getDataFromRowThree();
-		int from=0, to=0;
+		int from = 0, to = 0;
 
 		if (fromField.getText().isEmpty() || toField.getText().isEmpty()) {
 			// Display an error message to the user
@@ -346,17 +331,14 @@ public class InventoryManagementUI extends JDialog{
 							for (int i = 0; i < 12; i++) {
 
 								Cell cell = row.getCell(i + 1);
-								if(i==0){
-									if(row.getCell(6).getNumericCellValue()>=row.getCell(8).getNumericCellValue() || row.getCell(12).getStringCellValue().equals("Так")){
-										rowData[i]="False";
-									}
-									else 	rowData[i]="True";
-								}
-								else if (i == 6) {
+								if (i == 0) {
+									if (row.getCell(6).getNumericCellValue() >= row.getCell(8).getNumericCellValue() || row.getCell(12).getStringCellValue().equals("Так")) {
+										rowData[i] = "False";
+									} else rowData[i] = "True";
+								} else if (i == 6) {
 									double product = row.getCell(5).getNumericCellValue() * row.getCell(6).getNumericCellValue();
 									rowData[i] = product;
-								}
-								else if (cell.getCellType() == CellType.FORMULA) {
+								} else if (cell.getCellType() == CellType.FORMULA) {
 									rowData[i] = cell.getCellFormula();
 								} else if (cell.getCellType() == CellType.NUMERIC) {
 									rowData[i] = (int) cell.getNumericCellValue();
@@ -382,6 +364,7 @@ public class InventoryManagementUI extends JDialog{
 		}
 		populateTable(data);
 	}
+
 	private void displayInfoInTableGroupSupplier(boolean isGroup) throws IOException {
 		Object[][] dataFromRowThree = getDataFromRowThree();
 		List<Object[]> matchingRows = new ArrayList<>();
@@ -390,29 +373,25 @@ public class InventoryManagementUI extends JDialog{
 			for (Row row : sheet) {
 				if (row.getRowNum() >= 3) {
 					Cell cellSG;
-					if(!isGroup) {
+					if (!isGroup) {
 						cellSG = row.getCell(4);
-					}
-					else {
+					} else {
 						cellSG = row.getCell(12);
 					}
 					if (cellSG != null && cellSG.getCellType() == CellType.STRING) {
 						String name = cellSG.getStringCellValue();
-						if(name.equals(comboBoxGroupSupplier.getSelectedItem()))
-						{   Object[] rowData = new Object[12];
+						if (name.equals(comboBoxGroupSupplier.getSelectedItem())) {
+							Object[] rowData = new Object[12];
 							for (int i = 0; i < 12; i++) {
 								Cell cell = row.getCell(i + 1);
-								if(i==0){
-									if(row.getCell(6).getNumericCellValue()>=row.getCell(8).getNumericCellValue() || row.getCell(12).getStringCellValue().equals("Так")){
-										rowData[i]="False";
-									}
-									else rowData[i]="True";
-								}
-								else if (i == 6) {
+								if (i == 0) {
+									if (row.getCell(6).getNumericCellValue() >= row.getCell(8).getNumericCellValue() || row.getCell(12).getStringCellValue().equals("Так")) {
+										rowData[i] = "False";
+									} else rowData[i] = "True";
+								} else if (i == 6) {
 									double product = row.getCell(5).getNumericCellValue() * row.getCell(6).getNumericCellValue();
 									rowData[i] = product;
-								}
-								else if (cell.getCellType() == CellType.FORMULA) {
+								} else if (cell.getCellType() == CellType.FORMULA) {
 									rowData[i] = cell.getCellFormula();
 								} else if (cell.getCellType() == CellType.NUMERIC) {
 									rowData[i] = (int) cell.getNumericCellValue();
@@ -434,6 +413,7 @@ public class InventoryManagementUI extends JDialog{
 		populateTable(data);
 
 	}
+
 	//sub classes
 	private static class NumericFilter extends PlainDocument {
 		@Override
@@ -452,6 +432,7 @@ public class InventoryManagementUI extends JDialog{
 			super.insertString(offs, sb.toString(), a);
 		}
 	}
+
 	private void FieldsThatOnlyHandleNumbers() {
 		fromField.setDocument(new NumericFilter());
 		toField.setDocument(new NumericFilter());

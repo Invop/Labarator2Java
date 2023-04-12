@@ -6,19 +6,17 @@ import com.automatedworkspace.inventorymanagement.statistics.ConfigManager;
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.util.List;
 
-public class AddSupplierForm extends JDialog{
-    private JPanel AddSupplierPanel;
+public class AddSupplierForm extends JDialog {
+	private JPanel AddSupplierPanel;
 	private JLabel NameSupplierLabel;
-    private JTextField NameSupplierField;
-    private JButton CancelAddSupplierButton;
-    private JButton OKAddSupplierButton;
+	private JTextField NameSupplierField;
+	private JButton CancelAddSupplierButton;
+	private JButton OKAddSupplierButton;
 
 	public AddSupplierForm(JFrame parent) {
 		super(parent);
@@ -53,21 +51,17 @@ public class AddSupplierForm extends JDialog{
 		// add document listener to each text field
 		NameSupplierField.getDocument().addDocumentListener(documentListener);
 
-		OKAddSupplierButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// remove document listener from each text field
-				NameSupplierField.getDocument().removeDocumentListener(documentListener);
+		OKAddSupplierButton.addActionListener(e -> {
+			// remove document listener from each text field
+			NameSupplierField.getDocument().removeDocumentListener(documentListener);
 
-			}
 		});
 	}
+
 	private void checkFields() {
-		if (NameSupplierField.getText().isEmpty()){
-			OKAddSupplierButton.setEnabled(false);
-		}
-		else OKAddSupplierButton.setEnabled(true);
+		OKAddSupplierButton.setEnabled(!NameSupplierField.getText().isEmpty());
 	}
+
 	private void addSupplierToConfig(String newSupplier) throws IOException {
 		// Read the config file
 		Config config = ConfigManager.readConfig();
@@ -89,6 +83,7 @@ public class AddSupplierForm extends JDialog{
 		// Write the updated config file
 		ConfigManager.writeConfig(config);
 	}
+
 	private void CloseApp() {
 		addWindowListener(new WindowAdapter() {
 			@Override
@@ -98,7 +93,8 @@ public class AddSupplierForm extends JDialog{
 			}
 		});
 	}
-	private void IfOkPressed(){
+
+	private void IfOkPressed() {
 		OKAddSupplierButton.addActionListener(e -> {
 			try {
 				addSupplierToConfig(NameSupplierField.getText());
@@ -109,6 +105,7 @@ public class AddSupplierForm extends JDialog{
 			new SelectionAddForm(null);
 		});
 	}
+
 	private void IfCancelPressed() {
 		CancelAddSupplierButton.addActionListener(e -> {
 			dispose();

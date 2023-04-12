@@ -1,8 +1,9 @@
 package com.automatedworkspace.inventorymanagement.statistics;
-import java.io.*;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
+import java.io.*;
 
 public class ConfigManager {
 
@@ -25,7 +26,7 @@ public class ConfigManager {
 		}
 	}
 
-	public static void writeInOut(DeliveryConfig config) throws IOException{
+	public static void writeInOut(DeliveryConfig config) throws IOException {
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		try (Writer writer = new FileWriter(JSON_IN_OUT_FILE_PATH)) {
 			gson.toJson(config, writer);

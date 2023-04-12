@@ -1,4 +1,5 @@
 package com.automatedworkspace.inventorymanagement.ui.Nomenclature;
+
 import java.util.Date;
 
 public class Delivery {
@@ -8,7 +9,8 @@ public class Delivery {
 
 	private int groupIndex;
 	private int supplierIndex;
-	public Delivery(String name, int size, Date date,int groupIndex,int supplierIndex) {
+
+	public Delivery(String name, int size, Date date, int groupIndex, int supplierIndex) {
 		this.name = name;
 		this.size = size;
 		this.date = date;

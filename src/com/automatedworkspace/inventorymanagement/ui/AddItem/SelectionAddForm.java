@@ -6,7 +6,7 @@ import javax.swing.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-public class SelectionAddForm extends JDialog{
+public class SelectionAddForm extends JDialog {
 	private JButton homeBtn;
 	private JPanel SelectionAddPanel;
 	private JButton addGroupBtn;
@@ -25,24 +25,28 @@ public class SelectionAddForm extends JDialog{
 		IfhomeBtnPressed();
 		CloseApp();
 	}
-	private void IfAddItemBtnPressed(){
+
+	private void IfAddItemBtnPressed() {
 		addItemBtn.addActionListener(e -> {
 			dispose();
 			new AddItemForm(null);
 		});
 	}
+
 	private void IfAddSupplierBtnPressed() {
 		addSupplierBtn.addActionListener(e -> {
 			dispose();
 			new AddSupplierForm(null);
 		});
 	}
+
 	private void IfAddGroupBtnPressed() {
 		addGroupBtn.addActionListener(e -> {
 			dispose();
 			new AddGroupForm(null);
 		});
 	}
+
 	private void CloseApp() {
 		addWindowListener(new WindowAdapter() {
 			@Override
@@ -52,6 +56,7 @@ public class SelectionAddForm extends JDialog{
 			}
 		});
 	}
+
 	private void IfhomeBtnPressed() {
 		homeBtn.addActionListener(e -> {
 			dispose();

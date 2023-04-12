@@ -2,6 +2,7 @@ package com.automatedworkspace.inventorymanagement.ui.AddItem;
 
 import com.automatedworkspace.inventorymanagement.statistics.Config;
 import com.automatedworkspace.inventorymanagement.statistics.ConfigManager;
+import org.apache.poi.ss.usermodel.*;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -10,14 +11,12 @@ import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.PlainDocument;
 import java.awt.Color;
-import java.awt.event.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-
 import java.util.List;
-
-import org.apache.poi.ss.usermodel.*;
 
 
 public class AddItemForm extends JDialog {
@@ -49,15 +48,17 @@ public class AddItemForm extends JDialog {
 	 */
 	public AddItemForm(JFrame parent) {
 		super(parent);
-		setSize(500,450);
+		setSize(500, 450);
 		setVisible(true);
 		setContentPane(CreateFormBrand);
 		setLocationRelativeTo(parent);
 		try {
 			AddSuppliersToComboBox();
 			AddGroupsToComboBox();
-			if(AddGroupBox.getItemCount()==0 || AddSupplierBox.getItemCount()==0){dispose();
-				new SelectionAddForm(null);}
+			if (AddGroupBox.getItemCount() == 0 || AddSupplierBox.getItemCount() == 0) {
+				dispose();
+				new SelectionAddForm(null);
+			}
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
@@ -68,6 +69,7 @@ public class AddItemForm extends JDialog {
 		IfCancelPressed();
 		CloseApp();
 	}
+
 	private void AddGroupsToComboBox() throws IOException {
 		// Read the config file
 		Config config = ConfigManager.readConfig();
@@ -84,6 +86,7 @@ public class AddItemForm extends JDialog {
 			}
 		}
 	}
+
 	private void AddSuppliersToComboBox() throws IOException {
 		// Read the config file
 		Config config = ConfigManager.readConfig();
@@ -100,11 +103,13 @@ public class AddItemForm extends JDialog {
 			}
 		}
 	}
+
 	private void FieldsThatOnlyHandleNumbers() {
 		AddPriceField.setDocument(new NumericFilter());
 		AddLimitField.setDocument(new NumericFilter());
 		IntervalField.setDocument(new NumericFilter());
 	}
+
 	private void Listener() {
 		// create document listener
 		DocumentListener documentListener = new DocumentListener() {
@@ -136,18 +141,16 @@ public class AddItemForm extends JDialog {
 		AddGroupBox.addActionListener((e) -> checkFields());
 
 		// add action listener to the "OK" button to clear the memory from the listener
-		OkButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// remove document listener from each text field
-				AddIDField.getDocument().removeDocumentListener(documentListener);
-				AddNameField.getDocument().removeDocumentListener(documentListener);
-				AddPriceField.getDocument().removeDocumentListener(documentListener);
-				AddLimitField.getDocument().removeDocumentListener(documentListener);
-				IntervalField.getDocument().removeDocumentListener(documentListener);
-			}
+		OkButton.addActionListener(e -> {
+			// remove document listener from each text field
+			AddIDField.getDocument().removeDocumentListener(documentListener);
+			AddNameField.getDocument().removeDocumentListener(documentListener);
+			AddPriceField.getDocument().removeDocumentListener(documentListener);
+			AddLimitField.getDocument().removeDocumentListener(documentListener);
+			IntervalField.getDocument().removeDocumentListener(documentListener);
 		});
 	}
+
 	private void checkFields() {
 		if (AddIDField.getText().isEmpty() || AddNameField.getText().isEmpty() ||
 				AddPriceField.getText().isEmpty() || AddLimitField.getText().isEmpty() || IntervalField.getText().isEmpty()) {
@@ -157,6 +160,7 @@ public class AddItemForm extends JDialog {
 			OkButton.setEnabled(true);
 		}
 	}
+
 	private void CloseApp() {
 		addWindowListener(new WindowAdapter() {
 			@Override
@@ -166,7 +170,8 @@ public class AddItemForm extends JDialog {
 			}
 		});
 	}
-	private void IfOkPressed(){
+
+	private void IfOkPressed() {
 		OkButton.addActionListener(e -> {
 			try {
 				addRowToExcelTable();
@@ -177,6 +182,7 @@ public class AddItemForm extends JDialog {
 			new SelectionAddForm(null);
 		});
 	}
+
 	private void IfCancelPressed() {
 		CancelButton.addActionListener(e -> {
 			dispose();
@@ -184,6 +190,7 @@ public class AddItemForm extends JDialog {
 		});
 
 	}
+
 	private void addRowToExcelTable() throws IOException {
 		// Get the current not null rows from the config file
 		Config config = ConfigManager.readConfig();
@@ -196,7 +203,7 @@ public class AddItemForm extends JDialog {
 
 
 		// Check if the table is empty
-		if ( sheet.getRow(3).getCell(2).getStringCellValue().isEmpty()) {
+		if (sheet.getRow(3).getCell(2).getStringCellValue().isEmpty()) {
 			// Table is empty, set notNullRows to 3
 			notNullRows = 3;
 		}
@@ -239,21 +246,21 @@ public class AddItemForm extends JDialog {
 		if (cell == null) {
 			cell = newRow.createCell(5);
 		}
-		cell.setCellValue(Integer.valueOf(AddPriceField.getText()));
+		cell.setCellValue(Integer.parseInt(AddPriceField.getText()));
 
 		cell = newRow.getCell(8);
 		if (cell == null) {
 			cell = newRow.createCell(8);
 		}
 		addLimitToConfig(Integer.valueOf(AddLimitField.getText()));
-		cell.setCellValue(Integer.valueOf(AddLimitField.getText()));
+		cell.setCellValue(Integer.parseInt(AddLimitField.getText()));
 
 		cell = newRow.getCell(9);
 		if (cell == null) {
 			cell = newRow.createCell(9);
 		}
 		addIntervalToConfig(Integer.valueOf(IntervalField.getText()));
-		cell.setCellValue(Integer.valueOf(IntervalField.getText()));
+		cell.setCellValue(Integer.parseInt(IntervalField.getText()));
 
 		cell = newRow.getCell(12);
 		if (cell == null) {
@@ -267,6 +274,7 @@ public class AddItemForm extends JDialog {
 		out.close();
 		workbook.close();
 	}
+
 	private void addNameToConfig(String newName) throws IOException {
 		// Read the config file
 		Config config = ConfigManager.readConfig();
@@ -288,6 +296,7 @@ public class AddItemForm extends JDialog {
 		// Write the updated config file
 		ConfigManager.writeConfig(config);
 	}
+
 	private void addIDToConfig(String newID) throws IOException {
 		// Read the config file
 		Config config = ConfigManager.readConfig();
@@ -308,6 +317,7 @@ public class AddItemForm extends JDialog {
 		// Write the updated config file
 		ConfigManager.writeConfig(config);
 	}
+
 	private void addLimitToConfig(Integer newLimit) throws IOException {
 		// Read the config file
 		Config config = ConfigManager.readConfig();
@@ -319,6 +329,7 @@ public class AddItemForm extends JDialog {
 		config.setLimitList(LimitList);
 		ConfigManager.writeConfig(config);
 	}
+
 	private void addIntervalToConfig(Integer newInterval) throws IOException {
 		// Read the config file
 		Config config = ConfigManager.readConfig();
@@ -330,7 +341,8 @@ public class AddItemForm extends JDialog {
 		config.setIntervalList(IntervalList);
 		ConfigManager.writeConfig(config);
 	}
-	private void addItemGroupToConfig(int newGroup)throws IOException{
+
+	private void addItemGroupToConfig(int newGroup) throws IOException {
 		// Read the config file
 		Config config = ConfigManager.readConfig();
 
@@ -341,13 +353,14 @@ public class AddItemForm extends JDialog {
 		config.setItemGroupList(itemGroupList);
 		ConfigManager.writeConfig(config);
 	}
+
 	private void addSupplierStatusToConfig(int newSupplier) throws IOException {
-			// Read the config file
-			Config config = ConfigManager.readConfig();
-			List<Integer> supplierList = config.getItemSupplierList();
-			supplierList.add(newSupplier);
-			config.setItemSupplierList(supplierList);
-			ConfigManager.writeConfig(config);
+		// Read the config file
+		Config config = ConfigManager.readConfig();
+		List<Integer> supplierList = config.getItemSupplierList();
+		supplierList.add(newSupplier);
+		config.setItemSupplierList(supplierList);
+		ConfigManager.writeConfig(config);
 	}
 
 	//sub classes

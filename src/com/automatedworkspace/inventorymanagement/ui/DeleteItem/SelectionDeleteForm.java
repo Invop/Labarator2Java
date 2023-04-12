@@ -1,15 +1,12 @@
 package com.automatedworkspace.inventorymanagement.ui.DeleteItem;
 
-import com.automatedworkspace.inventorymanagement.ui.AddItem.AddGroupForm;
-import com.automatedworkspace.inventorymanagement.ui.AddItem.AddItemForm;
-import com.automatedworkspace.inventorymanagement.ui.AddItem.AddSupplierForm;
 import com.automatedworkspace.inventorymanagement.ui.InventoryManagementUI;
 
 import javax.swing.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-public class SelectionDeleteForm extends JDialog{
+public class SelectionDeleteForm extends JDialog {
 	private JPanel SelectionDeletePanel;
 	private JButton DeleteItemButton;
 	private JButton DeleteGroupButton;
@@ -29,24 +26,28 @@ public class SelectionDeleteForm extends JDialog{
 		IfhomeBtnPressed();
 		CloseApp();
 	}
-	private void IfDeleteItemButton(){
+
+	private void IfDeleteItemButton() {
 		DeleteItemButton.addActionListener(e -> {
 			dispose();
 			new DeleteItemForm(null);
 		});
 	}
+
 	private void IfDeleteGroupButton() {
 		DeleteGroupButton.addActionListener(e -> {
 			dispose();
 			new DeleteGroupForm(null);
 		});
 	}
+
 	private void IfDeleteSupplierButton() {
 		DeleteSupplierButton.addActionListener(e -> {
 			dispose();
 			new DeleteSupplierForm(null);
 		});
 	}
+
 	private void CloseApp() {
 		addWindowListener(new WindowAdapter() {
 			@Override
@@ -56,6 +57,7 @@ public class SelectionDeleteForm extends JDialog{
 			}
 		});
 	}
+
 	private void IfhomeBtnPressed() {
 		HomeButton.addActionListener(e -> {
 			dispose();
