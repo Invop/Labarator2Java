@@ -134,7 +134,7 @@ public class WriteOffFromExistingForm extends JDialog{
 			} catch (IOException ex) {
 				throw new RuntimeException(ex);
 			}
-			if(OKButton.isEnabled()&&NumberField.getText()!=null)dispose();
+			if(OKButton.isEnabled()&&NumberField.getText()!=null)dispose();new InventoryManagementUI(null);
 		});
 	}
 	private void IfCancelPressed() {

@@ -102,7 +102,7 @@ public class AddToExistingForm extends JDialog{
                 throw new RuntimeException(ex);
             }
 
-            if(OKButton.isEnabled()&&NumberField.getText()!=null)dispose();
+            if(OKButton.isEnabled()&&NumberField.getText()!=null)dispose();new InventoryManagementUI(null);
         });
     }
     private void IfCancelPressed() {

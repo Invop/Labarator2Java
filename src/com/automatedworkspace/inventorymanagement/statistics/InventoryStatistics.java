@@ -1,6 +1,7 @@
 package com.automatedworkspace.inventorymanagement.statistics;
 
 
+import com.automatedworkspace.inventorymanagement.ui.InventoryManagementUI;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -8,14 +9,14 @@ import org.apache.poi.ss.usermodel.WorkbookFactory;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import static com.automatedworkspace.inventorymanagement.ui.AddItem.AddItemForm.EXEL_FILE_PATH;
 
@@ -41,13 +42,34 @@ public class InventoryStatistics extends JDialog {
         setContentPane(panelMain);
         setLocationRelativeTo(parent);
         radioListeners();
-        try {
-            getSum();
-            getSales();
-            getPurchases();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+
+        ExecutorService executorService = Executors.newCachedThreadPool();
+        executorService.submit(() -> {
+            try {
+                getSales();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+        executorService.submit(() -> {
+            try {
+                getPurchases();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+        executorService.submit(() -> {
+            try {
+                getSum();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+        executorService.shutdown();
+        buttonHome.addActionListener(e -> {
+            dispose();
+            new InventoryManagementUI(null);
+        });
     }
 
     private void radioListeners() {
@@ -145,9 +167,7 @@ public class InventoryStatistics extends JDialog {
         Config configMain = ConfigManager.readConfig();
         int rows = config.getDeliveries().size();
         int indx = comboBoxGroupSupplier.getSelectedIndex();
-        System.out.println(rows+"gr");
         Object[][] data = null;
-        if (rows != -1) {
             data = new Object[rows][5];
             for (int i = 0; i < rows; i++) {
                 if (config.getDeliveries().get(i).getGroupIndex() == indx) {
@@ -158,7 +178,6 @@ public class InventoryStatistics extends JDialog {
                     data[i][4] = configMain.getSupplierList().get(config.getDeliveries().get(i).getSupplierIndex());
                 }
             }
-        }
         return data;
     }
     private void showGroupStatOut() throws IOException {

@@ -13,6 +13,20 @@
       "date": "Apr 21, 2023, 10:40:57 PM",
       "groupIndex": 1,
       "supplierIndex": 0
+    },
+    {
+      "name": "q1",
+      "size": 40,
+      "date": "Apr 19, 2023, 9:18:37 PM",
+      "groupIndex": 0,
+      "supplierIndex": 0
+    },
+    {
+      "name": "q3",
+      "size": 25,
+      "date": "Apr 21, 2023, 9:19:06 PM",
+      "groupIndex": 0,
+      "supplierIndex": 1
     }
   ],
   "deliveriesOut": [
