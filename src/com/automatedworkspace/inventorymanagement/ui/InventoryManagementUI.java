@@ -24,31 +24,105 @@ import java.util.List;
 
 import static com.automatedworkspace.inventorymanagement.ui.AddItem.AddItemForm.EXEL_FILE_PATH;
 
+/**
+ * The type Inventory management ui.
+ */
 public class InventoryManagementUI extends JDialog {
+	/**
+	 * The Main panel.
+	 */
 	private JPanel MainPanel;
+	/**
+	 * The Table.
+	 */
 	private JTable table;
+	/**
+	 * The Add button.
+	 */
 	private JButton addButton;
+	/**
+	 * The Edit button.
+	 */
 	private JButton editButton;
+	/**
+	 * The Delete button.
+	 */
 	private JButton deleteButton;
+	/**
+	 * The Import button.
+	 */
 	private JButton importButton;
+	/**
+	 * The Export button.
+	 */
 	private JButton exportButton;
+	/**
+	 * The Search label.
+	 */
 	private JLabel searchLabel;
+	/**
+	 * The Find button.
+	 */
 	private JButton findButton;
+	/**
+	 * The By group radio button.
+	 */
 	private JRadioButton byGroupRadioButton;
+	/**
+	 * The By name radio button.
+	 */
 	private JRadioButton byNameRadioButton;
+	/**
+	 * The By id radio button.
+	 */
 	private JRadioButton byIdRadioButton;
+	/**
+	 * The By supplier radio button.
+	 */
 	private JRadioButton bySupplierRadioButton;
+	/**
+	 * The Text field name id.
+	 */
 	private JTextField textFieldNameId;
+	/**
+	 * The Combo box group supplier.
+	 */
 	private JComboBox<String> comboBoxGroupSupplier;
+	/**
+	 * The By price from to radio button.
+	 */
 	private JRadioButton byPriceFromToRadioButton;
+	/**
+	 * The From field.
+	 */
 	private JTextField fromField;
+	/**
+	 * The To field.
+	 */
 	private JTextField toField;
+	/**
+	 * The Product search panel.
+	 */
 	private JPanel ProductSearchPanel;
+	/**
+	 * The Buttons panel.
+	 */
 	private JPanel ButtonsPanel;
+	/**
+	 * The Tool bar.
+	 */
 	private JToolBar toolBar;
+	/**
+	 * The Statistics button.
+	 */
 	private JButton statisticsButton;
 
 
+	/**
+	 * Instantiates a new Inventory management ui.
+	 *
+	 * @param parent the parent
+	 */
 	public InventoryManagementUI(JFrame parent) {
 		super(parent);
 		setVisible(true);
@@ -69,6 +143,9 @@ public class InventoryManagementUI extends JDialog {
 
 	}
 
+	/**
+	 * Btn listeners.
+	 */
 	private void btnListeners() {
 		addButton.addActionListener(e -> {
 			dispose();
@@ -126,6 +203,9 @@ public class InventoryManagementUI extends JDialog {
 		});
 	}
 
+	/**
+	 * Radio listeners.
+	 */
 	private void radioListeners() {
 		byIdRadioButton.addActionListener(e -> onRadioSelected(byIdRadioButton));
 		byNameRadioButton.addActionListener(e -> onRadioSelected(byNameRadioButton));
@@ -134,6 +214,11 @@ public class InventoryManagementUI extends JDialog {
 		bySupplierRadioButton.addActionListener(e -> onRadioSelected(bySupplierRadioButton));
 	}
 
+	/**
+	 * On radio selected.
+	 *
+	 * @param selectedRadioButton the selected radio button
+	 */
 	private void onRadioSelected(JRadioButton selectedRadioButton) {
 		List<JRadioButton> radioButtons = Arrays.asList(byIdRadioButton, byNameRadioButton, byGroupRadioButton, byPriceFromToRadioButton, bySupplierRadioButton);
 		radioButtons.stream().filter(r -> !r.equals(selectedRadioButton)).forEach(r -> r.setSelected(false));
@@ -165,6 +250,9 @@ public class InventoryManagementUI extends JDialog {
 		}
 	}
 
+	/**
+	 * Show name or id fields.
+	 */
 	private void showNameOrIdFields() {
 		textFieldNameId.setEnabled(true);
 		textFieldNameId.setVisible(true);
@@ -179,6 +267,9 @@ public class InventoryManagementUI extends JDialog {
 
 	}
 
+	/**
+	 * Show price fields.
+	 */
 	private void showPriceFields() {
 		textFieldNameId.setEnabled(false);
 		textFieldNameId.setVisible(false);
@@ -192,6 +283,9 @@ public class InventoryManagementUI extends JDialog {
 		toolBar.repaint();
 	}
 
+	/**
+	 * Show supplier or group fields.
+	 */
 	private void showSupplierOrGroupFields() {
 		textFieldNameId.setEnabled(false);
 		textFieldNameId.setVisible(false);
@@ -203,6 +297,11 @@ public class InventoryManagementUI extends JDialog {
 		comboBoxGroupSupplier.setVisible(true);
 	}
 
+	/**
+	 * Populate table.
+	 *
+	 * @param data the data
+	 */
 	private void populateTable(Object[][] data) {
 		DefaultTableModel model = new DefaultTableModel(data, new Object[]{"Column 1", "Column 2", "Column 3", "Column 4", "Column 5", "Column 6", "Column 7", "Column 8", "Column 9", "Column 10", "Column 11", "Column 12"});
 		table.setModel(model);
@@ -212,6 +311,11 @@ public class InventoryManagementUI extends JDialog {
 		}
 	}
 
+	/**
+	 * Get data from row three object [ ] [ ].
+	 *
+	 * @return the object [ ] [ ]
+	 */
 	private Object[][] getDataFromRowThree() {
 		try (Workbook workbook = WorkbookFactory.create(new File(EXEL_FILE_PATH))) {
 			Sheet sheet = workbook.getSheetAt(0);
@@ -235,6 +339,11 @@ public class InventoryManagementUI extends JDialog {
 		}
 	}
 
+	/**
+	 * Display info in table name id.
+	 *
+	 * @param isName the is name
+	 */
 	private void displayInfoInTableNameID(boolean isName) {
 		Object[][] dataFromRowThree = getDataFromRowThree();
 		String name = textFieldNameId.getText().trim();
@@ -305,6 +414,9 @@ public class InventoryManagementUI extends JDialog {
 		}
 	}
 
+	/**
+	 * Display info in table price.
+	 */
 	private void displayInfoInTablePrice() {
 		Object[][] dataFromRowThree = getDataFromRowThree();
 		int from = 0, to = 0;
@@ -365,6 +477,12 @@ public class InventoryManagementUI extends JDialog {
 		populateTable(data);
 	}
 
+	/**
+	 * Display info in table group supplier.
+	 *
+	 * @param isGroup the is group
+	 * @throws IOException the io exception
+	 */
 	private void displayInfoInTableGroupSupplier(boolean isGroup) throws IOException {
 		Object[][] dataFromRowThree = getDataFromRowThree();
 		List<Object[]> matchingRows = new ArrayList<>();
@@ -414,7 +532,10 @@ public class InventoryManagementUI extends JDialog {
 
 	}
 
-	//sub classes
+	/**
+	 * The type Numeric filter.
+	 */
+//sub classes
 	private static class NumericFilter extends PlainDocument {
 		@Override
 		public void insertString(int offs, String str, AttributeSet a) throws BadLocationException {
@@ -433,6 +554,9 @@ public class InventoryManagementUI extends JDialog {
 		}
 	}
 
+	/**
+	 * Fields that only handle numbers.
+	 */
 	private void FieldsThatOnlyHandleNumbers() {
 		fromField.setDocument(new NumericFilter());
 		toField.setDocument(new NumericFilter());

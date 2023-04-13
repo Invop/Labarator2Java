@@ -18,13 +18,36 @@ import java.util.List;
 import static com.automatedworkspace.inventorymanagement.ui.AddItem.AddItemForm.EXEL_FILE_PATH;
 
 
+/**
+ * The type Delete item form.
+ */
 public class DeleteItemForm extends JDialog {
+	/**
+	 * The Delete item panel.
+	 */
 	private JPanel DeleteItemPanel;
+	/**
+	 * The Delete item label.
+	 */
 	private JLabel DeleteItemLabel;
+	/**
+	 * The Delete item combo box.
+	 */
 	private JComboBox<String> DeleteItemComboBox;
+	/**
+	 * The Ok delete item button.
+	 */
 	private JButton OKDeleteItemButton;
+	/**
+	 * The Cancel delete item button.
+	 */
 	private JButton CancelDeleteItemButton;
 
+	/**
+	 * Instantiates a new Delete item form.
+	 *
+	 * @param parent the parent
+	 */
 	public DeleteItemForm(JFrame parent) {
 		super(parent);
 		setSize(500, 450);
@@ -41,6 +64,9 @@ public class DeleteItemForm extends JDialog {
 		CloseApp();
 	}
 
+	/**
+	 * Close app.
+	 */
 	private void CloseApp() {
 		addWindowListener(new WindowAdapter() {
 			@Override
@@ -51,6 +77,9 @@ public class DeleteItemForm extends JDialog {
 		});
 	}
 
+	/**
+	 * If ok pressed.
+	 */
 	private void IfOkPressed() {
 		OKDeleteItemButton.addActionListener(e -> {
 			try {
@@ -63,6 +92,9 @@ public class DeleteItemForm extends JDialog {
 		});
 	}
 
+	/**
+	 * If cancel pressed.
+	 */
 	private void IfCancelPressed() {
 		CancelDeleteItemButton.addActionListener(e -> {
 			dispose();
@@ -71,6 +103,11 @@ public class DeleteItemForm extends JDialog {
 
 	}
 
+	/**
+	 * Add to combo box.
+	 *
+	 * @throws IOException the io exception
+	 */
 	private void addToComboBox() throws IOException {
 		Config config = ConfigManager.readConfig();
 		List<String> nameList = config.getNamesList();
@@ -80,6 +117,11 @@ public class DeleteItemForm extends JDialog {
 		}
 	}
 
+	/**
+	 * Delete item.
+	 *
+	 * @throws IOException the io exception
+	 */
 	private void DeleteItem() throws IOException {
 
 		Config config = ConfigManager.readConfig();

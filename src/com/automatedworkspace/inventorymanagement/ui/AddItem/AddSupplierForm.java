@@ -11,13 +11,36 @@ import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * The type Add supplier form.
+ */
 public class AddSupplierForm extends JDialog {
+	/**
+	 * The Add supplier panel.
+	 */
 	private JPanel AddSupplierPanel;
+	/**
+	 * The Name supplier label.
+	 */
 	private JLabel NameSupplierLabel;
+	/**
+	 * The Name supplier field.
+	 */
 	private JTextField NameSupplierField;
+	/**
+	 * The Cancel add supplier button.
+	 */
 	private JButton CancelAddSupplierButton;
+	/**
+	 * The Ok add supplier button.
+	 */
 	private JButton OKAddSupplierButton;
 
+	/**
+	 * Instantiates a new Add supplier form.
+	 *
+	 * @param parent the parent
+	 */
 	public AddSupplierForm(JFrame parent) {
 		super(parent);
 		setVisible(true);
@@ -31,6 +54,9 @@ public class AddSupplierForm extends JDialog {
 		CloseApp();
 	}
 
+	/**
+	 * Listener.
+	 */
 	private void Listener() {
 		DocumentListener documentListener = new DocumentListener() {
 			@Override
@@ -58,10 +84,19 @@ public class AddSupplierForm extends JDialog {
 		});
 	}
 
+	/**
+	 * Check fields.
+	 */
 	private void checkFields() {
 		OKAddSupplierButton.setEnabled(!NameSupplierField.getText().isEmpty());
 	}
 
+	/**
+	 * Add supplier to config.
+	 *
+	 * @param newSupplier the new supplier
+	 * @throws IOException the io exception
+	 */
 	private void addSupplierToConfig(String newSupplier) throws IOException {
 		// Read the config file
 		Config config = ConfigManager.readConfig();
@@ -84,6 +119,9 @@ public class AddSupplierForm extends JDialog {
 		ConfigManager.writeConfig(config);
 	}
 
+	/**
+	 * Close app.
+	 */
 	private void CloseApp() {
 		addWindowListener(new WindowAdapter() {
 			@Override
@@ -94,6 +132,9 @@ public class AddSupplierForm extends JDialog {
 		});
 	}
 
+	/**
+	 * If ok pressed.
+	 */
 	private void IfOkPressed() {
 		OKAddSupplierButton.addActionListener(e -> {
 			try {
@@ -106,6 +147,9 @@ public class AddSupplierForm extends JDialog {
 		});
 	}
 
+	/**
+	 * If cancel pressed.
+	 */
 	private void IfCancelPressed() {
 		CancelAddSupplierButton.addActionListener(e -> {
 			dispose();

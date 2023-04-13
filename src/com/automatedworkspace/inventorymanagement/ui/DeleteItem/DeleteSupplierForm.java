@@ -14,13 +14,36 @@ import java.util.List;
 
 import static com.automatedworkspace.inventorymanagement.ui.AddItem.AddItemForm.EXEL_FILE_PATH;
 
+/**
+ * The type Delete supplier form.
+ */
 public class DeleteSupplierForm extends JDialog {
+	/**
+	 * The Delete suplplier panel.
+	 */
 	private JPanel DeleteSuplplierPanel;
+	/**
+	 * The Delete supplier label.
+	 */
 	private JLabel DeleteSupplierLabel;
+	/**
+	 * The Delete supplier combo box.
+	 */
 	private JComboBox<String> DeleteSupplierComboBox;
+	/**
+	 * The Ok delete supplier button.
+	 */
 	private JButton OKDeleteSupplierButton;
+	/**
+	 * The Cancel delete supplier button.
+	 */
 	private JButton CancelDeleteSupplierButton;
 
+	/**
+	 * Instantiates a new Delete supplier form.
+	 *
+	 * @param parent the parent
+	 */
 	public DeleteSupplierForm(JFrame parent) {
 		super(parent);
 		setSize(500, 450);
@@ -37,6 +60,11 @@ public class DeleteSupplierForm extends JDialog {
 		CloseApp();
 	}
 
+	/**
+	 * Add to supplier combo box.
+	 *
+	 * @throws IOException the io exception
+	 */
 	private void addToSupplierComboBox() throws IOException {
 		// Load the configuration file
 		Config config = ConfigManager.readConfig();
@@ -46,6 +74,9 @@ public class DeleteSupplierForm extends JDialog {
 		}
 	}
 
+	/**
+	 * Close app.
+	 */
 	private void CloseApp() {
 		addWindowListener(new WindowAdapter() {
 			@Override
@@ -56,6 +87,9 @@ public class DeleteSupplierForm extends JDialog {
 		});
 	}
 
+	/**
+	 * If ok pressed.
+	 */
 	private void IfOkPressed() {
 		OKDeleteSupplierButton.addActionListener(e -> {
 			try {
@@ -68,6 +102,9 @@ public class DeleteSupplierForm extends JDialog {
 		});
 	}
 
+	/**
+	 * If cancel pressed.
+	 */
 	private void IfCancelPressed() {
 		CancelDeleteSupplierButton.addActionListener(e -> {
 			dispose();
@@ -76,6 +113,11 @@ public class DeleteSupplierForm extends JDialog {
 
 	}
 
+	/**
+	 * Delete supplier.
+	 *
+	 * @throws IOException the io exception
+	 */
 	private void deleteSupplier() throws IOException {
 		FileInputStream filePath = new FileInputStream(EXEL_FILE_PATH);
 		Workbook workbook = WorkbookFactory.create(filePath);

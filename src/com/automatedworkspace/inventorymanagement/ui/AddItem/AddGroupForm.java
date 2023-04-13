@@ -11,13 +11,36 @@ import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * The type Add group form.
+ */
 public class AddGroupForm extends JDialog {
+	/**
+	 * The Add group panel.
+	 */
 	private JPanel AddGroupPanel;
+	/**
+	 * The Name group label.
+	 */
 	private JLabel NameGroupLabel;
+	/**
+	 * The Name group field.
+	 */
 	private JTextField NameGroupField;
+	/**
+	 * The Ok add group button.
+	 */
 	private JButton OKAddGroupButton;
+	/**
+	 * The Cancel add group button.
+	 */
 	private JButton CancelAddGroupButton;
 
+	/**
+	 * Instantiates a new Add group form.
+	 *
+	 * @param parent the parent
+	 */
 	public AddGroupForm(JFrame parent) {
 		super(parent);
 		setVisible(true);
@@ -31,6 +54,9 @@ public class AddGroupForm extends JDialog {
 		CloseApp();
 	}
 
+	/**
+	 * Listener.
+	 */
 	private void Listener() {
 		DocumentListener documentListener = new DocumentListener() {
 			@Override
@@ -58,10 +84,19 @@ public class AddGroupForm extends JDialog {
 		});
 	}
 
+	/**
+	 * Check fields.
+	 */
 	private void checkFields() {
 		OKAddGroupButton.setEnabled(!NameGroupField.getText().isEmpty());
 	}
 
+	/**
+	 * Add group to config.
+	 *
+	 * @param newGroup the new group
+	 * @throws IOException the io exception
+	 */
 	private void addGroupToConfig(String newGroup) throws IOException {
 		// Read the config file
 		Config config = ConfigManager.readConfig();
@@ -84,6 +119,9 @@ public class AddGroupForm extends JDialog {
 		ConfigManager.writeConfig(config);
 	}
 
+	/**
+	 * Close app.
+	 */
 	private void CloseApp() {
 		addWindowListener(new WindowAdapter() {
 			@Override
@@ -94,6 +132,9 @@ public class AddGroupForm extends JDialog {
 		});
 	}
 
+	/**
+	 * If ok pressed.
+	 */
 	private void IfOkPressed() {
 		OKAddGroupButton.addActionListener(e -> {
 			try {
@@ -106,6 +147,9 @@ public class AddGroupForm extends JDialog {
 		});
 	}
 
+	/**
+	 * If cancel pressed.
+	 */
 	private void IfCancelPressed() {
 		CancelAddGroupButton.addActionListener(e -> {
 			dispose();

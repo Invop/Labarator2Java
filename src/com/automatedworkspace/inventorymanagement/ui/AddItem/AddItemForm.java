@@ -19,26 +19,83 @@ import java.io.IOException;
 import java.util.List;
 
 
+/**
+ * The type Add item form.
+ */
 public class AddItemForm extends JDialog {
 
 
+	/**
+	 * The Create form brand.
+	 */
 	private JPanel CreateFormBrand;
+	/**
+	 * The Add id label.
+	 */
 	private JLabel AddIDLabel;
+	/**
+	 * The Add id field.
+	 */
 	private JTextField AddIDField;
+	/**
+	 * The Name label.
+	 */
 	private JLabel NameLabel;
+	/**
+	 * The Add name field.
+	 */
 	private JTextField AddNameField;
+	/**
+	 * The Supplier label.
+	 */
 	private JLabel SupplierLabel;
+	/**
+	 * The Add supplier box.
+	 */
 	private JComboBox<String> AddSupplierBox;
+	/**
+	 * The Price label.
+	 */
 	private JLabel PriceLabel;
+	/**
+	 * The Add price field.
+	 */
 	private JTextField AddPriceField;
+	/**
+	 * The Limit label.
+	 */
 	private JLabel LimitLabel;
+	/**
+	 * The Add limit field.
+	 */
 	private JTextField AddLimitField;
+	/**
+	 * The Group label.
+	 */
 	private JLabel GroupLabel;
+	/**
+	 * The Add group box.
+	 */
 	private JComboBox<String> AddGroupBox;
+	/**
+	 * The Ok button.
+	 */
 	private JButton OkButton;
+	/**
+	 * The Cancel button.
+	 */
 	private JButton CancelButton;
+	/**
+	 * The Interval label.
+	 */
 	private JLabel IntervalLabel;
+	/**
+	 * The Interval field.
+	 */
 	private JTextField IntervalField;
+	/**
+	 * The constant EXEL_FILE_PATH.
+	 */
 	public static final String EXEL_FILE_PATH = "src/com/automatedworkspace/files/Inventory.xlsx";
 
 	/**
@@ -70,6 +127,11 @@ public class AddItemForm extends JDialog {
 		CloseApp();
 	}
 
+	/**
+	 * Add groups to combo box.
+	 *
+	 * @throws IOException the io exception
+	 */
 	private void AddGroupsToComboBox() throws IOException {
 		// Read the config file
 		Config config = ConfigManager.readConfig();
@@ -87,6 +149,11 @@ public class AddItemForm extends JDialog {
 		}
 	}
 
+	/**
+	 * Add suppliers to combo box.
+	 *
+	 * @throws IOException the io exception
+	 */
 	private void AddSuppliersToComboBox() throws IOException {
 		// Read the config file
 		Config config = ConfigManager.readConfig();
@@ -104,12 +171,18 @@ public class AddItemForm extends JDialog {
 		}
 	}
 
+	/**
+	 * Fields that only handle numbers.
+	 */
 	private void FieldsThatOnlyHandleNumbers() {
 		AddPriceField.setDocument(new NumericFilter());
 		AddLimitField.setDocument(new NumericFilter());
 		IntervalField.setDocument(new NumericFilter());
 	}
 
+	/**
+	 * Listener.
+	 */
 	private void Listener() {
 		// create document listener
 		DocumentListener documentListener = new DocumentListener() {
@@ -151,6 +224,9 @@ public class AddItemForm extends JDialog {
 		});
 	}
 
+	/**
+	 * Check fields.
+	 */
 	private void checkFields() {
 		if (AddIDField.getText().isEmpty() || AddNameField.getText().isEmpty() ||
 				AddPriceField.getText().isEmpty() || AddLimitField.getText().isEmpty() || IntervalField.getText().isEmpty()) {
@@ -161,6 +237,9 @@ public class AddItemForm extends JDialog {
 		}
 	}
 
+	/**
+	 * Close app.
+	 */
 	private void CloseApp() {
 		addWindowListener(new WindowAdapter() {
 			@Override
@@ -171,6 +250,9 @@ public class AddItemForm extends JDialog {
 		});
 	}
 
+	/**
+	 * If ok pressed.
+	 */
 	private void IfOkPressed() {
 		OkButton.addActionListener(e -> {
 			try {
@@ -183,6 +265,9 @@ public class AddItemForm extends JDialog {
 		});
 	}
 
+	/**
+	 * If cancel pressed.
+	 */
 	private void IfCancelPressed() {
 		CancelButton.addActionListener(e -> {
 			dispose();
@@ -191,6 +276,11 @@ public class AddItemForm extends JDialog {
 
 	}
 
+	/**
+	 * Add row to excel table.
+	 *
+	 * @throws IOException the io exception
+	 */
 	private void addRowToExcelTable() throws IOException {
 		// Get the current not null rows from the config file
 		Config config = ConfigManager.readConfig();
@@ -275,6 +365,12 @@ public class AddItemForm extends JDialog {
 		workbook.close();
 	}
 
+	/**
+	 * Add name to config.
+	 *
+	 * @param newName the new name
+	 * @throws IOException the io exception
+	 */
 	private void addNameToConfig(String newName) throws IOException {
 		// Read the config file
 		Config config = ConfigManager.readConfig();
@@ -297,6 +393,12 @@ public class AddItemForm extends JDialog {
 		ConfigManager.writeConfig(config);
 	}
 
+	/**
+	 * Add id to config.
+	 *
+	 * @param newID the new id
+	 * @throws IOException the io exception
+	 */
 	private void addIDToConfig(String newID) throws IOException {
 		// Read the config file
 		Config config = ConfigManager.readConfig();
@@ -318,6 +420,12 @@ public class AddItemForm extends JDialog {
 		ConfigManager.writeConfig(config);
 	}
 
+	/**
+	 * Add limit to config.
+	 *
+	 * @param newLimit the new limit
+	 * @throws IOException the io exception
+	 */
 	private void addLimitToConfig(Integer newLimit) throws IOException {
 		// Read the config file
 		Config config = ConfigManager.readConfig();
@@ -330,6 +438,12 @@ public class AddItemForm extends JDialog {
 		ConfigManager.writeConfig(config);
 	}
 
+	/**
+	 * Add interval to config.
+	 *
+	 * @param newInterval the new interval
+	 * @throws IOException the io exception
+	 */
 	private void addIntervalToConfig(Integer newInterval) throws IOException {
 		// Read the config file
 		Config config = ConfigManager.readConfig();
@@ -342,6 +456,12 @@ public class AddItemForm extends JDialog {
 		ConfigManager.writeConfig(config);
 	}
 
+	/**
+	 * Add item group to config.
+	 *
+	 * @param newGroup the new group
+	 * @throws IOException the io exception
+	 */
 	private void addItemGroupToConfig(int newGroup) throws IOException {
 		// Read the config file
 		Config config = ConfigManager.readConfig();
@@ -354,6 +474,12 @@ public class AddItemForm extends JDialog {
 		ConfigManager.writeConfig(config);
 	}
 
+	/**
+	 * Add supplier status to config.
+	 *
+	 * @param newSupplier the new supplier
+	 * @throws IOException the io exception
+	 */
 	private void addSupplierStatusToConfig(int newSupplier) throws IOException {
 		// Read the config file
 		Config config = ConfigManager.readConfig();
@@ -363,7 +489,10 @@ public class AddItemForm extends JDialog {
 		ConfigManager.writeConfig(config);
 	}
 
-	//sub classes
+	/**
+	 * The type Numeric filter.
+	 */
+//sub classes
 	private static class NumericFilter extends PlainDocument {
 		@Override
 		public void insertString(int offs, String str, AttributeSet a) throws BadLocationException {

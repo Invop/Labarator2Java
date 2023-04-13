@@ -18,13 +18,36 @@ import java.util.List;
 
 import static com.automatedworkspace.inventorymanagement.ui.AddItem.AddItemForm.EXEL_FILE_PATH;
 
+/**
+ * The type Delete group form.
+ */
 public class DeleteGroupForm extends JDialog {
+	/**
+	 * The Delete group panel.
+	 */
 	private JPanel DeleteGroupPanel;
+	/**
+	 * The Delete group label.
+	 */
 	private JLabel DeleteGroupLabel;
+	/**
+	 * The Delete group combo box.
+	 */
 	private JComboBox<String> DeleteGroupComboBox;
+	/**
+	 * The Ok delete group button 1.
+	 */
 	private JButton OkDeleteGroupButton1;
+	/**
+	 * The Cancel delete group button.
+	 */
 	private JButton CancelDeleteGroupButton;
 
+	/**
+	 * Instantiates a new Delete group form.
+	 *
+	 * @param parent the parent
+	 */
 	public DeleteGroupForm(JFrame parent) {
 		super(parent);
 		setSize(500, 450);
@@ -41,6 +64,9 @@ public class DeleteGroupForm extends JDialog {
 		CloseApp();
 	}
 
+	/**
+	 * Close app.
+	 */
 	private void CloseApp() {
 		addWindowListener(new WindowAdapter() {
 			@Override
@@ -51,6 +77,9 @@ public class DeleteGroupForm extends JDialog {
 		});
 	}
 
+	/**
+	 * If ok pressed.
+	 */
 	private void IfOkPressed() {
 		OkDeleteGroupButton1.addActionListener(e -> {
 			try {
@@ -63,6 +92,9 @@ public class DeleteGroupForm extends JDialog {
 		});
 	}
 
+	/**
+	 * If cancel pressed.
+	 */
 	private void IfCancelPressed() {
 		CancelDeleteGroupButton.addActionListener(e -> {
 			dispose();
@@ -71,6 +103,11 @@ public class DeleteGroupForm extends JDialog {
 
 	}
 
+	/**
+	 * Add group to combo box.
+	 *
+	 * @throws IOException the io exception
+	 */
 	private void addGroupToComboBox() throws IOException {
 		// Load the configuration file
 		Config config = ConfigManager.readConfig();
@@ -82,6 +119,11 @@ public class DeleteGroupForm extends JDialog {
 		}
 	}
 
+	/**
+	 * Delete group.
+	 *
+	 * @throws IOException the io exception
+	 */
 	private void deleteGroup() throws IOException {
 		Config config = ConfigManager.readConfig();
 		List<String> GroupList = config.getGroupList();

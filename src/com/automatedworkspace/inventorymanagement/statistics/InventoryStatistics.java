@@ -20,20 +20,58 @@ import java.util.concurrent.Executors;
 import static com.automatedworkspace.inventorymanagement.ui.AddItem.AddItemForm.EXEL_FILE_PATH;
 
 
+/**
+ * The type Inventory statistics.
+ */
 public class InventoryStatistics extends JDialog {
 
 
+	/**
+	 * The Panel main.
+	 */
 	private JPanel panelMain;
+	/**
+	 * The Button home.
+	 */
 	private JButton buttonHome;
+	/**
+	 * The Radio button by group.
+	 */
 	private JRadioButton radioButtonByGroup;
+	/**
+	 * The Supplier statistics radio button.
+	 */
 	private JRadioButton supplierStatisticsRadioButton;
+	/**
+	 * The Radio button all statistic.
+	 */
 	private JRadioButton radioButtonAllStatistic;
+	/**
+	 * The Combo box group supplier.
+	 */
 	private JComboBox comboBoxGroupSupplier;
+	/**
+	 * The Label sum.
+	 */
 	private JLabel labelSum;
+	/**
+	 * The Table.
+	 */
 	private JTable table;
+	/**
+	 * The Label sales.
+	 */
 	private JLabel labelSales;
+	/**
+	 * The Label purchases.
+	 */
 	private JLabel labelPurchases;
 
+	/**
+	 * Instantiates a new Inventory statistics.
+	 *
+	 * @param parent the parent
+	 */
 	public InventoryStatistics(JFrame parent) {
 		super(parent);
 		setVisible(true);
@@ -71,12 +109,20 @@ public class InventoryStatistics extends JDialog {
 		});
 	}
 
+	/**
+	 * Radio listeners.
+	 */
 	private void radioListeners() {
 		radioButtonAllStatistic.addActionListener(e -> onRadioSelected(radioButtonAllStatistic));
 		supplierStatisticsRadioButton.addActionListener(e -> onRadioSelected(supplierStatisticsRadioButton));
 		radioButtonByGroup.addActionListener(e -> onRadioSelected(radioButtonByGroup));
 	}
 
+	/**
+	 * On radio selected.
+	 *
+	 * @param selectedRadioButton the selected radio button
+	 */
 	private void onRadioSelected(JRadioButton selectedRadioButton) {
 		List<JRadioButton> radioButtons = Arrays.asList(radioButtonAllStatistic, supplierStatisticsRadioButton, radioButtonByGroup);
 		radioButtons.stream().filter(r -> !r.equals(selectedRadioButton)).forEach(r -> r.setSelected(false));
@@ -140,6 +186,11 @@ public class InventoryStatistics extends JDialog {
 		}
 	}
 
+	/**
+	 * Populate table.
+	 *
+	 * @param data the data
+	 */
 	private void populateTable(Object[][] data) {
 		DefaultTableModel model = new DefaultTableModel(data, new Object[]{"Item", "Size", "Date", "Group", "Supplier"});
 
@@ -160,6 +211,12 @@ public class InventoryStatistics extends JDialog {
 
 	}
 
+	/**
+	 * Show stat group in object [ ] [ ].
+	 *
+	 * @return the object [ ] [ ]
+	 * @throws IOException the io exception
+	 */
 	private Object[][] showStatGroupIn() throws IOException {
 		DeliveryConfig config = ConfigManager.readInOut();
 		Config configMain = ConfigManager.readConfig();
@@ -179,6 +236,11 @@ public class InventoryStatistics extends JDialog {
 		return data;
 	}
 
+	/**
+	 * Show group stat out.
+	 *
+	 * @throws IOException the io exception
+	 */
 	private void showGroupStatOut() throws IOException {
 		DeliveryConfig config = ConfigManager.readInOut();
 		Config configMain = ConfigManager.readConfig();
@@ -207,6 +269,12 @@ public class InventoryStatistics extends JDialog {
 		populateTable(updatedData);
 	}
 
+	/**
+	 * Show supplier stat in object [ ] [ ].
+	 *
+	 * @return the object [ ] [ ]
+	 * @throws IOException the io exception
+	 */
 	private Object[][] showSupplierStatIn() throws IOException {
 		DeliveryConfig config = ConfigManager.readInOut();
 		Config configMain = ConfigManager.readConfig();
@@ -226,6 +294,11 @@ public class InventoryStatistics extends JDialog {
 		return data;
 	}
 
+	/**
+	 * Show supplier stat out.
+	 *
+	 * @throws IOException the io exception
+	 */
 	private void showSupplierStatOut() throws IOException {
 		DeliveryConfig config = ConfigManager.readInOut();
 		Config configMain = ConfigManager.readConfig();
@@ -251,6 +324,12 @@ public class InventoryStatistics extends JDialog {
 		populateTable(updatedData);
 	}
 
+	/**
+	 * Show all stat in object [ ] [ ].
+	 *
+	 * @return the object [ ] [ ]
+	 * @throws IOException the io exception
+	 */
 	private Object[][] showAllStatIN() throws IOException {
 		Config configMain = ConfigManager.readConfig();
 		DeliveryConfig config = ConfigManager.readInOut();
@@ -267,6 +346,11 @@ public class InventoryStatistics extends JDialog {
 		return data;
 	}
 
+	/**
+	 * Show all stat out.
+	 *
+	 * @throws IOException the io exception
+	 */
 	private void showAllStatOut() throws IOException {
 		Config configMain = ConfigManager.readConfig();
 		DeliveryConfig config = ConfigManager.readInOut();
@@ -291,6 +375,11 @@ public class InventoryStatistics extends JDialog {
 		populateTable(updatedData);
 	}
 
+	/**
+	 * Gets sales.
+	 *
+	 * @throws IOException the io exception
+	 */
 	private void getSales() throws IOException {
 		DeliveryConfig config = ConfigManager.readInOut();
 		int totalSales = 0;
@@ -300,6 +389,11 @@ public class InventoryStatistics extends JDialog {
 		labelSales.setText("Total Sales = " + totalSales);
 	}
 
+	/**
+	 * Gets purchases.
+	 *
+	 * @throws IOException the io exception
+	 */
 	private void getPurchases() throws IOException {
 		DeliveryConfig config = ConfigManager.readInOut();
 		int totalPurchases = 0;
@@ -309,6 +403,11 @@ public class InventoryStatistics extends JDialog {
 		labelPurchases.setText("Total Purchases = " + totalPurchases);
 	}
 
+	/**
+	 * Gets sum.
+	 *
+	 * @throws IOException the io exception
+	 */
 	private void getSum() throws IOException {
 		Config config = ConfigManager.readConfig();
 		// Open the Excel workbook

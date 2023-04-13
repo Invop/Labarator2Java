@@ -31,18 +31,56 @@ import java.util.concurrent.TimeUnit;
 import static com.automatedworkspace.inventorymanagement.ui.AddItem.AddItemForm.EXEL_FILE_PATH;
 
 
+/**
+ * The type Add to existing form.
+ */
 public class AddToExistingForm extends JDialog {
+	/**
+	 * The Panel add form.
+	 */
 	private JPanel PanelAddForm;
+	/**
+	 * The Label choose form.
+	 */
 	private JLabel LabelChooseForm;
+	/**
+	 * The Choose combo box.
+	 */
 	private JComboBox<String> ChooseComboBox;
+	/**
+	 * The Label number.
+	 */
 	private JLabel LabelNumber;
+	/**
+	 * The Number field.
+	 */
 	private JTextField NumberField;
+	/**
+	 * The Interval label.
+	 */
 	private JLabel IntervalLabel;
+	/**
+	 * The Ok button.
+	 */
 	private JButton OKButton;
+	/**
+	 * The Cancel button.
+	 */
 	private JButton CancelButton;
+	/**
+	 * The Date panel.
+	 */
 	private JPanel DatePanel;
+	/**
+	 * The Date chooser.
+	 */
 	private final JDateChooser DateChooser = new JDateChooser();
 
+	/**
+	 * Instantiates a new Add to existing form.
+	 *
+	 * @param parent the parent
+	 */
 	public AddToExistingForm(JFrame parent) {
 		super(parent);
 		setVisible(true);
@@ -66,6 +104,11 @@ public class AddToExistingForm extends JDialog {
 
 	}
 
+	/**
+	 * Get item names.
+	 *
+	 * @throws IOException the io exception
+	 */
 	private void GetItemNames() throws IOException {
 		// Read the config file
 		Config config = ConfigManager.readConfig();
@@ -83,10 +126,16 @@ public class AddToExistingForm extends JDialog {
 		}
 	}
 
+	/**
+	 * Fields that only handle numbers.
+	 */
 	private void FieldsThatOnlyHandleNumbers() {
 		NumberField.setDocument(new NumericFilter());
 	}
 
+	/**
+	 * Close app.
+	 */
 	private void CloseApp() {
 		addWindowListener(new WindowAdapter() {
 			@Override
@@ -97,6 +146,9 @@ public class AddToExistingForm extends JDialog {
 		});
 	}
 
+	/**
+	 * If ok pressed.
+	 */
 	private void IfOkPressed() {
 		OKButton.addActionListener(e -> {
 			try {
@@ -110,6 +162,9 @@ public class AddToExistingForm extends JDialog {
 		});
 	}
 
+	/**
+	 * If cancel pressed.
+	 */
 	private void IfCancelPressed() {
 		CancelButton.addActionListener(e -> {
 			dispose();
@@ -118,6 +173,9 @@ public class AddToExistingForm extends JDialog {
 
 	}
 
+	/**
+	 * Listener.
+	 */
 	private void Listener() {
 		DocumentListener documentListener = new DocumentListener() {
 			@Override
@@ -143,6 +201,9 @@ public class AddToExistingForm extends JDialog {
 		});
 	}
 
+	/**
+	 * Check fields.
+	 */
 	private void checkFields() {
 		boolean number = !NumberField.getText().isEmpty();
 		boolean comboBox = ChooseComboBox.getSelectedIndex() != -1;
@@ -150,6 +211,11 @@ public class AddToExistingForm extends JDialog {
 		OKButton.setEnabled(number && comboBox && dateSelected);
 	}
 
+	/**
+	 * Check limits.
+	 *
+	 * @throws IOException the io exception
+	 */
 	private void checkLimits() throws IOException {
 		Config config = ConfigManager.readConfig();
 		List<Integer> limitList = config.getLimitList();
@@ -208,6 +274,13 @@ public class AddToExistingForm extends JDialog {
 		}
 	}
 
+	/**
+	 * Check date interval boolean.
+	 *
+	 * @param config       the config
+	 * @param selectedDate the selected date
+	 * @return the boolean
+	 */
 	private boolean checkDateInterval(Config config, Date selectedDate) {
 		List<Integer> intervalList = config.getIntervalList();
 		int selectedIdx = ChooseComboBox.getSelectedIndex();
@@ -223,6 +296,16 @@ public class AddToExistingForm extends JDialog {
 		}
 	}
 
+	/**
+	 * Save delivery in.
+	 *
+	 * @param name     the name
+	 * @param size     the size
+	 * @param date     the date
+	 * @param group    the group
+	 * @param supplier the supplier
+	 * @throws IOException the io exception
+	 */
 	private void saveDeliveryIn(String name, int size, Date date, int group, int supplier) throws IOException {
 		DeliveryConfig config = ConfigManager.readInOut();
 		List<Delivery> deliveries = new ArrayList<>();
@@ -236,7 +319,10 @@ public class AddToExistingForm extends JDialog {
 		ConfigManager.writeInOut(config);
 	}
 
-	//sub classes
+	/**
+	 * The type Numeric filter.
+	 */
+//sub classes
 	private static class NumericFilter extends PlainDocument {
 		@Override
 		public void insertString(int offs, String str, AttributeSet a) throws BadLocationException {

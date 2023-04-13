@@ -25,18 +25,56 @@ import java.util.List;
 
 import static com.automatedworkspace.inventorymanagement.ui.AddItem.AddItemForm.EXEL_FILE_PATH;
 
+/**
+ * The type Write off from existing form.
+ */
 public class WriteOffFromExistingForm extends JDialog {
+	/**
+	 * The Panel write off form.
+	 */
 	private JPanel PanelWriteOffForm;
+	/**
+	 * The Label choose form.
+	 */
 	private JLabel LabelChooseForm;
+	/**
+	 * The Choose combo box.
+	 */
 	private JComboBox<String> ChooseComboBox;
+	/**
+	 * The Label number.
+	 */
 	private JLabel LabelNumber;
+	/**
+	 * The Number field.
+	 */
 	private JTextField NumberField;
+	/**
+	 * The Interval label.
+	 */
 	private JLabel IntervalLabel;
+	/**
+	 * The Ok button.
+	 */
 	private JButton OKButton;
+	/**
+	 * The Cancel button.
+	 */
 	private JButton CancelButton;
+	/**
+	 * The Date panel.
+	 */
 	private JPanel DatePanel;
+	/**
+	 * The Date chooser.
+	 */
 	private final JDateChooser DateChooser = new JDateChooser();
 
+	/**
+	 * Instantiates a new Write off from existing form.
+	 *
+	 * @param parent the parent
+	 */
 	public WriteOffFromExistingForm(JFrame parent) {
 		super(parent);
 		setVisible(true);
@@ -60,6 +98,9 @@ public class WriteOffFromExistingForm extends JDialog {
 
 	}
 
+	/**
+	 * Listener.
+	 */
 	private void Listener() {
 		DocumentListener documentListener = new DocumentListener() {
 			@Override
@@ -85,6 +126,9 @@ public class WriteOffFromExistingForm extends JDialog {
 		});
 	}
 
+	/**
+	 * Check fields.
+	 */
 	private void checkFields() {
 		boolean number = !NumberField.getText().isEmpty();
 		boolean comboBox = ChooseComboBox.getSelectedIndex() != -1;
@@ -92,6 +136,11 @@ public class WriteOffFromExistingForm extends JDialog {
 		OKButton.setEnabled(number && comboBox && dateSelected);
 	}
 
+	/**
+	 * Get item names.
+	 *
+	 * @throws IOException the io exception
+	 */
 	private void GetItemNames() throws IOException {
 		// Read the config file
 		Config config = ConfigManager.readConfig();
@@ -109,10 +158,16 @@ public class WriteOffFromExistingForm extends JDialog {
 		}
 	}
 
+	/**
+	 * Fields that only handle numbers.
+	 */
 	private void FieldsThatOnlyHandleNumbers() {
 		NumberField.setDocument(new WriteOffFromExistingForm.NumericFilter());
 	}
 
+	/**
+	 * Close app.
+	 */
 	private void CloseApp() {
 		addWindowListener(new WindowAdapter() {
 			@Override
@@ -123,6 +178,9 @@ public class WriteOffFromExistingForm extends JDialog {
 		});
 	}
 
+	/**
+	 * If ok pressed.
+	 */
 	private void IfOkPressed() {
 		OKButton.addActionListener(e -> {
 			try {
@@ -135,6 +193,9 @@ public class WriteOffFromExistingForm extends JDialog {
 		});
 	}
 
+	/**
+	 * If cancel pressed.
+	 */
 	private void IfCancelPressed() {
 		CancelButton.addActionListener(e -> {
 			dispose();
@@ -142,6 +203,11 @@ public class WriteOffFromExistingForm extends JDialog {
 		});
 	}
 
+	/**
+	 * Write off.
+	 *
+	 * @throws IOException the io exception
+	 */
 	public void writeOff() throws IOException {
 		Config config = ConfigManager.readConfig();
 		List<String> nameList = config.getNamesList();
@@ -191,6 +257,16 @@ public class WriteOffFromExistingForm extends JDialog {
 		workbook.close();
 	}
 
+	/**
+	 * Save delivery out.
+	 *
+	 * @param name  the name
+	 * @param size  the size
+	 * @param date  the date
+	 * @param group the group
+	 * @param supp  the supp
+	 * @throws IOException the io exception
+	 */
 	private void saveDeliveryOut(String name, int size, Date date, int group, int supp) throws IOException {
 		DeliveryConfig config = ConfigManager.readInOut();
 		List<Delivery> deliveriesOut = new ArrayList<>();
@@ -204,7 +280,10 @@ public class WriteOffFromExistingForm extends JDialog {
 		ConfigManager.writeInOut(config);
 	}
 
-	//sub classes
+	/**
+	 * The type Numeric filter.
+	 */
+//sub classes
 	private static class NumericFilter extends PlainDocument {
 		@Override
 		public void insertString(int offs, String str, AttributeSet a) throws BadLocationException {

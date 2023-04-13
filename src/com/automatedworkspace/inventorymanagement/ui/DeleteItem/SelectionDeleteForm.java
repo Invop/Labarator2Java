@@ -6,14 +6,37 @@ import javax.swing.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+/**
+ * The type Selection delete form.
+ */
 public class SelectionDeleteForm extends JDialog {
+	/**
+	 * The Selection delete panel.
+	 */
 	private JPanel SelectionDeletePanel;
+	/**
+	 * The Delete item button.
+	 */
 	private JButton DeleteItemButton;
+	/**
+	 * The Delete group button.
+	 */
 	private JButton DeleteGroupButton;
+	/**
+	 * The Delete supplier button.
+	 */
 	private JButton DeleteSupplierButton;
+	/**
+	 * The Home button.
+	 */
 	private JButton HomeButton;
 
 
+	/**
+	 * Instantiates a new Selection delete form.
+	 *
+	 * @param parent the parent
+	 */
 	public SelectionDeleteForm(JFrame parent) {
 		super(parent);
 		setVisible(true);
@@ -27,6 +50,9 @@ public class SelectionDeleteForm extends JDialog {
 		CloseApp();
 	}
 
+	/**
+	 * If delete item button.
+	 */
 	private void IfDeleteItemButton() {
 		DeleteItemButton.addActionListener(e -> {
 			dispose();
@@ -34,6 +60,9 @@ public class SelectionDeleteForm extends JDialog {
 		});
 	}
 
+	/**
+	 * If delete group button.
+	 */
 	private void IfDeleteGroupButton() {
 		DeleteGroupButton.addActionListener(e -> {
 			dispose();
@@ -41,6 +70,9 @@ public class SelectionDeleteForm extends JDialog {
 		});
 	}
 
+	/**
+	 * If delete supplier button.
+	 */
 	private void IfDeleteSupplierButton() {
 		DeleteSupplierButton.addActionListener(e -> {
 			dispose();
@@ -48,6 +80,9 @@ public class SelectionDeleteForm extends JDialog {
 		});
 	}
 
+	/**
+	 * Close app.
+	 */
 	private void CloseApp() {
 		addWindowListener(new WindowAdapter() {
 			@Override
@@ -58,6 +93,9 @@ public class SelectionDeleteForm extends JDialog {
 		});
 	}
 
+	/**
+	 * Ifhome btn pressed.
+	 */
 	private void IfhomeBtnPressed() {
 		HomeButton.addActionListener(e -> {
 			dispose();
