@@ -10,4 +10,5 @@ public class EditSupplierForm {
 	private JComboBox supplierComboBox;
 	private JPanel editSupplierPanel;
 	private JButton supplierCancelButton;
+
 }

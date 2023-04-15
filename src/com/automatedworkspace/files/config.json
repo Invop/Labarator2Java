@@ -16,8 +16,9 @@
   ],
   "GroupList": [
     "Group1",
-    "Group2",
-    "Group3"
+    "Group5",
+    "Group3",
+    null
   ],
   "SupplierList": [
     "Sup2",
