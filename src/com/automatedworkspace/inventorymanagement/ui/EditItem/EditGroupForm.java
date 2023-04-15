@@ -132,18 +132,15 @@ public class EditGroupForm extends JDialog {
 		int selectedIndx = groupComboBox.getSelectedIndex();
 		String prevName = groupList.get(selectedIndx);
 		String newName = nameTextField.getText();
-		if(newName.equals(prevName)){
-			while (newName.equals(prevName)){
-				newName = JOptionPane.showInputDialog(null, "This group already exist");
+
+
+		if (groupList.contains(newName)) {
+			// Ask user for a new name if it already exists
+			while (groupList.contains(newName)) {
+				newName = JOptionPane.showInputDialog(null, "Group already exists in config file. Please enter a new Group:");
 			}
 		}
-		nameTextField.setText(newName);
-
-		//addGroupToConfig()
-		List<Integer> Group = config.getItemGroupList();
-
-
-
+		groupList.set(selectedIndx, newName);
 		// Open the Excel workbook
 		FileInputStream filePath = new FileInputStream(EXEL_FILE_PATH);
 		Workbook workbook = WorkbookFactory.create(filePath);
@@ -151,21 +148,16 @@ public class EditGroupForm extends JDialog {
 		Row row;
 		Cell cell;
 
+
 		//ім'я груп 12 індекс
-		for (int i = 0; i <Group.size()-1; i++) {
-			if (Group.get(i)==selectedIndx) {
-				groupList.set(i, newName);
-				int index = i + 3;
-				row = sheet.getRow(index);
-				cell = row.getCell(12);
-				if(cell.getStringCellValue().equals(prevName)){
-					cell.setCellValue(prevName);
-				}
+		for (int i = 0; i < config.getNotNullRows() ; i++) {
+			int index = i + 3;
+			row = sheet.getRow(index);
+			cell = row.getCell(12);
+			if(cell.getStringCellValue().equals(prevName)){
+				cell.setCellValue(newName);
 			}
 		}
-
-
-
 		// Save the workbook & config
 		FileOutputStream out = new FileOutputStream(EXEL_FILE_PATH);
 		config.setGroupList(groupList);
