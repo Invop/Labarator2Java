@@ -1,58 +1,51 @@
 # Labarator2Java
 
 Основний пакет:
-
 com.automatedworkspace.inventorymanagement
 Пакети для різних модулів програми:
 com.automatedworkspace.files
 com.automatedworkspace.inventorymanagement
 com.automatedworkspace.inventorymanagement.ui
-com.automatedworkspace.inventorymanagement.filehandling
-com.automatedworkspace.inventorymanagement.search
 com.automatedworkspace.inventorymanagement.statistics
 Кожен пакет містить ряд класів, призначених для виконання конкретних завдань. Наприклад:
 
 У пакеті "ui":
 
-InventoryManagementUI - основний клас для реалізації графічного інтерфейсу користувача (Вивід на екран табличку поставок вхід/вихід, виведення самої таблиці у різних варіантах (вибір групи/постачальника)?)
-
+InventoryManagementUI - основний клас для реалізації графічного інтерфейсу користувача , пошуку товару та взаємодії з рештою програми
 
 У пакеті "ui.AddItem":
-AddItemForm - клас для створення нового товару (Form done (Ok/Cancel Edits?))
-AddSupplierForm - класс для створення нового постачальника (ім'я + Ok/Cancel)
-AddGroupForm - класс для створення нової групи товарів (ім'я + Ok/Cancel)
-SelectionAddForm - класс для вибору між варіантами створення/додавання (вибір із 4 + Cancel?)
+AddItemForm - клас для створення нового товару 
+AddSupplierForm - класс для створення нового постачальника
+AddGroupForm - класс для створення нової групи товарів 
+SelectionAddForm - класс для вибору між варіантами створення/додавання
 
 У пакеті "ui.EditItem":
-EditItemForm - клас для редагування існуючого товару (копія AddItemForm? + Ok/Cancel)
-EditGroupForm - клас для редагування існуючої групи товарів(ім'я + Ok/Cancel)
-EditSupplierForm - клас для редагування існуючих постачальників(ім'я + Ok/Cancel)
-SelectionEditForm - класс для вибору між 4 варіантами  (вибір із 3 + Cancel?)
+EditItemForm - клас для редагування існуючого товару 
+EditGroupForm - клас для редагування існуючої групи товарів
+EditSupplierForm - клас для редагування існуючих постачальників
+SelectionEditForm - класс для вибору між 4 варіантами  
 
 у пакеті "ui.DeleteItem":
-DeleteItemForm - клас для видалення товару (ComboBox ?  + Ok/Cancel)
-DeleteGroupForm - клас для видалення групи товарів (ComboBox ?  + Ok/Cancel)
-DeleteSupplierForm - клас для видалення постачальника (ComboBox ?  + Ok/Cancel)
-SelectionDeleteForm - класс для вибору між 4 варіантами  (вибір із 3 + Cancel?)
-
-
-У пакеті "search":
-ItemSearcher - клас для пошуку товару за різними критеріями (назва, виробник, група товарів)
+DeleteItemForm - клас для видалення товару 
+DeleteGroupForm - клас для видалення групи товарів 
+DeleteSupplierForm - клас для видалення постачальника 
+SelectionDeleteForm - класс для вибору між 4 варіантами  
 
 У пакеті "statistics":
 InventoryStatistics - клас для підрахунку різних статистичних даних, таких як загальна вартість товару на складі, загальна вартість товарів в групі товарів
-Config - робота з json (поля get/set)
-ConfigManager - робота з json (методи)
+Config - робота з json 
+ConfigManager - робота з json
+DeliveryConfig - робота з json
 
 у пакеті "Nomenclature":
-AddToExistingForm - клас Постачання товару на склад (Додати календ , типу  https://www.youtube.com/watch?v=qunxo1zqZ6M&ab_channel=MengIT , щоб зафіксувати час прибуття , Інтервал - delete ??)
-WriteOffFromExistingForm - клас Відвантаження зі складу (поки хз , напевно такий же )
+AddToExistingForm - клас Постачання товару на склад 
+WriteOffFromExistingForm - клас Відвантаження зі складу
 
 у пакеті "files":
-Exel Таблиця з якою працює наша програма (Інтервал - delete ?)
+Exel Таблиця з якою працює наша програма 
 config.json -файл який містить параметри та налаштування . Використовується для зберігання налаштувань, які можуть впливати на поведінку програми під час виконання.
-Додати json файл для відстеження постачання ->?
-Додати json файл для відстеження постачання <-?
+InAndOut.json - файл який містить інформацію про імпорт та експорт товару
+stiker1-5.png + hamster.jpg - прикол
 
 у пакеті "inventorymanagement":
 Main - клас запуску програми

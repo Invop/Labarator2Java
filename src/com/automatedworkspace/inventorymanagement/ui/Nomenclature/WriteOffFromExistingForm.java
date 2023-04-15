@@ -14,8 +14,6 @@ import javax.swing.event.DocumentListener;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.PlainDocument;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.FileInputStream;
@@ -27,18 +25,56 @@ import java.util.List;
 
 import static com.automatedworkspace.inventorymanagement.ui.AddItem.AddItemForm.EXEL_FILE_PATH;
 
-public class WriteOffFromExistingForm extends JDialog{
+/**
+ * The type Write off from existing form.
+ */
+public class WriteOffFromExistingForm extends JDialog {
+	/**
+	 * The Panel write off form.
+	 */
 	private JPanel PanelWriteOffForm;
+	/**
+	 * The Label choose form.
+	 */
 	private JLabel LabelChooseForm;
+	/**
+	 * The Choose combo box.
+	 */
 	private JComboBox<String> ChooseComboBox;
+	/**
+	 * The Label number.
+	 */
 	private JLabel LabelNumber;
+	/**
+	 * The Number field.
+	 */
 	private JTextField NumberField;
+	/**
+	 * The Interval label.
+	 */
 	private JLabel IntervalLabel;
+	/**
+	 * The Ok button.
+	 */
 	private JButton OKButton;
+	/**
+	 * The Cancel button.
+	 */
 	private JButton CancelButton;
+	/**
+	 * The Date panel.
+	 */
 	private JPanel DatePanel;
-	private JDateChooser DateChooser = new JDateChooser();
+	/**
+	 * The Date chooser.
+	 */
+	private final JDateChooser DateChooser = new JDateChooser();
 
+	/**
+	 * Instantiates a new Write off from existing form.
+	 *
+	 * @param parent the parent
+	 */
 	public WriteOffFromExistingForm(JFrame parent) {
 		super(parent);
 		setVisible(true);
@@ -62,6 +98,9 @@ public class WriteOffFromExistingForm extends JDialog{
 
 	}
 
+	/**
+	 * Listener.
+	 */
 	private void Listener() {
 		DocumentListener documentListener = new DocumentListener() {
 			@Override
@@ -81,14 +120,15 @@ public class WriteOffFromExistingForm extends JDialog{
 		};
 		NumberField.getDocument().addDocumentListener(documentListener);
 		ChooseComboBox.addActionListener((e) -> checkFields());
-		OKButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// remove document listener from each text field
-				NumberField.getDocument().removeDocumentListener(documentListener);
-			}
+		OKButton.addActionListener(e -> {
+			// remove document listener from each text field
+			NumberField.getDocument().removeDocumentListener(documentListener);
 		});
 	}
+
+	/**
+	 * Check fields.
+	 */
 	private void checkFields() {
 		boolean number = !NumberField.getText().isEmpty();
 		boolean comboBox = ChooseComboBox.getSelectedIndex() != -1;
@@ -96,6 +136,11 @@ public class WriteOffFromExistingForm extends JDialog{
 		OKButton.setEnabled(number && comboBox && dateSelected);
 	}
 
+	/**
+	 * Get item names.
+	 *
+	 * @throws IOException the io exception
+	 */
 	private void GetItemNames() throws IOException {
 		// Read the config file
 		Config config = ConfigManager.readConfig();
@@ -113,10 +158,16 @@ public class WriteOffFromExistingForm extends JDialog{
 		}
 	}
 
+	/**
+	 * Fields that only handle numbers.
+	 */
 	private void FieldsThatOnlyHandleNumbers() {
 		NumberField.setDocument(new WriteOffFromExistingForm.NumericFilter());
 	}
 
+	/**
+	 * Close app.
+	 */
 	private void CloseApp() {
 		addWindowListener(new WindowAdapter() {
 			@Override
@@ -127,24 +178,36 @@ public class WriteOffFromExistingForm extends JDialog{
 		});
 	}
 
-	private void IfOkPressed(){
+	/**
+	 * If ok pressed.
+	 */
+	private void IfOkPressed() {
 		OKButton.addActionListener(e -> {
 			try {
 				writeOff();
 			} catch (IOException ex) {
 				throw new RuntimeException(ex);
 			}
-			if(OKButton.isEnabled()&&NumberField.getText()!=null)dispose();
+			if (OKButton.isEnabled() && NumberField.getText() != null) dispose();
+			new InventoryManagementUI(null);
 		});
 	}
+
+	/**
+	 * If cancel pressed.
+	 */
 	private void IfCancelPressed() {
 		CancelButton.addActionListener(e -> {
 			dispose();
 			new InventoryManagementUI(null);
 		});
-
 	}
 
+	/**
+	 * Write off.
+	 *
+	 * @throws IOException the io exception
+	 */
 	public void writeOff() throws IOException {
 		Config config = ConfigManager.readConfig();
 		List<String> nameList = config.getNamesList();
@@ -153,7 +216,7 @@ public class WriteOffFromExistingForm extends JDialog{
 		FileInputStream filePath = new FileInputStream(EXEL_FILE_PATH);
 		Workbook workbook = WorkbookFactory.create(filePath);
 		XSSFSheet sheet = (XSSFSheet) workbook.getSheetAt(0);
-		Row newRow = sheet.getRow(selectedIdx+3);
+		Row newRow = sheet.getRow(selectedIdx + 3);
 		// Get the current quantity from the Excel sheet, or show an error message if the cell is empty
 		Cell quantityCell = newRow.getCell(6);
 		if (quantityCell == null || quantityCell.getCellType() == CellType.BLANK) {
@@ -165,22 +228,27 @@ public class WriteOffFromExistingForm extends JDialog{
 
 		// Get the input quantity from the NumberField
 		int inputQuantity = Integer.parseInt(NumberField.getText());
-
+		String newQuantityString;
 		// Check if the input quantity is negative or greater than the current quantity
 		while (inputQuantity < 0 || inputQuantity > currentQuantity) {
 			// Display a message to prompt the user to enter a new quantity
 			String message = "Please enter a positive quantity that is less than or equal to the current quantity (" + currentQuantity + ")";
 			JOptionPane.showMessageDialog(PanelWriteOffForm, message);
-
 			// Get the new input quantity from the user
-			String newQuantityString = JOptionPane.showInputDialog(PanelWriteOffForm, "Enter a new quantity:");
-			inputQuantity = Integer.parseInt(newQuantityString);
+			newQuantityString = JOptionPane.showInputDialog(PanelWriteOffForm, "Enter a new quantity:");
+			if (newQuantityString != null && !newQuantityString.equals(""))
+				inputQuantity = Integer.parseInt(newQuantityString);
+			else {
+				JOptionPane.getRootFrame().dispose();
+				break;
+
+			}
 		}
 		Date selectedDate = DateChooser.getDate();
 		// Update the Excel sheet with the new quantity
 		double newQuantity = currentQuantity - inputQuantity;
 		newRow.getCell(6).setCellValue(newQuantity);
-		saveDeliveryOut(nameList.get(selectedIdx), inputQuantity, selectedDate);
+		saveDeliveryOut(nameList.get(selectedIdx), inputQuantity, selectedDate, config.getItemGroupList().get(selectedIdx), config.getItemSupplierList().get(selectedIdx));
 		// Save and close the workbook
 		workbook.setForceFormulaRecalculation(true);
 		FileOutputStream out = new FileOutputStream(EXEL_FILE_PATH);
@@ -188,18 +256,34 @@ public class WriteOffFromExistingForm extends JDialog{
 		out.close();
 		workbook.close();
 	}
-	private void saveDeliveryOut(String name, int size, Date date) throws IOException {
+
+	/**
+	 * Save delivery out.
+	 *
+	 * @param name  the name
+	 * @param size  the size
+	 * @param date  the date
+	 * @param group the group
+	 * @param supp  the supp
+	 * @throws IOException the io exception
+	 */
+	private void saveDeliveryOut(String name, int size, Date date, int group, int supp) throws IOException {
 		DeliveryConfig config = ConfigManager.readInOut();
 		List<Delivery> deliveriesOut = new ArrayList<>();
 		if (config != null && config.getDeliveriesOut() != null) {
 			deliveriesOut = config.getDeliveriesOut();
 		}
-		Delivery delivery = new Delivery(name, size, date);
+		Delivery delivery = new Delivery(name, size, date, group, supp);
 		deliveriesOut.add(delivery);
+		assert config != null;
 		config.setDeliveriesOut(deliveriesOut);
 		ConfigManager.writeInOut(config);
 	}
-	//sub classes
+
+	/**
+	 * The type Numeric filter.
+	 */
+//sub classes
 	private static class NumericFilter extends PlainDocument {
 		@Override
 		public void insertString(int offs, String str, AttributeSet a) throws BadLocationException {
