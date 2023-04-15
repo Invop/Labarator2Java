@@ -1,54 +1,59 @@
 {
-  "notNullRows": 8,
+  "notNullRows": 9,
   "namesList": [
-    "a1",
-    "a2",
-    "a3",
-    "b1",
-    "b2"
+    "q1",
+    "q2",
+    "q3",
+    "q4",
+    "q11",
+    "q22"
   ],
   "IDsList": [
-    "a1",
-    "a2",
-    "a3",
-    "bb",
-    "b2"
+    "q1",
+    "q2",
+    "q3",
+    "q4",
+    "q11",
+    "q22"
   ],
   "GroupList": [
-    "Group1",
-    "Group2",
-    "Group3"
+    "Gr1",
+    "Gr2"
   ],
   "SupplierList": [
-    "Sup2",
-    "Sup3"
+    "Sup1",
+    "Sup2"
   ],
   "LimitList": [
+    2,
+    2,
     1,
-    1,
-    1,
-    1,
-    3
+    2,
+    11,
+    2
   ],
   "IntervalList": [
+    3,
+    3,
     1,
-    1,
-    1,
+    3,
     1,
     3
   ],
   "itemGroupList": [
     0,
     1,
-    2,
     0,
-    2
-  ],
-  "ItemSupplierList": [
-    -1,
-    -1,
-    -1,
+    1,
     0,
     1
+  ],
+  "ItemSupplierList": [
+    0,
+    0,
+    1,
+    1,
+    -1,
+    -1
   ]
 }

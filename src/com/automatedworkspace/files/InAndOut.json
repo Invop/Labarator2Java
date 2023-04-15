@@ -1,71 +1,69 @@
 {
   "deliveriesIN": [
     {
-      "name": "b1",
-      "size": 11,
-      "date": "Apr 8, 2023, 4:13:49 PM"
+      "name": "q4",
+      "size": 222,
+      "date": "Apr 26, 2023, 10:40:43 PM",
+      "groupIndex": 1,
+      "supplierIndex": 1
     },
     {
-      "name": "b1",
-      "size": 11,
-      "date": "Apr 8, 2023, 12:00:00 AM"
+      "name": "q2",
+      "size": 222,
+      "date": "Apr 21, 2023, 10:40:57 PM",
+      "groupIndex": 1,
+      "supplierIndex": 0
     },
     {
-      "name": "b2",
-      "size": 11,
-      "date": "Apr 9, 2023, 8:04:15 PM"
+      "name": "q1",
+      "size": 40,
+      "date": "Apr 19, 2023, 9:18:37 PM",
+      "groupIndex": 0,
+      "supplierIndex": 0
     },
     {
-      "name": "b2",
-      "size": 33,
-      "date": "Apr 21, 2023, 8:05:52 PM"
+      "name": "q3",
+      "size": 25,
+      "date": "Apr 21, 2023, 9:19:06 PM",
+      "groupIndex": 0,
+      "supplierIndex": 1
     },
     {
-      "name": "b1",
-      "size": 11,
-      "date": "Apr 21, 2023, 12:00:00 AM"
-    },
-    {
-      "name": "b1",
-      "size": 12,
-      "date": "Apr 20, 2023, 8:08:41 PM"
-    },
-    {
-      "name": "b2",
-      "size": 1,
-      "date": "Apr 30, 2023, 8:09:38 PM"
-    },
-    {
-      "name": "b2",
-      "size": 33,
-      "date": "Apr 30, 2023, 8:13:46 PM"
-    },
-    {
-      "name": "b2",
-      "size": 111,
-      "date": "Apr 22, 2023, 8:15:14 PM"
-    },
-    {
-      "name": "b2",
-      "size": 1,
-      "date": "Apr 11, 2023, 8:26:33 PM"
-    },
-    {
-      "name": "b2",
-      "size": 20,
-      "date": "Apr 12, 2023, 12:13:25 AM"
+      "name": "q3",
+      "size": 10,
+      "date": "Apr 27, 2023, 11:29:17 PM",
+      "groupIndex": 0,
+      "supplierIndex": 1
     }
   ],
   "deliveriesOut": [
     {
-      "name": "b2",
+      "name": "q4",
       "size": 20,
-      "date": "Apr 12, 2023, 12:13:25 AM"
+      "date": "Apr 28, 2023, 11:04:31 PM",
+      "groupIndex": 1,
+      "supplierIndex": 1
     },
     {
-      "name": "b2",
-      "size": 7,
-      "date": "Apr 8, 2023, 12:15:16 AM"
+      "name": "q1",
+      "size": 20,
+      "date": "Apr 30, 2023, 11:27:55 PM",
+      "groupIndex": 0,
+      "supplierIndex": 0
+    },
+    {
+      "name": "q2",
+      "size": 22,
+      "date": "Apr 27, 2023, 11:28:19 PM",
+      "groupIndex": 1,
+      "supplierIndex": 0
+    },
+    {
+      "name": "q4",
+      "size": 20,
+      "date": "Apr 20, 2023, 11:29:43 PM",
+      "groupIndex": 1,
+      "supplierIndex": 1
     }
   ]
 }
