@@ -2,6 +2,8 @@ package com.automatedworkspace.inventorymanagement;
 
 
 import com.automatedworkspace.inventorymanagement.ui.EditItem.EditGroupForm;
+import com.automatedworkspace.inventorymanagement.ui.EditItem.EditItemForm;
+import com.automatedworkspace.inventorymanagement.ui.EditItem.EditSupplierForm;
 import com.automatedworkspace.inventorymanagement.ui.InventoryManagementUI;
 
 /**
@@ -14,7 +16,7 @@ public class Main {
 	 * @param args the input arguments
 	 */
 	public static void main(String[] args) {
-		new EditGroupForm(null);
+		new EditItemForm(null);
 
 	}
 }

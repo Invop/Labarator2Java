@@ -297,6 +297,7 @@ public class InventoryManagementUI extends JDialog {
 		comboBoxGroupSupplier.setVisible(true);
 	}
 
+
 	/**
 	 * Populate table.
 	 *

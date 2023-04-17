@@ -58,7 +58,7 @@ public class EditGroupForm extends JDialog {
 	private void IfOkPressed(){
 		okButton.addActionListener(e -> {
 			try {
-				changeGroup();
+				EchangeGroup();
 			} catch (IOException ex) {
 				throw new RuntimeException(ex);
 			}
@@ -124,15 +124,15 @@ public class EditGroupForm extends JDialog {
 		else okButton.setEnabled(true);
 	}
 
-	private void changeGroup() throws  IOException {
+	private void EchangeGroup() throws  IOException {
 		Config  config = ConfigManager.readConfig();
 
-
+		//List<Integer> limitList = config.get();
 		List<String> groupList = config.getGroupList();
 		int selectedIndx = groupComboBox.getSelectedIndex();
 		String prevName = groupList.get(selectedIndx);
 		String newName = nameTextField.getText();
-
+		//Integer назва = Integer.parse
 
 		if (groupList.contains(newName)) {
 			// Ask user for a new name if it already exists
@@ -140,6 +140,7 @@ public class EditGroupForm extends JDialog {
 				newName = JOptionPane.showInputDialog(null, "Group already exists in config file. Please enter a new Group:");
 			}
 		}
+
 		groupList.set(selectedIndx, newName);
 		// Open the Excel workbook
 		FileInputStream filePath = new FileInputStream(EXEL_FILE_PATH);
@@ -154,9 +155,12 @@ public class EditGroupForm extends JDialog {
 			int index = i + 3;
 			row = sheet.getRow(index);
 			cell = row.getCell(12);
+
+			//якщо є
 			if(cell.getStringCellValue().equals(prevName)){
 				cell.setCellValue(newName);
 			}
+			//cell.getNumericCellValue()==
 		}
 		// Save the workbook & config
 		FileOutputStream out = new FileOutputStream(EXEL_FILE_PATH);
