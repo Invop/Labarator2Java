@@ -1,0 +1,8 @@
+com.automatedworkspace.inventorymanagement
+com.automatedworkspace.inventorymanagement.FiledFilter
+com.automatedworkspace.inventorymanagement.statistics
+com.automatedworkspace.inventorymanagement.ui
+com.automatedworkspace.inventorymanagement.ui.AddItem
+com.automatedworkspace.inventorymanagement.ui.DeleteItem
+com.automatedworkspace.inventorymanagement.ui.EditItem
+com.automatedworkspace.inventorymanagement.ui.Nomenclature
