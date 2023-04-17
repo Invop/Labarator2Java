@@ -123,7 +123,6 @@ public class EditItemForm extends JDialog {
 		// Check if the name already exists in the config file
 		List<String> SupplierList = config.getSupplierList();
 		List<Integer> indexList  = config.getItemSupplierList();
-		System.out.println(selectedIndx);
 		if (SupplierList.isEmpty()) {
 			// No items in the list
 			JOptionPane.showMessageDialog(null, "No supplier in the list");
@@ -205,7 +204,7 @@ public class EditItemForm extends JDialog {
 		Row row = sheet.getRow(selectedIndx+3);
 		Cell cell = row.getCell(4);
 		cell.setCellValue((String) SuppliercomboBox1.getSelectedItem());
-		ItemSuppList.set(selectedIndx,SuppliercomboBox1.getSelectedIndex());
+		ItemSuppList.set(selectedIndx,SuppliercomboBox1.getSelectedIndex()-1);
 		// Save the workbook & config
 		FileOutputStream out = new FileOutputStream(EXEL_FILE_PATH);
 		config.setItemSupplierList(ItemSuppList);
@@ -225,7 +224,7 @@ public class EditItemForm extends JDialog {
 		Row row = sheet.getRow(selectedIndx+3);
 		Cell cell = row.getCell(12);
 		cell.setCellValue((String) GroupcomboBox.getSelectedItem());
-		ItemGrList.set(selectedIndx,GroupcomboBox.getSelectedIndex());
+		ItemGrList.set(selectedIndx,GroupcomboBox.getSelectedIndex()-1);
 
 		// Save the workbook & config
 		FileOutputStream out = new FileOutputStream(EXEL_FILE_PATH);
