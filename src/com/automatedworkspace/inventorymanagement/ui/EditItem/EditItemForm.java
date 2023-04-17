@@ -54,10 +54,12 @@ public class EditItemForm extends JDialog {
 		IfOkPressed();
 		IfCancelPressed();
 		CloseApp();
-		IdentificatorcomboBox.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent actionEvent) {
-				//AddSupplierToComboBox();
+		IdentificatorcomboBox.addActionListener(actionEvent -> {
+			try {
+				selectedIndx = IdentificatorcomboBox.getSelectedIndex();
+				AddSupplierToComboBox();
+			} catch (IOException e) {
+				throw new RuntimeException(e);
 			}
 		});
 	}
@@ -105,20 +107,27 @@ public class EditItemForm extends JDialog {
 		}
 	}
 	private void AddSupplierToComboBox() throws IOException {
+		SuppliercomboBox1.removeAllItems();
 		// Read the config file
 		Config config = ConfigManager.readConfig();
 		// Check if the name already exists in the config file
 		List<String> SupplierList = config.getSupplierList();
-
+		List<Integer> indexList  = config.getItemSupplierList();
+		System.out.println(selectedIndx);
 		if (SupplierList.isEmpty()) {
 			// No items in the list
 			JOptionPane.showMessageDialog(null, "No supplier in the list");
 		} else {
 			// Add items to the AddGroupBox
-			for (int i = 0; i < SupplierList.size(); i++) {
-				if (!SupplierList.get(i).equals(SupplierList.get(config.getItemSupplierList().get(i)))) {
-					SuppliercomboBox1.addItem(SupplierList.get(i));
+			if(indexList.get(selectedIndx)!=-1) {
+				for (int i = 0; i < SupplierList.size(); i++) {
+					if (!SupplierList.get(i).equals(SupplierList.get(indexList.get(selectedIndx)))) {
+						SuppliercomboBox1.addItem(SupplierList.get(i));
+					}
 				}
+			}
+			else{
+				for(String Supplier : SupplierList){SuppliercomboBox1.addItem(Supplier);}
 			}
 		}
 	}
@@ -143,7 +152,6 @@ public class EditItemForm extends JDialog {
 
 		//List<Integer> limitList = config.get();
 		List<String> NameList = config.getNamesList();
-		int selectedIndx = IdentificatorcomboBox.getSelectedIndex();
 		String prevName = NameList.get(selectedIndx);
 		String newName = NametextField1.getText();
 		//Integer назва = Integer.parse
@@ -191,7 +199,6 @@ public class EditItemForm extends JDialog {
 
 		//List<Integer> limitList = config.get();
 		List<Integer> intervalList = config.getLimitList();
-		int selectedIndx = IdentificatorcomboBox.getSelectedIndex();
 
 		Integer newInterval = Integer.parseInt(IntervaltextField.getText());
 		Integer prevInterval = intervalList.get(selectedIndx);
