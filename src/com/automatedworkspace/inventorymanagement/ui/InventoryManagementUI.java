@@ -5,6 +5,7 @@ import com.automatedworkspace.inventorymanagement.statistics.ConfigManager;
 import com.automatedworkspace.inventorymanagement.statistics.InventoryStatistics;
 import com.automatedworkspace.inventorymanagement.ui.AddItem.SelectionAddForm;
 import com.automatedworkspace.inventorymanagement.ui.DeleteItem.SelectionDeleteForm;
+import com.automatedworkspace.inventorymanagement.ui.EditItem.SelectionEditForm;
 import com.automatedworkspace.inventorymanagement.ui.Nomenclature.AddToExistingForm;
 import com.automatedworkspace.inventorymanagement.ui.Nomenclature.WriteOffFromExistingForm;
 import org.apache.poi.ss.usermodel.*;
@@ -152,7 +153,8 @@ public class InventoryManagementUI extends JDialog {
 			new SelectionAddForm(null);
 		});
 		editButton.addActionListener(e -> {
-
+			dispose();
+			new SelectionEditForm(null);
 		});
 		deleteButton.addActionListener(e -> {
 			dispose();

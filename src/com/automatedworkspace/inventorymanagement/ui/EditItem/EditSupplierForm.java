@@ -2,12 +2,9 @@ package com.automatedworkspace.inventorymanagement.ui.EditItem;
 
 import com.automatedworkspace.inventorymanagement.statistics.Config;
 import com.automatedworkspace.inventorymanagement.statistics.ConfigManager;
-import com.automatedworkspace.inventorymanagement.ui.DeleteItem.SelectionDeleteForm;
 import org.apache.poi.ss.usermodel.*;
 
 import javax.swing.*;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.FileInputStream;
@@ -21,31 +18,16 @@ import static com.automatedworkspace.inventorymanagement.ui.AddItem.AddItemForm.
  * The type Edit supplier form.
  */
 public class EditSupplierForm extends JDialog {
-	/**
-	 * The Supplier ok button.
-	 */
-	private JButton supplierOkButton;
-	/**
-	 * The Supplier name field.
-	 */
-	private JTextField supplierNameField;
-	/**
-	 * The Supplier name label.
-	 */
-	private JLabel supplierNameLabel;
-	/**
-	 * The Supplier combo box.
-	 */
+
 	private JComboBox supplierComboBox;
 	/**
 	 * The Edit supplier panel.
 	 */
 	private JPanel editSupplierPanel;
-	/**
-	 * The Supplier cancel button.
-	 */
-	private JButton supplierCancelButton;
-	private JTextField textField1;
+	private JTextField supplierNameTextField;
+	private JButton OkButton;
+	private JButton CancelButton;
+
 
 	public EditSupplierForm(JFrame parent){
 		super(parent);
@@ -53,17 +35,17 @@ public class EditSupplierForm extends JDialog {
 		setVisible(true);
 		setContentPane(editSupplierPanel);
 		setLocationRelativeTo(parent);
-		supplierOkButton.setEnabled(false);
 		try {
 			AddSupplierToComboBox();
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
-
 		IfOkPressed();
 		IfCancelPressed();
 		CloseApp();
 	}
+
+
 	private void CloseApp() {
 		addWindowListener(new WindowAdapter() {
 			@Override
@@ -74,20 +56,20 @@ public class EditSupplierForm extends JDialog {
 		});
 	}
 	private void IfOkPressed(){
-		supplierOkButton.addActionListener(e -> {
+		OkButton.addActionListener(e -> {
 			try {
 				EchangeSupplier();
 			} catch (IOException ex) {
 				throw new RuntimeException(ex);
 			}
 			dispose();
-			new SelectionDeleteForm(null);
+			new SelectionEditForm(null);
 		});
 	}
 	private void IfCancelPressed() {
-		supplierCancelButton.addActionListener(e -> {
+		CancelButton.addActionListener(e -> {
 			dispose();
-			new SelectionDeleteForm(null);
+			new SelectionEditForm(null);
 		});
 
 	}
@@ -107,16 +89,6 @@ public class EditSupplierForm extends JDialog {
 			}
 		}
 	}
-
-
-
-	private void checkFields() {
-		if(supplierNameField.getText().isEmpty()){
-			supplierOkButton.setEnabled(false);
-		}
-		else supplierOkButton.setEnabled(true);
-	}
-
 	private void EchangeSupplier() throws  IOException {
 		Config  config = ConfigManager.readConfig();
 
@@ -124,7 +96,7 @@ public class EditSupplierForm extends JDialog {
 		List<String> supplierList = config.getSupplierList();
 		int selectedIndx = supplierComboBox.getSelectedIndex();
 		String prevName = supplierList.get(selectedIndx);
-		String newName = supplierNameField.getText();
+		String newName = supplierNameTextField.getText();
 		//Integer назва = Integer.parse
 
 		if (supplierList.contains(newName)) {
@@ -148,13 +120,9 @@ public class EditSupplierForm extends JDialog {
 			int index = i + 3;
 			row = sheet.getRow(index);
 			cell = row.getCell(4);
-			if(config.getItemSupplierList().get(i)==null){
-				System.out.println(11);
-			}else {
-				//якщо є
-				if (cell.getStringCellValue().equals(prevName)) {
-					cell.setCellValue(newName);
-				}
+			//якщо є
+			if (cell.getStringCellValue().equals(prevName)) {
+				cell.setCellValue(newName);
 			}
 			//cell.getNumericCellValue()==
 		}

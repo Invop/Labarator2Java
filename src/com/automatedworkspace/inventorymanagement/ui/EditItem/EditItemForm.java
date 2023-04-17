@@ -2,10 +2,17 @@ package com.automatedworkspace.inventorymanagement.ui.EditItem;
 
 import com.automatedworkspace.inventorymanagement.statistics.Config;
 import com.automatedworkspace.inventorymanagement.statistics.ConfigManager;
+import com.automatedworkspace.inventorymanagement.ui.AddItem.AddItemForm;
 import com.automatedworkspace.inventorymanagement.ui.DeleteItem.SelectionDeleteForm;
 import org.apache.poi.ss.usermodel.*;
 
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.PlainDocument;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -31,7 +38,6 @@ public class EditItemForm extends JDialog {
 	private JTextField PricetextField;
 	private JTextField LimittextField;
 	private JTextField IntervaltextField;
-	private JTextField AmounttextField;
 	private JComboBox GroupcomboBox;
 	private JButton Okbutton;
 	private JButton Cancelbutton;
@@ -43,10 +49,9 @@ public class EditItemForm extends JDialog {
 		setVisible(true);
 		setContentPane(EditItemPanel);
 		setLocationRelativeTo(parent);
-		Okbutton.setEnabled(false);
+		FieldsThatOnlyHandleNumbers();
 		try {
 			AddIDToComboBox();
-
 			AddGroupToComboBox();
 		} catch (IOException e) {
 			throw new RuntimeException(e);
@@ -66,12 +71,17 @@ public class EditItemForm extends JDialog {
 	private void IfOkPressed(){
 		Okbutton.addActionListener(e -> {
 			try {
-				EchangeName();
+				if(!NametextField1.getText().isEmpty()){EchangeName();}
+				if(SuppliercomboBox1.getSelectedIndex()!=0){EsupplierChange();}
+				if(!IntervaltextField.getText().isEmpty()){EIntervalEdit();}
+				if(!LimittextField.getText().isEmpty()){ELimitEdit();}
+				if(!PricetextField.getText().isEmpty()){EPriceEdit();}
+				if(GroupcomboBox.getSelectedIndex()!=0){EgroupChange();}
 			} catch (IOException ex) {
 				throw new RuntimeException(ex);
 			}
 			dispose();
-			new SelectionDeleteForm(null);
+			new SelectionEditForm(null);
 		});
 	}
 	private void CloseApp() {
@@ -86,7 +96,7 @@ public class EditItemForm extends JDialog {
 	private void IfCancelPressed() {
 		Cancelbutton.addActionListener(e -> {
 			dispose();
-			new SelectionDeleteForm(null);
+			new SelectionEditForm(null);
 		});
 
 	}
@@ -118,7 +128,7 @@ public class EditItemForm extends JDialog {
 			// No items in the list
 			JOptionPane.showMessageDialog(null, "No supplier in the list");
 		} else {
-			// Add items to the AddGroupBox
+			SuppliercomboBox1.addItem("");
 			if(indexList.get(selectedIndx)!=-1) {
 				for (int i = 0; i < SupplierList.size(); i++) {
 					if (!SupplierList.get(i).equals(SupplierList.get(indexList.get(selectedIndx)))) {
@@ -132,24 +142,27 @@ public class EditItemForm extends JDialog {
 		}
 	}
 	private void AddGroupToComboBox() throws IOException {
+		GroupcomboBox.removeAllItems();
 		// Read the config file
 		Config config = ConfigManager.readConfig();
 		// Check if the name already exists in the config file
 		List<String> GroupList = config.getGroupList();
-
+		List<Integer> indexList = config.getItemGroupList();
 		if (GroupList.isEmpty()) {
 			// No items in the list
 			JOptionPane.showMessageDialog(null, "No groups in the list");
 		} else {
 			// Add items to the AddGroupBox
-			for (String Groups : GroupList) {
-				GroupcomboBox.addItem(Groups);
+			GroupcomboBox.addItem("");
+			for (int i = 0; i < GroupList.size(); i++) {
+				if(!GroupList.get(i).equals(GroupList.get(indexList.get(selectedIndx)))){
+					GroupcomboBox.addItem(GroupList.get(i));
+				}
 			}
 		}
 	}
 	private void EchangeName() throws  IOException {
 		Config config = ConfigManager.readConfig();
-
 		//List<Integer> limitList = config.get();
 		List<String> NameList = config.getNamesList();
 		String prevName = NameList.get(selectedIndx);
@@ -168,23 +181,10 @@ public class EditItemForm extends JDialog {
 		FileInputStream filePath = new FileInputStream(EXEL_FILE_PATH);
 		Workbook workbook = WorkbookFactory.create(filePath);
 		Sheet sheet = workbook.getSheetAt(0);
-		Row row;
-		Cell cell;
-
-
-		for (int i = 0; i < config.getNotNullRows(); i++) {
-			int index = i + 3;
-			row = sheet.getRow(index);
-			cell = row.getCell(3);
-			if (config.getNamesList().get(i) == null) {
-				System.out.println(11);
-			} else {
-				//якщо є
-				if (cell.getStringCellValue().equals(prevName)) {
-					cell.setCellValue(newName);
-				}
-			}
-			//cell.getNumericCellValue()==
+		Row row = sheet.getRow(selectedIndx+3);
+		Cell cell = row.getCell(3);
+		if (cell.getStringCellValue().equals(prevName)) {
+			cell.setCellValue(newName);
 		}
 		// Save the workbook & config
 		FileOutputStream out = new FileOutputStream(EXEL_FILE_PATH);
@@ -194,39 +194,66 @@ public class EditItemForm extends JDialog {
 		out.close();
 		workbook.close();
 	}
-	private void EIntervalEdit() throws  IOException {
+	private void EsupplierChange() throws  IOException {
 		Config  config = ConfigManager.readConfig();
-
-		//List<Integer> limitList = config.get();
-		List<Integer> intervalList = config.getLimitList();
-
-		Integer newInterval = Integer.parseInt(IntervaltextField.getText());
-		Integer prevInterval = intervalList.get(selectedIndx);
-		//Integer назва = Integer.parse
+		List<Integer> ItemSuppList = config.getItemSupplierList();
 
 		// Open the Excel workbook
 		FileInputStream filePath = new FileInputStream(EXEL_FILE_PATH);
 		Workbook workbook = WorkbookFactory.create(filePath);
 		Sheet sheet = workbook.getSheetAt(0);
-		Row row;
-		Cell cell;
+		Row row = sheet.getRow(selectedIndx+3);
+		Cell cell = row.getCell(4);
+		cell.setCellValue((String) SuppliercomboBox1.getSelectedItem());
+		ItemSuppList.set(selectedIndx,SuppliercomboBox1.getSelectedIndex());
+		// Save the workbook & config
+		FileOutputStream out = new FileOutputStream(EXEL_FILE_PATH);
+		config.setItemSupplierList(ItemSuppList);
+		ConfigManager.writeConfig(config);
+		workbook.write(out);
+		out.close();
+		workbook.close();
+	}
+	private void EgroupChange() throws  IOException {
+		Config  config = ConfigManager.readConfig();
+		List<Integer> ItemGrList = config.getItemGroupList();
 
+		// Open the Excel workbook
+		FileInputStream filePath = new FileInputStream(EXEL_FILE_PATH);
+		Workbook workbook = WorkbookFactory.create(filePath);
+		Sheet sheet = workbook.getSheetAt(0);
+		Row row = sheet.getRow(selectedIndx+3);
+		Cell cell = row.getCell(12);
+		cell.setCellValue((String) GroupcomboBox.getSelectedItem());
+		ItemGrList.set(selectedIndx,GroupcomboBox.getSelectedIndex());
 
+		// Save the workbook & config
+		FileOutputStream out = new FileOutputStream(EXEL_FILE_PATH);
+		config.setItemGroupList(ItemGrList);
+		ConfigManager.writeConfig(config);
+		workbook.write(out);
+		out.close();
+		workbook.close();
+	}
+	private void EIntervalEdit() throws  IOException {
+		Config  config = ConfigManager.readConfig();
 
-		for (int i = 0; i < config.getNotNullRows() ; i++) {
-			int index = i + 3;
-			row = sheet.getRow(index);
-			cell = row.getCell(9);
-			if(config.getIntervalList().get(i)==null){
-				System.out.println(11);
-			}else {
-				//якщо є
-				if (cell.getNumericCellValue()==prevInterval) {
-					cell.setCellValue(newInterval);
-				}
-			}
-			//cell.getNumericCellValue()==
+		List<Integer> intervalList = config.getIntervalList();
+
+		Integer newInterval = Integer.parseInt(IntervaltextField.getText());
+		Integer prevInterval = intervalList.get(selectedIndx);
+
+		// Open the Excel workbook
+		FileInputStream filePath = new FileInputStream(EXEL_FILE_PATH);
+		Workbook workbook = WorkbookFactory.create(filePath);
+		Sheet sheet = workbook.getSheetAt(0);
+		Row row = sheet.getRow(selectedIndx+3);
+		Cell cell = row.getCell(9);
+		if (cell.getNumericCellValue()==prevInterval) {
+			cell.setCellValue(newInterval);
 		}
+		intervalList.set(selectedIndx,newInterval);
+
 		// Save the workbook & config
 		FileOutputStream out = new FileOutputStream(EXEL_FILE_PATH);
 		config.setIntervalList(intervalList);
@@ -238,37 +265,22 @@ public class EditItemForm extends JDialog {
 	private void ELimitEdit() throws  IOException {
 		Config  config = ConfigManager.readConfig();
 
-		//List<Integer> limitList = config.get();
 		List<Integer> limitList = config.getLimitList();
-		int selectedIndx = IdentificatorcomboBox.getSelectedIndex();
 
 		Integer newLimit = Integer.parseInt(LimittextField.getText());
 		Integer prevLimit = limitList.get(selectedIndx);
-		//Integer назва = Integer.parse
 
 		// Open the Excel workbook
 		FileInputStream filePath = new FileInputStream(EXEL_FILE_PATH);
 		Workbook workbook = WorkbookFactory.create(filePath);
 		Sheet sheet = workbook.getSheetAt(0);
-		Row row;
-		Cell cell;
-
-
-
-		for (int i = 0; i < config.getNotNullRows() ; i++) {
-			int index = i + 3;
-			row = sheet.getRow(index);
-			cell = row.getCell(8);
-			if(config.getLimitList().get(i)==null){
-				System.out.println(11);
-			}else {
-				//якщо є
-				if (cell.getNumericCellValue()==prevLimit) {
-					cell.setCellValue(newLimit);
-				}
-			}
-			//cell.getNumericCellValue()==
+		Row row = sheet.getRow(selectedIndx+3);
+		Cell cell = row.getCell(8);
+		if (cell.getNumericCellValue()==prevLimit) {
+			cell.setCellValue(newLimit);
 		}
+
+		limitList.set(selectedIndx,newLimit);
 		// Save the workbook & config
 		FileOutputStream out = new FileOutputStream(EXEL_FILE_PATH);
 		config.setLimitList(limitList);
@@ -279,23 +291,13 @@ public class EditItemForm extends JDialog {
 	}
 	private void EPriceEdit() throws  IOException {
 		Config  config = ConfigManager.readConfig();
-
-		//List<Integer> limitList = config.get();
-		//List<Integer> priceList = config.getIDList();
-		selectedIndx = IdentificatorcomboBox.getSelectedIndex();
-
-		Integer newPrice = Integer.parseInt(PricetextField.getText());
-		//Integer prevLimit = limitList.get(selectedIndx);
-		//Integer назва = Integer.parse
-
 		// Open the Excel workbook
 		FileInputStream filePath = new FileInputStream(EXEL_FILE_PATH);
 		Workbook workbook = WorkbookFactory.create(filePath);
 		Sheet sheet = workbook.getSheetAt(0);
-		Row row = sheet.getRow(selectedIndx);
+		Row row = sheet.getRow(selectedIndx+3);
 		Cell cell = row.getCell(5);
-		cell.setCellValue(newPrice);
-
+		cell.setCellValue(Integer.parseInt(PricetextField.getText()));
 		// Save the workbook & config
 		FileOutputStream out = new FileOutputStream(EXEL_FILE_PATH);
 		//config.setLimitList(limitList);
@@ -303,5 +305,33 @@ public class EditItemForm extends JDialog {
 		workbook.write(out);
 		out.close();
 		workbook.close();
+	}
+
+	/**
+	 * Fields that only handle numbers.
+	 */
+	private void FieldsThatOnlyHandleNumbers() {
+		PricetextField.setDocument(new NumericFilter());
+		LimittextField.setDocument(new NumericFilter());
+		IntervaltextField.setDocument(new NumericFilter());
+	}
+
+
+	private static class NumericFilter extends PlainDocument {
+		@Override
+		public void insertString(int offs, String str, AttributeSet a) throws BadLocationException {
+			if (str == null) {
+				return;
+			}
+
+			char[] chars = str.toCharArray();
+			StringBuilder sb = new StringBuilder();
+			for (char ch : chars) {
+				if (Character.isDigit(ch)) {
+					sb.append(ch);
+				}
+			}
+			super.insertString(offs, sb.toString(), a);
+		}
 	}
 }

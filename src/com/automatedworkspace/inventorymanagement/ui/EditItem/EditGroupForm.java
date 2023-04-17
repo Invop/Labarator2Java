@@ -63,13 +63,13 @@ public class EditGroupForm extends JDialog {
 				throw new RuntimeException(ex);
 			}
 			dispose();
-			new SelectionDeleteForm(null);
+			new SelectionEditForm(null);
 		});
 	}
 	private void IfCancelPressed() {
 		cancelButton.addActionListener(e -> {
 			dispose();
-			new SelectionDeleteForm(null);
+			new SelectionEditForm(null);
 		});
 
 	}

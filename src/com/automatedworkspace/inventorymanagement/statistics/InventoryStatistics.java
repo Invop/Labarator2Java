@@ -229,8 +229,18 @@ public class InventoryStatistics extends JDialog {
 				data[i][0] = config.getDeliveries().get(i).getName();
 				data[i][1] = "+" + config.getDeliveries().get(i).getSize();
 				data[i][2] = config.getDeliveries().get(i).getDate();
-				data[i][3] = configMain.getGroupList().get(config.getDeliveries().get(i).getGroupIndex());
-				data[i][4] = configMain.getSupplierList().get(config.getDeliveries().get(i).getSupplierIndex());
+				int groupIndex = config.getDeliveries().get(i).getGroupIndex();
+				String group = null;
+				if (groupIndex >= 0 && groupIndex < configMain.getGroupList().size()) {
+					group = configMain.getGroupList().get(groupIndex);
+				}
+				data[i][3] = group;
+				int suppIndex = config.getDeliveries().get(i).getSupplierIndex();
+				String supp = null;
+				if (suppIndex >= 0 && suppIndex < configMain.getGroupList().size()) {
+					supp = configMain.getGroupList().get(suppIndex);
+				}
+				data[i][4] = supp;
 			}
 		}
 		return data;
@@ -255,8 +265,18 @@ public class InventoryStatistics extends JDialog {
 				data[i][0] = config.getDeliveriesOut().get(i).getName();
 				data[i][1] = "-" + config.getDeliveriesOut().get(i).getSize();
 				data[i][2] = config.getDeliveriesOut().get(i).getDate();
-				data[i][3] = configMain.getGroupList().get(config.getDeliveriesOut().get(i).getGroupIndex());
-				data[i][4] = configMain.getSupplierList().get(config.getDeliveriesOut().get(i).getSupplierIndex());
+				int groupIndex = config.getDeliveries().get(i).getGroupIndex();
+				String group = null;
+				if (groupIndex >= 0 && groupIndex < configMain.getGroupList().size()) {
+					group = configMain.getGroupList().get(groupIndex);
+				}
+				data[i][3] = group;
+				int suppIndex = config.getDeliveries().get(i).getSupplierIndex();
+				String supp = null;
+				if (suppIndex >= 0 && suppIndex < configMain.getGroupList().size()) {
+					supp = configMain.getGroupList().get(suppIndex);
+				}
+				data[i][4] = supp;
 			}
 
 
@@ -287,8 +307,18 @@ public class InventoryStatistics extends JDialog {
 				data[i][0] = config.getDeliveries().get(i).getName();
 				data[i][1] = "+" + config.getDeliveries().get(i).getSize();
 				data[i][2] = config.getDeliveries().get(i).getDate();
-				data[i][3] = configMain.getGroupList().get(config.getDeliveries().get(i).getGroupIndex());
-				data[i][4] = configMain.getSupplierList().get(config.getDeliveries().get(i).getSupplierIndex());
+				int groupIndex = config.getDeliveries().get(i).getGroupIndex();
+				String group = null;
+				if (groupIndex >= 0 && groupIndex < configMain.getGroupList().size()) {
+					group = configMain.getGroupList().get(groupIndex);
+				}
+				data[i][3] = group;
+				int suppIndex = config.getDeliveries().get(i).getSupplierIndex();
+				String supp = null;
+				if (suppIndex >= 0 && suppIndex < configMain.getGroupList().size()) {
+					supp = configMain.getGroupList().get(suppIndex);
+				}
+				data[i][4] = supp;
 			}
 		}
 		return data;
@@ -312,8 +342,18 @@ public class InventoryStatistics extends JDialog {
 				data[i][0] = config.getDeliveriesOut().get(i).getName();
 				data[i][1] = "-" + config.getDeliveriesOut().get(i).getSize();
 				data[i][2] = config.getDeliveriesOut().get(i).getDate();
-				data[i][3] = configMain.getGroupList().get(config.getDeliveriesOut().get(i).getGroupIndex());
-				data[i][4] = configMain.getSupplierList().get(config.getDeliveriesOut().get(i).getSupplierIndex());
+				int groupIndex = config.getDeliveries().get(i).getGroupIndex();
+				String group = null;
+				if (groupIndex >= 0 && groupIndex < configMain.getGroupList().size()) {
+					group = configMain.getGroupList().get(groupIndex);
+				}
+				data[i][3] = group;
+				int suppIndex = config.getDeliveries().get(i).getSupplierIndex();
+				String supp = null;
+				if (suppIndex >= 0 && suppIndex < configMain.getGroupList().size()) {
+					supp = configMain.getGroupList().get(suppIndex);
+				}
+				data[i][4] = supp;
 			}
 		}
 		Object[][] updatedData = new Object[dataIn.length + rows][5];
@@ -340,8 +380,18 @@ public class InventoryStatistics extends JDialog {
 			data[i][0] = config.getDeliveries().get(i).getName();
 			data[i][1] = "+" + config.getDeliveries().get(i).getSize();
 			data[i][2] = config.getDeliveries().get(i).getDate();
-			data[i][3] = configMain.getGroupList().get(config.getDeliveries().get(i).getGroupIndex());
-			data[i][4] = configMain.getSupplierList().get(config.getDeliveries().get(i).getSupplierIndex());
+			int groupIndex = config.getDeliveries().get(i).getGroupIndex();
+			String group = null;
+			if (groupIndex >= 0 && groupIndex < configMain.getGroupList().size()) {
+				group = configMain.getGroupList().get(groupIndex);
+			}
+			data[i][3] = group;
+			int suppIndex = config.getDeliveries().get(i).getSupplierIndex();
+			String supp = null;
+			if (suppIndex >= 0 && suppIndex < configMain.getGroupList().size()) {
+				supp = configMain.getGroupList().get(suppIndex);
+			}
+			data[i][4] = supp;
 		}
 		return data;
 	}
@@ -363,8 +413,18 @@ public class InventoryStatistics extends JDialog {
 			data[i][0] = config.getDeliveriesOut().get(i).getName();
 			data[i][1] = "-" + config.getDeliveriesOut().get(i).getSize();
 			data[i][2] = config.getDeliveriesOut().get(i).getDate();
-			data[i][3] = configMain.getGroupList().get(config.getDeliveriesOut().get(i).getGroupIndex());
-			data[i][4] = configMain.getSupplierList().get(config.getDeliveriesOut().get(i).getSupplierIndex());
+			int groupIndex = config.getDeliveries().get(i).getGroupIndex();
+			String group = null;
+			if (groupIndex >= 0 && groupIndex < configMain.getGroupList().size()) {
+				group = configMain.getGroupList().get(groupIndex);
+			}
+			data[i][3] = group;
+			int suppIndex = config.getDeliveries().get(i).getSupplierIndex();
+			String supp = null;
+			if (suppIndex >= 0 && suppIndex < configMain.getGroupList().size()) {
+				supp = configMain.getGroupList().get(suppIndex);
+			}
+			data[i][4] = supp;
 		}
 
 		Object[][] updatedData = new Object[dataIn.length + rows][5];
