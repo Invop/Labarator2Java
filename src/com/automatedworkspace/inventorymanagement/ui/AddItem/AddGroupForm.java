@@ -20,10 +20,6 @@ public class AddGroupForm extends JDialog {
 	 */
 	private JPanel AddGroupPanel;
 	/**
-	 * The Name group label.
-	 */
-	private JLabel NameGroupLabel;
-	/**
 	 * The Name group field.
 	 */
 	private JTextField NameGroupField;

@@ -10,7 +10,7 @@
     </properties>
     <border type="none"/>
     <children>
-      <component id="7c45e" class="javax.swing.JLabel" binding="LabelNumber">
+      <component id="7c45e" class="javax.swing.JLabel">
         <constraints>
           <grid row="2" column="0" row-span="1" col-span="12" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -27,7 +27,7 @@
         </constraints>
         <properties/>
       </component>
-      <component id="39ee6" class="javax.swing.JLabel" binding="IntervalLabel">
+      <component id="39ee6" class="javax.swing.JLabel">
         <constraints>
           <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -60,7 +60,7 @@
         </constraints>
         <properties/>
       </component>
-      <component id="eea09" class="javax.swing.JLabel" binding="LabelChooseForm">
+      <component id="eea09" class="javax.swing.JLabel">
         <constraints>
           <grid row="0" column="0" row-span="1" col-span="6" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>

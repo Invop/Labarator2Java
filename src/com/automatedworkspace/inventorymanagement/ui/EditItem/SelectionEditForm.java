@@ -9,7 +9,7 @@ import java.awt.event.WindowEvent;
 /**
  * The type Selection edit form.
  */
-public class SelectionEditForm extends JDialog{
+public class SelectionEditForm extends JDialog {
 	/**
 	 * The Edit selection panel.
 	 */
@@ -31,6 +31,11 @@ public class SelectionEditForm extends JDialog{
 	 */
 	private JButton HomeButton;
 
+	/**
+	 * Instantiates a new Selection edit form.
+	 *
+	 * @param parent the parent
+	 */
 	public SelectionEditForm(JFrame parent) {
 		super(parent);
 		setVisible(true);
@@ -43,6 +48,10 @@ public class SelectionEditForm extends JDialog{
 		IfhomeBtnPressed();
 		CloseApp();
 	}
+
+	/**
+	 * Close app.
+	 */
 	private void CloseApp() {
 		addWindowListener(new WindowAdapter() {
 			@Override
@@ -52,6 +61,10 @@ public class SelectionEditForm extends JDialog{
 			}
 		});
 	}
+
+	/**
+	 * Ifhome btn pressed.
+	 */
 	private void IfhomeBtnPressed() {
 		HomeButton.addActionListener(e -> {
 			dispose();
@@ -59,24 +72,33 @@ public class SelectionEditForm extends JDialog{
 		});
 	}
 
+	/**
+	 * If edit group btn pressed.
+	 */
 	private void IfEditGroupBtnPressed() {
 		EditGroupButton.addActionListener(e -> {
-		dispose();
-		new EditGroupForm(null);
+			dispose();
+			new EditGroupForm(null);
 		});
 	}
 
+	/**
+	 * If edit supplier btn pressed.
+	 */
 	private void IfEditSupplierBtnPressed() {
 		EditSupplierButton.addActionListener(e -> {
-		dispose();
-		new EditSupplierForm(null);
+			dispose();
+			new EditSupplierForm(null);
 		});
 	}
 
+	/**
+	 * If edit item btn pressed.
+	 */
 	private void IfEditItemBtnPressed() {
 		EditItemButton.addActionListener(e -> {
-		dispose();
-		new EditItemForm(null);
+			dispose();
+			new EditItemForm(null);
 		});
 	}
 }

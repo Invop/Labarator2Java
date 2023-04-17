@@ -49,7 +49,7 @@ public class InventoryStatistics extends JDialog {
 	/**
 	 * The Combo box group supplier.
 	 */
-	private JComboBox comboBoxGroupSupplier;
+	private JComboBox<String> comboBoxGroupSupplier;
 	/**
 	 * The Label sum.
 	 */
@@ -222,7 +222,7 @@ public class InventoryStatistics extends JDialog {
 		Config configMain = ConfigManager.readConfig();
 		int rows = config.getDeliveries().size();
 		int indx = comboBoxGroupSupplier.getSelectedIndex();
-		Object[][] data = null;
+		Object[][] data;
 		data = new Object[rows][5];
 		for (int i = 0; i < rows; i++) {
 			if (config.getDeliveries().get(i).getGroupIndex() == indx) {
@@ -283,9 +283,7 @@ public class InventoryStatistics extends JDialog {
 		}
 		Object[][] updatedData = new Object[dataIn.length + rows][5];
 		System.arraycopy(dataIn, 0, updatedData, 0, dataIn.length);
-		for (int i = 0; i < data.length; i++) {
-			updatedData[dataIn.length + i] = data[i];
-		}
+		System.arraycopy(data, 0, updatedData, dataIn.length, data.length);
 		populateTable(updatedData);
 	}
 
@@ -300,7 +298,7 @@ public class InventoryStatistics extends JDialog {
 		Config configMain = ConfigManager.readConfig();
 		int rows = config.getDeliveries().size();
 		int indx = comboBoxGroupSupplier.getSelectedIndex();
-		Object[][] data = null;
+		Object[][] data;
 		data = new Object[rows][5];
 		for (int i = 0; i < rows; i++) {
 			if (config.getDeliveries().get(i).getSupplierIndex() == indx) {
@@ -358,9 +356,7 @@ public class InventoryStatistics extends JDialog {
 		}
 		Object[][] updatedData = new Object[dataIn.length + rows][5];
 		System.arraycopy(dataIn, 0, updatedData, 0, dataIn.length);
-		for (int i = 0; i < data.length; i++) {
-			updatedData[dataIn.length + i] = data[i];
-		}
+		System.arraycopy(data, 0, updatedData, dataIn.length, data.length);
 		populateTable(updatedData);
 	}
 
@@ -374,7 +370,7 @@ public class InventoryStatistics extends JDialog {
 		Config configMain = ConfigManager.readConfig();
 		DeliveryConfig config = ConfigManager.readInOut();
 		int rows = config.getDeliveries().size();
-		Object[][] data = null;
+		Object[][] data;
 		data = new Object[rows][5];
 		for (int i = 0; i < rows; i++) {
 			data[i][0] = config.getDeliveries().get(i).getName();
@@ -429,9 +425,7 @@ public class InventoryStatistics extends JDialog {
 
 		Object[][] updatedData = new Object[dataIn.length + rows][5];
 		System.arraycopy(dataIn, 0, updatedData, 0, dataIn.length);
-		for (int i = 0; i < data.length; i++) {
-			updatedData[dataIn.length + i] = data[i];
-		}
+		System.arraycopy(data, 0, updatedData, dataIn.length, data.length);
 		populateTable(updatedData);
 	}
 

@@ -1,5 +1,6 @@
 package com.automatedworkspace.inventorymanagement.ui.Nomenclature;
 
+import com.automatedworkspace.inventorymanagement.FiledFilter.NumericFilter;
 import com.automatedworkspace.inventorymanagement.statistics.Config;
 import com.automatedworkspace.inventorymanagement.statistics.ConfigManager;
 import com.automatedworkspace.inventorymanagement.statistics.DeliveryConfig;
@@ -15,9 +16,6 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import javax.swing.text.AttributeSet;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.PlainDocument;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.FileInputStream;
@@ -40,25 +38,13 @@ public class AddToExistingForm extends JDialog {
 	 */
 	private JPanel PanelAddForm;
 	/**
-	 * The Label choose form.
-	 */
-	private JLabel LabelChooseForm;
-	/**
 	 * The Choose combo box.
 	 */
 	private JComboBox<String> ChooseComboBox;
 	/**
-	 * The Label number.
-	 */
-	private JLabel LabelNumber;
-	/**
 	 * The Number field.
 	 */
 	private JTextField NumberField;
-	/**
-	 * The Interval label.
-	 */
-	private JLabel IntervalLabel;
 	/**
 	 * The Ok button.
 	 */
@@ -319,25 +305,4 @@ public class AddToExistingForm extends JDialog {
 		ConfigManager.writeInOut(config);
 	}
 
-	/**
-	 * The type Numeric filter.
-	 */
-//sub classes
-	private static class NumericFilter extends PlainDocument {
-		@Override
-		public void insertString(int offs, String str, AttributeSet a) throws BadLocationException {
-			if (str == null) {
-				return;
-			}
-
-			char[] chars = str.toCharArray();
-			StringBuilder sb = new StringBuilder();
-			for (char ch : chars) {
-				if (Character.isDigit(ch)) {
-					sb.append(ch);
-				}
-			}
-			super.insertString(offs, sb.toString(), a);
-		}
-	}
 }

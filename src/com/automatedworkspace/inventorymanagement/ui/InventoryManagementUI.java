@@ -1,5 +1,6 @@
 package com.automatedworkspace.inventorymanagement.ui;
 
+import com.automatedworkspace.inventorymanagement.FiledFilter.NumericFilter;
 import com.automatedworkspace.inventorymanagement.statistics.Config;
 import com.automatedworkspace.inventorymanagement.statistics.ConfigManager;
 import com.automatedworkspace.inventorymanagement.statistics.InventoryStatistics;
@@ -12,9 +13,6 @@ import org.apache.poi.ss.usermodel.*;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.text.AttributeSet;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.PlainDocument;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
@@ -57,10 +55,6 @@ public class InventoryManagementUI extends JDialog {
 	 * The Export button.
 	 */
 	private JButton exportButton;
-	/**
-	 * The Search label.
-	 */
-	private JLabel searchLabel;
 	/**
 	 * The Find button.
 	 */
@@ -535,27 +529,6 @@ public class InventoryManagementUI extends JDialog {
 
 	}
 
-	/**
-	 * The type Numeric filter.
-	 */
-//sub classes
-	private static class NumericFilter extends PlainDocument {
-		@Override
-		public void insertString(int offs, String str, AttributeSet a) throws BadLocationException {
-			if (str == null) {
-				return;
-			}
-
-			char[] chars = str.toCharArray();
-			StringBuilder sb = new StringBuilder();
-			for (char ch : chars) {
-				if (Character.isDigit(ch)) {
-					sb.append(ch);
-				}
-			}
-			super.insertString(offs, sb.toString(), a);
-		}
-	}
 
 	/**
 	 * Fields that only handle numbers.

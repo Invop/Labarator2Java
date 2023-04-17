@@ -2,15 +2,11 @@ package com.automatedworkspace.inventorymanagement.ui.EditItem;
 
 import com.automatedworkspace.inventorymanagement.statistics.Config;
 import com.automatedworkspace.inventorymanagement.statistics.ConfigManager;
-import com.automatedworkspace.inventorymanagement.ui.DeleteItem.SelectionDeleteForm;
 import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.FileInputStream;
@@ -21,14 +17,37 @@ import java.util.List;
 import static com.automatedworkspace.inventorymanagement.ui.AddItem.AddItemForm.EXEL_FILE_PATH;
 
 
+/**
+ * The type Edit group form.
+ */
 public class EditGroupForm extends JDialog {
+	/**
+	 * The Main panel.
+	 */
 	private JPanel mainPanel;
+	/**
+	 * The Group combo box.
+	 */
 	private JComboBox<String> groupComboBox;
-	private JLabel nameLabel;
+	/**
+	 * The Name text field.
+	 */
 	private JTextField nameTextField;
+	/**
+	 * The Ok button.
+	 */
 	private JButton okButton;
+	/**
+	 * The Cancel button.
+	 */
 	private JButton cancelButton;
-	public EditGroupForm(JFrame parent){
+
+	/**
+	 * Instantiates a new Edit group form.
+	 *
+	 * @param parent the parent
+	 */
+	public EditGroupForm(JFrame parent) {
 		super(parent);
 		setSize(500, 450);
 		setVisible(true);
@@ -46,6 +65,10 @@ public class EditGroupForm extends JDialog {
 		IfCancelPressed();
 		CloseApp();
 	}
+
+	/**
+	 * Close app.
+	 */
 	private void CloseApp() {
 		addWindowListener(new WindowAdapter() {
 			@Override
@@ -55,7 +78,11 @@ public class EditGroupForm extends JDialog {
 			}
 		});
 	}
-	private void IfOkPressed(){
+
+	/**
+	 * If ok pressed.
+	 */
+	private void IfOkPressed() {
 		okButton.addActionListener(e -> {
 			try {
 				EchangeGroup();
@@ -66,6 +93,10 @@ public class EditGroupForm extends JDialog {
 			new SelectionEditForm(null);
 		});
 	}
+
+	/**
+	 * If cancel pressed.
+	 */
 	private void IfCancelPressed() {
 		cancelButton.addActionListener(e -> {
 			dispose();
@@ -73,6 +104,12 @@ public class EditGroupForm extends JDialog {
 		});
 
 	}
+
+	/**
+	 * Add groups to combo box.
+	 *
+	 * @throws IOException the io exception
+	 */
 	private void AddGroupsToComboBox() throws IOException {
 		// Read the config file
 		Config config = ConfigManager.readConfig();
@@ -90,6 +127,9 @@ public class EditGroupForm extends JDialog {
 		}
 	}
 
+	/**
+	 * Listener.
+	 */
 	private void Listener() {
 		// create document listener
 		DocumentListener documentListener = new DocumentListener() {
@@ -117,15 +157,20 @@ public class EditGroupForm extends JDialog {
 
 	}
 
+	/**
+	 * Check fields.
+	 */
 	private void checkFields() {
-		if(nameTextField.getText().isEmpty()){
-			okButton.setEnabled(false);
-		}
-		else okButton.setEnabled(true);
+		okButton.setEnabled(!nameTextField.getText().isEmpty());
 	}
 
-	private void EchangeGroup() throws  IOException {
-		Config  config = ConfigManager.readConfig();
+	/**
+	 * Echange group.
+	 *
+	 * @throws IOException the io exception
+	 */
+	private void EchangeGroup() throws IOException {
+		Config config = ConfigManager.readConfig();
 
 		//List<Integer> limitList = config.get();
 		List<String> groupList = config.getGroupList();
@@ -140,7 +185,10 @@ public class EditGroupForm extends JDialog {
 				newName = JOptionPane.showInputDialog(null, "Group already exists in config file. Please enter a new Group:");
 			}
 		}
-
+		newName = newName.replaceAll("\\s+", "");
+		if (newName.equals("")) {
+			return;
+		}
 		groupList.set(selectedIndx, newName);
 		// Open the Excel workbook
 		FileInputStream filePath = new FileInputStream(EXEL_FILE_PATH);
@@ -151,13 +199,13 @@ public class EditGroupForm extends JDialog {
 
 
 		//ім'я груп 12 індекс
-		for (int i = 0; i < config.getNotNullRows() ; i++) {
+		for (int i = 0; i < config.getNotNullRows(); i++) {
 			int index = i + 3;
 			row = sheet.getRow(index);
 			cell = row.getCell(12);
 
 			//якщо є
-			if(cell.getStringCellValue().equals(prevName)){
+			if (cell.getStringCellValue().equals(prevName)) {
 				cell.setCellValue(newName);
 			}
 			//cell.getNumericCellValue()==
@@ -170,4 +218,6 @@ public class EditGroupForm extends JDialog {
 		out.close();
 		workbook.close();
 	}
+
+
 }

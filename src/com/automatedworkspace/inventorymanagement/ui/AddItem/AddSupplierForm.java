@@ -20,10 +20,6 @@ public class AddSupplierForm extends JDialog {
 	 */
 	private JPanel AddSupplierPanel;
 	/**
-	 * The Name supplier label.
-	 */
-	private JLabel NameSupplierLabel;
-	/**
 	 * The Name supplier field.
 	 */
 	private JTextField NameSupplierField;
@@ -108,6 +104,10 @@ public class AddSupplierForm extends JDialog {
 			while (supplierList.contains(newSupplier)) {
 				newSupplier = JOptionPane.showInputDialog(null, "Group already exists in config file. Please enter a new Group:");
 			}
+		}
+		newSupplier = newSupplier.replaceAll("\\s+", "");
+		if (newSupplier.equals("")) {
+			return;
 		}
 		NameSupplierField.setText(newSupplier);
 

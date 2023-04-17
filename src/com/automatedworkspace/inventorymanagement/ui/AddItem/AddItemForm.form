@@ -11,7 +11,7 @@
     </properties>
     <border type="none"/>
     <children>
-      <component id="fc85f" class="javax.swing.JLabel" binding="NameLabel">
+      <component id="fc85f" class="javax.swing.JLabel">
         <constraints>
           <grid row="1" column="1" row-span="1" col-span="4" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -20,7 +20,7 @@
           <text value="Введіть назву товару"/>
         </properties>
       </component>
-      <component id="f864c" class="javax.swing.JLabel" binding="SupplierLabel">
+      <component id="f864c" class="javax.swing.JLabel">
         <constraints>
           <grid row="2" column="1" row-span="1" col-span="4" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -29,7 +29,7 @@
           <text value="Виберіть постачальника: "/>
         </properties>
       </component>
-      <component id="ba9a7" class="javax.swing.JLabel" binding="LimitLabel">
+      <component id="ba9a7" class="javax.swing.JLabel">
         <constraints>
           <grid row="4" column="1" row-span="1" col-span="4" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -62,7 +62,7 @@
         </constraints>
         <properties/>
       </component>
-      <component id="9f3d3" class="javax.swing.JLabel" binding="AddIDLabel">
+      <component id="9f3d3" class="javax.swing.JLabel">
         <constraints>
           <grid row="0" column="1" row-span="1" col-span="4" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -71,7 +71,7 @@
           <text value="Введіть ID"/>
         </properties>
       </component>
-      <component id="76aa1" class="javax.swing.JLabel" binding="PriceLabel">
+      <component id="76aa1" class="javax.swing.JLabel">
         <constraints>
           <grid row="3" column="1" row-span="1" col-span="4" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -106,7 +106,7 @@
           <enabled value="true"/>
         </properties>
       </component>
-      <component id="9e256" class="javax.swing.JLabel" binding="GroupLabel">
+      <component id="9e256" class="javax.swing.JLabel">
         <constraints>
           <grid row="7" column="1" row-span="1" col-span="4" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -131,7 +131,7 @@
           <model/>
         </properties>
       </component>
-      <component id="5d5ba" class="javax.swing.JLabel" binding="IntervalLabel">
+      <component id="5d5ba" class="javax.swing.JLabel">
         <constraints>
           <grid row="5" column="1" row-span="2" col-span="5" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
