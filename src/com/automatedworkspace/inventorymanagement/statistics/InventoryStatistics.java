@@ -257,7 +257,7 @@ public class InventoryStatistics extends JDialog {
 		int rows = config.getDeliveriesOut().size();
 		int indx = comboBoxGroupSupplier.getSelectedIndex();
 		Object[][] dataIn = showStatGroupIn();
-		System.out.println(indx);
+
 		Object[][] data = new Object[rows][5];
 
 		for (int i = 0; i < rows; i++) {
@@ -405,7 +405,7 @@ public class InventoryStatistics extends JDialog {
 
 		Object[][] data = new Object[rows][5];
 		for (int i = 0; i < rows; i++) {
-			System.out.println(1);
+
 			data[i][0] = config.getDeliveriesOut().get(i).getName();
 			data[i][1] = "-" + config.getDeliveriesOut().get(i).getSize();
 			data[i][2] = config.getDeliveriesOut().get(i).getDate();
