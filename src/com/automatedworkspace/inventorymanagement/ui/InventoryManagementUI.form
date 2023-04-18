@@ -119,7 +119,7 @@
               <text value="By Id"/>
             </properties>
           </component>
-          <component id="f70c2" class="javax.swing.JLabel" binding="searchLabel">
+          <component id="f70c2" class="javax.swing.JLabel">
             <constraints>
               <grid row="0" column="0" row-span="1" col-span="4" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -147,13 +147,21 @@
               <component id="31071" class="javax.swing.JTextField" binding="textFieldNameId">
                 <constraints/>
                 <properties>
-                  <visible value="false"/>
+                  <enabled value="true"/>
+                  <visible value="true"/>
                 </properties>
               </component>
+              <toolbar id="b01cb">
+                <constraints/>
+                <properties/>
+                <border type="none"/>
+                <children/>
+              </toolbar>
               <component id="65185" class="javax.swing.JComboBox" binding="comboBoxGroupSupplier">
                 <constraints/>
                 <properties>
                   <actionCommand value="comboBoxChanged"/>
+                  <enabled value="false"/>
                   <model/>
                   <visible value="false"/>
                 </properties>
@@ -161,13 +169,15 @@
               <component id="1f599" class="javax.swing.JTextField" binding="fromField">
                 <constraints/>
                 <properties>
-                  <visible value="true"/>
+                  <enabled value="false"/>
+                  <visible value="false"/>
                 </properties>
               </component>
               <component id="77cf1" class="javax.swing.JTextField" binding="toField">
                 <constraints/>
                 <properties>
-                  <visible value="true"/>
+                  <enabled value="false"/>
+                  <visible value="false"/>
                 </properties>
               </component>
             </children>

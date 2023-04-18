@@ -1,5 +1,6 @@
 package com.automatedworkspace.inventorymanagement.ui.AddItem;
 
+import com.automatedworkspace.inventorymanagement.FiledFilter.NumericFilter;
 import com.automatedworkspace.inventorymanagement.statistics.Config;
 import com.automatedworkspace.inventorymanagement.statistics.ConfigManager;
 import org.apache.poi.ss.usermodel.*;
@@ -7,9 +8,6 @@ import org.apache.poi.ss.usermodel.*;
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import javax.swing.text.AttributeSet;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.PlainDocument;
 import java.awt.Color;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -30,49 +28,25 @@ public class AddItemForm extends JDialog {
 	 */
 	private JPanel CreateFormBrand;
 	/**
-	 * The Add id label.
-	 */
-	private JLabel AddIDLabel;
-	/**
 	 * The Add id field.
 	 */
 	private JTextField AddIDField;
-	/**
-	 * The Name label.
-	 */
-	private JLabel NameLabel;
 	/**
 	 * The Add name field.
 	 */
 	private JTextField AddNameField;
 	/**
-	 * The Supplier label.
-	 */
-	private JLabel SupplierLabel;
-	/**
 	 * The Add supplier box.
 	 */
 	private JComboBox<String> AddSupplierBox;
-	/**
-	 * The Price label.
-	 */
-	private JLabel PriceLabel;
 	/**
 	 * The Add price field.
 	 */
 	private JTextField AddPriceField;
 	/**
-	 * The Limit label.
-	 */
-	private JLabel LimitLabel;
-	/**
 	 * The Add limit field.
 	 */
 	private JTextField AddLimitField;
-	/**
-	 * The Group label.
-	 */
-	private JLabel GroupLabel;
 	/**
 	 * The Add group box.
 	 */
@@ -85,10 +59,6 @@ public class AddItemForm extends JDialog {
 	 * The Cancel button.
 	 */
 	private JButton CancelButton;
-	/**
-	 * The Interval label.
-	 */
-	private JLabel IntervalLabel;
 	/**
 	 * The Interval field.
 	 */
@@ -303,9 +273,7 @@ public class AddItemForm extends JDialog {
 			row++;
 		}
 
-		// Update the config file
-		config.setNotNullRows(row + 1);
-		ConfigManager.writeConfig(config);
+
 
 		// Fill in the row with data
 		Row newRow = sheet.getRow(row);
@@ -317,14 +285,29 @@ public class AddItemForm extends JDialog {
 			cell = newRow.createCell(2);
 		}
 		addIDToConfig(AddIDField.getText());
-		cell.setCellValue(AddIDField.getText());
+		String newItemID = AddIDField.getText();
+		if(newItemID!=null) {
+			newItemID = newItemID.replaceAll("\\s+", "");
+		}
+		if(newItemID == null || newItemID.equals("")){
+			row--;
+			return;}
+		cell.setCellValue(newItemID);
 
 		cell = newRow.getCell(3);
 		if (cell == null) {
 			cell = newRow.createCell(3);
 		}
 		addNameToConfig(AddNameField.getText());
-		cell.setCellValue(AddNameField.getText());
+		String newItemName = AddNameField.getText();
+		if(newItemName!=null) {
+		newItemName = newItemName.replaceAll("\\s+", "");}
+		if(newItemName == null || newItemName.equals("")){
+			row--;
+			return;
+		}
+		cell.setCellValue(newItemName);
+
 		cell = newRow.getCell(4);
 		if (cell == null) {
 			cell = newRow.createCell(4);
@@ -358,6 +341,11 @@ public class AddItemForm extends JDialog {
 		}
 		addItemGroupToConfig(AddGroupBox.getSelectedIndex());
 		cell.setCellValue((String) AddGroupBox.getSelectedItem());
+
+
+		// Update the config file
+		config.setNotNullRows(row + 1);
+		ConfigManager.writeConfig(config);
 		// Save the workbook
 		FileOutputStream out = new FileOutputStream(EXEL_FILE_PATH);
 		workbook.write(out);
@@ -383,7 +371,14 @@ public class AddItemForm extends JDialog {
 				newName = JOptionPane.showInputDialog(null, "Name already exists in config file. Please enter a new name:");
 			}
 		}
-		AddNameField.setText(newName);
+		if (newName!=null) {
+			newName = newName.replaceAll("\\s+", "");
+			AddNameField.setText(newName);
+		}
+		if (newName==null||newName.equals("")) {
+			AddNameField.setText(newName);
+			return;
+		}
 
 		// Add the new name to the list
 		nameList.add(newName);
@@ -411,7 +406,14 @@ public class AddItemForm extends JDialog {
 				newID = JOptionPane.showInputDialog(null, "ID already exists in config file. Please enter a new ID:");
 			}
 		}
-		AddIDField.setText(newID);
+		if(newID!=null) {
+			newID = newID.replaceAll("\\s+", "");
+			AddIDField.setText(newID);
+		}
+		if (newID==null||newID.equals("")   ) {
+			AddIDField.setText(newID);
+			return;
+		}
 		// Add the new ID to the list
 		idList.add(newID);
 		config.setIDList(idList);
@@ -489,25 +491,5 @@ public class AddItemForm extends JDialog {
 		ConfigManager.writeConfig(config);
 	}
 
-	/**
-	 * The type Numeric filter.
-	 */
-//sub classes
-	private static class NumericFilter extends PlainDocument {
-		@Override
-		public void insertString(int offs, String str, AttributeSet a) throws BadLocationException {
-			if (str == null) {
-				return;
-			}
 
-			char[] chars = str.toCharArray();
-			StringBuilder sb = new StringBuilder();
-			for (char ch : chars) {
-				if (Character.isDigit(ch)) {
-					sb.append(ch);
-				}
-			}
-			super.insertString(offs, sb.toString(), a);
-		}
-	}
 }

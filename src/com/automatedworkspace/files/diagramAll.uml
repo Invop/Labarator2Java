@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="-86.0" y="445.5">com.automatedworkspace.inventorymanagement.ui.Nomenclature.WriteOffFromExistingForm</node>
+    <node x="242.5" y="685.5">com.automatedworkspace.inventorymanagement.statistics.InventoryStatistics</node>
+    <node x="144.5" y="225.5">com.automatedworkspace.inventorymanagement.ui.EditItem.EditSupplierForm</node>
+    <node x="812.5" y="445.5">com.automatedworkspace.inventorymanagement.ui.DeleteItem.SelectionDeleteForm</node>
+    <node x="116.0" y="105.5">com.automatedworkspace.inventorymanagement.ui.AddItem.AddItemForm</node>
+    <node x="157.0" y="445.5">com.automatedworkspace.inventorymanagement.ui.Nomenclature.AddToExistingForm</node>
+    <node x="441.5" y="445.5">com.automatedworkspace.inventorymanagement.ui.EditItem.SelectionEditForm</node>
+    <node x="331.5" y="225.5">com.automatedworkspace.inventorymanagement.ui.EditItem.EditGroupForm</node>
+    <node x="283.5" y="105.5">com.automatedworkspace.inventorymanagement.ui.AddItem.AddSupplierForm</node>
+    <node x="1055.5" y="225.5">com.automatedworkspace.inventorymanagement.ui.DeleteItem.DeleteSupplierForm</node>
+    <node x="430.5" y="685.5">com.automatedworkspace.inventorymanagement.statistics.ConfigManager</node>
+    <node x="240.5" y="565.5">com.automatedworkspace.inventorymanagement.ui.InventoryManagementUI</node>
+    <node x="862.5" y="225.5">com.automatedworkspace.inventorymanagement.ui.DeleteItem.DeleteGroupForm</node>
+    <node x="517.0" y="225.5">com.automatedworkspace.inventorymanagement.ui.EditItem.EditItemForm</node>
+    <node x="605.5" y="685.5">com.automatedworkspace.inventorymanagement.Main</node>
+    <node x="-59.5" y="225.5">com.automatedworkspace.inventorymanagement.ui.AddItem.SelectionAddForm</node>
+    <node x="-267.0" y="445.5">com.automatedworkspace.inventorymanagement.statistics.DeliveryConfig</node>
+    <node x="688.0" y="225.5">com.automatedworkspace.inventorymanagement.ui.DeleteItem.DeleteItemForm</node>
+    <node x="-265.0" y="225.5">com.automatedworkspace.inventorymanagement.ui.Nomenclature.Delivery</node>
+    <node x="-202.5" y="-14.5">com.automatedworkspace.inventorymanagement.FiledFilter.NumericFilter</node>
+    <node x="720.0" y="685.5">com.automatedworkspace.inventorymanagement.statistics.Config</node>
+    <node x="-69.5" y="105.5">com.automatedworkspace.inventorymanagement.ui.AddItem.AddGroupForm</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.automatedworkspace.inventorymanagement.ui.EditItem.SelectionEditForm" target="com.automatedworkspace.inventorymanagement.ui.EditItem.EditSupplierForm" relationship="CREATE">
+      <point x="-40.0" y="-14.5" />
+      <point x="487.0" y="280.0" />
+      <point x="187.0" y="280.0" />
+      <point x="-40.0" y="14.5" />
+    </edge>
+    <edge source="com.automatedworkspace.inventorymanagement.ui.EditItem.EditSupplierForm" target="com.automatedworkspace.inventorymanagement.ui.EditItem.SelectionEditForm" relationship="CREATE">
+      <point x="41.66666666666663" y="14.5" />
+      <point x="268.66666666666663" y="300.0" />
+      <point x="567.0" y="300.0" />
+      <point x="40.0" y="-14.5" />
+    </edge>
+    <edge source="com.automatedworkspace.inventorymanagement.ui.DeleteItem.SelectionDeleteForm" target="com.automatedworkspace.inventorymanagement.ui.InventoryManagementUI" relationship="CREATE">
+      <point x="-40.0" y="14.5" />
+      <point x="867.0" y="520.0" />
+      <point x="287.0" y="520.0" />
+      <point x="-60.0" y="-14.5" />
+    </edge>
+    <edge source="com.automatedworkspace.inventorymanagement.ui.InventoryManagementUI" target="com.automatedworkspace.inventorymanagement.ui.EditItem.SelectionEditForm" relationship="CREATE">
+      <point x="60.0" y="-14.5" />
+      <point x="407.0" y="500.0" />
+      <point x="567.0" y="500.0" />
+      <point x="40.0" y="14.5" />
+    </edge>
+    <edge source="com.automatedworkspace.inventorymanagement.ui.InventoryManagementUI" target="com.automatedworkspace.inventorymanagement.ui.DeleteItem.SelectionDeleteForm" relationship="CREATE">
+      <point x="60.0" y="-14.5" />
+      <point x="407.0" y="500.0" />
+      <point x="947.0" y="500.0" />
+      <point x="40.0" y="14.5" />
+    </edge>
+    <edge source="com.automatedworkspace.inventorymanagement.ui.EditItem.SelectionEditForm" target="com.automatedworkspace.inventorymanagement.ui.InventoryManagementUI" relationship="CREATE">
+      <point x="-40.0" y="14.5" />
+      <point x="487.0" y="520.0" />
+      <point x="287.0" y="520.0" />
+      <point x="-60.0" y="-14.5" />
+    </edge>
+    <edge source="com.automatedworkspace.inventorymanagement.ui.DeleteItem.SelectionDeleteForm" target="com.automatedworkspace.inventorymanagement.ui.DeleteItem.DeleteSupplierForm" relationship="CREATE">
+      <point x="-40.0" y="-14.5" />
+      <point x="867.0" y="300.0" />
+      <point x="1099.3333333333333" y="300.0" />
+      <point x="-47.66666666666674" y="14.5" />
+    </edge>
+    <edge source="com.automatedworkspace.inventorymanagement.ui.DeleteItem.DeleteSupplierForm" target="com.automatedworkspace.inventorymanagement.ui.DeleteItem.SelectionDeleteForm" relationship="CREATE">
+      <point x="40.0" y="14.5" />
+      <point x="1187.0" y="280.0" />
+      <point x="947.0" y="280.0" />
+      <point x="40.0" y="-14.5" />
+    </edge>
+    <edge source="com.automatedworkspace.inventorymanagement.ui.EditItem.SelectionEditForm" target="com.automatedworkspace.inventorymanagement.ui.EditItem.EditGroupForm" relationship="CREATE">
+      <point x="-40.0" y="-14.5" />
+      <point x="487.0" y="280.0" />
+      <point x="447.0" y="280.0" />
+      <point x="40.0" y="14.5" />
+    </edge>
+    <edge source="com.automatedworkspace.inventorymanagement.ui.EditItem.EditGroupForm" target="com.automatedworkspace.inventorymanagement.ui.EditItem.SelectionEditForm" relationship="CREATE">
+      <point x="63.66666666666663" y="14.5" />
+      <point x="470.66666666666663" y="300.0" />
+      <point x="567.0" y="300.0" />
+      <point x="40.0" y="-14.5" />
+    </edge>
+    <edge source="com.automatedworkspace.inventorymanagement.ui.Nomenclature.AddToExistingForm" target="com.automatedworkspace.inventorymanagement.FiledFilter.NumericFilter" relationship="CREATE">
+      <point x="0.0" y="-14.5" />
+      <point x="247.0" y="400.0" />
+      <point x="-93.0" y="400.0" />
+      <point x="-93.0" y="80.0" />
+      <point x="-133.0" y="80.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="com.automatedworkspace.inventorymanagement.ui.Nomenclature.AddToExistingForm" target="com.automatedworkspace.inventorymanagement.ui.AddItem.SelectionAddForm" relationship="CREATE">
+      <point x="0.0" y="-14.5" />
+      <point x="247.0" y="400.0" />
+      <point x="-93.0" y="400.0" />
+      <point x="-93.0" y="380.0" />
+      <point x="-13.0" y="380.0" />
+      <point x="-40.0" y="14.5" />
+    </edge>
+    <edge source="com.automatedworkspace.inventorymanagement.ui.EditItem.SelectionEditForm" target="com.automatedworkspace.inventorymanagement.ui.EditItem.EditItemForm" relationship="CREATE">
+      <point x="-40.0" y="-14.5" />
+      <point x="487.0" y="280.0" />
+      <point x="553.6666666666666" y="280.0" />
+      <point x="-33.33333333333337" y="14.5" />
+    </edge>
+    <edge source="com.automatedworkspace.inventorymanagement.ui.EditItem.EditItemForm" target="com.automatedworkspace.inventorymanagement.ui.EditItem.SelectionEditForm" relationship="CREATE">
+      <point x="40.0" y="14.5" />
+      <point x="627.0" y="300.0" />
+      <point x="567.0" y="300.0" />
+      <point x="40.0" y="-14.5" />
+    </edge>
+    <edge source="com.automatedworkspace.inventorymanagement.ui.InventoryManagementUI" target="com.automatedworkspace.inventorymanagement.ui.Nomenclature.AddToExistingForm" relationship="CREATE">
+      <point x="60.0" y="-14.5" />
+      <point x="407.0" y="500.0" />
+      <point x="287.0" y="500.0" />
+      <point x="40.0" y="14.5" />
+    </edge>
+    <edge source="com.automatedworkspace.inventorymanagement.ui.InventoryManagementUI" target="com.automatedworkspace.inventorymanagement.ui.Nomenclature.WriteOffFromExistingForm" relationship="CREATE">
+      <point x="60.0" y="-14.5" />
+      <point x="407.0" y="500.0" />
+      <point x="87.0" y="500.0" />
+      <point x="60.0" y="14.5" />
+    </edge>
+    <edge source="com.automatedworkspace.inventorymanagement.ui.Nomenclature.WriteOffFromExistingForm" target="com.automatedworkspace.inventorymanagement.ui.InventoryManagementUI" relationship="CREATE">
+      <point x="-60.0" y="14.5" />
+      <point x="-33.0" y="520.0" />
+      <point x="287.0" y="520.0" />
+      <point x="-60.0" y="-14.5" />
+    </edge>
+    <edge source="com.automatedworkspace.inventorymanagement.ui.Nomenclature.AddToExistingForm" target="com.automatedworkspace.inventorymanagement.ui.InventoryManagementUI" relationship="CREATE">
+      <point x="-40.0" y="14.5" />
+      <point x="207.0" y="520.0" />
+      <point x="287.0" y="520.0" />
+      <point x="-60.0" y="-14.5" />
+    </edge>
+    <edge source="com.automatedworkspace.inventorymanagement.statistics.InventoryStatistics" target="com.automatedworkspace.inventorymanagement.ui.InventoryManagementUI" relationship="CREATE">
+      <point x="40.0" y="-14.5" />
+      <point x="367.0" y="660.0" />
+      <point x="407.0" y="660.0" />
+      <point x="60.0" y="14.5" />
+    </edge>
+    <edge source="com.automatedworkspace.inventorymanagement.ui.InventoryManagementUI" target="com.automatedworkspace.inventorymanagement.statistics.InventoryStatistics" relationship="CREATE">
+      <point x="-60.0" y="14.5" />
+      <point x="-40.0" y="-14.5" />
+    </edge>
+    <edge source="com.automatedworkspace.inventorymanagement.ui.Nomenclature.WriteOffFromExistingForm" target="com.automatedworkspace.inventorymanagement.FiledFilter.NumericFilter" relationship="CREATE">
+      <point x="0.0" y="-14.5" />
+      <point x="27.0" y="420.0" />
+      <point x="-133.0" y="420.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="com.automatedworkspace.inventorymanagement.ui.AddItem.SelectionAddForm" target="com.automatedworkspace.inventorymanagement.ui.AddItem.AddSupplierForm" relationship="CREATE">
+      <point x="60.0" y="-14.5" />
+      <point x="87.0" y="160.0" />
+      <point x="407.0" y="160.0" />
+      <point x="40.0" y="14.5" />
+    </edge>
+    <edge source="com.automatedworkspace.inventorymanagement.ui.AddItem.AddSupplierForm" target="com.automatedworkspace.inventorymanagement.ui.AddItem.SelectionAddForm" relationship="CREATE">
+      <point x="-42.33333333333337" y="14.5" />
+      <point x="324.66666666666663" y="180.0" />
+      <point x="7.0" y="180.0" />
+      <point x="-20.0" y="-14.5" />
+    </edge>
+    <edge source="com.automatedworkspace.inventorymanagement.ui.AddItem.SelectionAddForm" target="com.automatedworkspace.inventorymanagement.ui.AddItem.AddGroupForm" relationship="CREATE">
+      <point x="60.0" y="-14.5" />
+      <point x="87.0" y="160.0" />
+      <point x="44.666666666666686" y="160.0" />
+      <point x="37.666666666666686" y="14.5" />
+    </edge>
+    <edge source="com.automatedworkspace.inventorymanagement.ui.AddItem.AddGroupForm" target="com.automatedworkspace.inventorymanagement.ui.AddItem.SelectionAddForm" relationship="CREATE">
+      <point x="-40.0" y="14.5" />
+      <point x="-33.0" y="180.0" />
+      <point x="7.0" y="180.0" />
+      <point x="-20.0" y="-14.5" />
+    </edge>
+    <edge source="com.automatedworkspace.inventorymanagement.statistics.DeliveryConfig" target="com.automatedworkspace.inventorymanagement.ui.Nomenclature.Delivery" relationship="TO_MANY">
+      <point x="0.0" y="-14.5" />
+      <point x="-193.0" y="420.0" />
+      <point x="-233.0" y="420.0" />
+      <point x="-20.0" y="14.5" />
+    </edge>
+    <edge source="com.automatedworkspace.inventorymanagement.Main" target="com.automatedworkspace.inventorymanagement.ui.InventoryManagementUI" relationship="CREATE">
+      <point x="0.0" y="-14.5" />
+      <point x="647.0" y="660.0" />
+      <point x="407.0" y="660.0" />
+      <point x="60.0" y="14.5" />
+    </edge>
+    <edge source="com.automatedworkspace.inventorymanagement.ui.DeleteItem.DeleteItemForm" target="com.automatedworkspace.inventorymanagement.ui.DeleteItem.SelectionDeleteForm" relationship="CREATE">
+      <point x="39.33333333333326" y="14.5" />
+      <point x="806.3333333333333" y="280.0" />
+      <point x="947.0" y="280.0" />
+      <point x="40.0" y="-14.5" />
+    </edge>
+    <edge source="com.automatedworkspace.inventorymanagement.ui.DeleteItem.SelectionDeleteForm" target="com.automatedworkspace.inventorymanagement.ui.DeleteItem.DeleteItemForm" relationship="CREATE">
+      <point x="-40.0" y="-14.5" />
+      <point x="867.0" y="300.0" />
+      <point x="727.0" y="300.0" />
+      <point x="-40.0" y="14.5" />
+    </edge>
+    <edge source="com.automatedworkspace.inventorymanagement.ui.AddItem.AddItemForm" target="com.automatedworkspace.inventorymanagement.FiledFilter.NumericFilter" relationship="CREATE">
+      <point x="0.0" y="-14.5" />
+      <point x="187.0" y="80.0" />
+      <point x="-133.0" y="80.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="com.automatedworkspace.inventorymanagement.ui.EditItem.EditItemForm" target="com.automatedworkspace.inventorymanagement.FiledFilter.NumericFilter" relationship="CREATE">
+      <point x="0.0" y="-14.5" />
+      <point x="587.0" y="80.0" />
+      <point x="-133.0" y="80.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="com.automatedworkspace.inventorymanagement.ui.AddItem.SelectionAddForm" target="com.automatedworkspace.inventorymanagement.ui.InventoryManagementUI" relationship="CREATE">
+      <point x="40.0" y="14.5" />
+      <point x="67.0" y="320.0" />
+      <point x="367.0" y="320.0" />
+      <point x="367.0" y="520.0" />
+      <point x="287.0" y="520.0" />
+      <point x="-60.0" y="-14.5" />
+    </edge>
+    <edge source="com.automatedworkspace.inventorymanagement.ui.InventoryManagementUI" target="com.automatedworkspace.inventorymanagement.ui.AddItem.SelectionAddForm" relationship="CREATE">
+      <point x="60.0" y="-14.5" />
+      <point x="407.0" y="360.0" />
+      <point x="-13.0" y="360.0" />
+      <point x="-40.0" y="14.5" />
+    </edge>
+    <edge source="com.automatedworkspace.inventorymanagement.ui.DeleteItem.SelectionDeleteForm" target="com.automatedworkspace.inventorymanagement.ui.DeleteItem.DeleteGroupForm" relationship="CREATE">
+      <point x="-40.0" y="-14.5" />
+      <point x="-80.0" y="14.5" />
+    </edge>
+    <edge source="com.automatedworkspace.inventorymanagement.ui.DeleteItem.DeleteGroupForm" target="com.automatedworkspace.inventorymanagement.ui.DeleteItem.SelectionDeleteForm" relationship="CREATE">
+      <point x="40.0" y="14.5" />
+      <point x="987.0" y="280.0" />
+      <point x="947.0" y="280.0" />
+      <point x="40.0" y="-14.5" />
+    </edge>
+    <edge source="com.automatedworkspace.inventorymanagement.ui.Nomenclature.AddToExistingForm" target="com.automatedworkspace.inventorymanagement.ui.Nomenclature.Delivery" relationship="CREATE">
+      <point x="0.0" y="-14.5" />
+      <point x="247.0" y="400.0" />
+      <point x="-93.0" y="400.0" />
+      <point x="-93.0" y="300.0" />
+      <point x="-133.0" y="300.0" />
+      <point x="-133.0" y="280.0" />
+      <point x="-185.0" y="280.0" />
+      <point x="28.0" y="14.5" />
+    </edge>
+    <edge source="com.automatedworkspace.inventorymanagement.ui.AddItem.SelectionAddForm" target="com.automatedworkspace.inventorymanagement.ui.AddItem.AddItemForm" relationship="CREATE">
+      <point x="60.0" y="-14.5" />
+      <point x="87.0" y="160.0" />
+      <point x="227.0" y="160.0" />
+      <point x="40.0" y="14.5" />
+    </edge>
+    <edge source="com.automatedworkspace.inventorymanagement.ui.AddItem.AddItemForm" target="com.automatedworkspace.inventorymanagement.ui.AddItem.SelectionAddForm" relationship="CREATE">
+      <point x="-34.0" y="14.5" />
+      <point x="153.0" y="180.0" />
+      <point x="7.0" y="180.0" />
+      <point x="-20.0" y="-14.5" />
+    </edge>
+    <edge source="com.automatedworkspace.inventorymanagement.ui.InventoryManagementUI" target="com.automatedworkspace.inventorymanagement.FiledFilter.NumericFilter" relationship="CREATE">
+      <point x="60.0" y="-14.5" />
+      <point x="407.0" y="500.0" />
+      <point x="1267.0" y="500.0" />
+      <point x="1267.0" y="80.0" />
+      <point x="-133.0" y="80.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="com.automatedworkspace.inventorymanagement.ui.Nomenclature.WriteOffFromExistingForm" target="com.automatedworkspace.inventorymanagement.ui.Nomenclature.Delivery" relationship="CREATE">
+      <point x="0.0" y="-14.5" />
+      <point x="27.0" y="420.0" />
+      <point x="-133.0" y="420.0" />
+      <point x="-133.0" y="280.0" />
+      <point x="-185.0" y="280.0" />
+      <point x="28.0" y="14.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Compact" zoom="0.732" showDependencies="true" x="510.0" y="360.0" />
+  <SelectedNodes />
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

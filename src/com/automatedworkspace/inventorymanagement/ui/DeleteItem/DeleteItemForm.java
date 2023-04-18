@@ -27,10 +27,6 @@ public class DeleteItemForm extends JDialog {
 	 */
 	private JPanel DeleteItemPanel;
 	/**
-	 * The Delete item label.
-	 */
-	private JLabel DeleteItemLabel;
-	/**
 	 * The Delete item combo box.
 	 */
 	private JComboBox<String> DeleteItemComboBox;

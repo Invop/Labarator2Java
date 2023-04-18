@@ -23,10 +23,6 @@ public class DeleteSupplierForm extends JDialog {
 	 */
 	private JPanel DeleteSuplplierPanel;
 	/**
-	 * The Delete supplier label.
-	 */
-	private JLabel DeleteSupplierLabel;
-	/**
 	 * The Delete supplier combo box.
 	 */
 	private JComboBox<String> DeleteSupplierComboBox;

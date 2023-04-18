@@ -27,10 +27,6 @@ public class DeleteGroupForm extends JDialog {
 	 */
 	private JPanel DeleteGroupPanel;
 	/**
-	 * The Delete group label.
-	 */
-	private JLabel DeleteGroupLabel;
-	/**
 	 * The Delete group combo box.
 	 */
 	private JComboBox<String> DeleteGroupComboBox;
@@ -128,8 +124,6 @@ public class DeleteGroupForm extends JDialog {
 		Config config = ConfigManager.readConfig();
 		List<String> GroupList = config.getGroupList();
 		int selectedIdx = DeleteGroupComboBox.getSelectedIndex();
-
-		int size = config.getNotNullRows();
 		List<Integer> itemGroupList = config.getItemGroupList();
 		// Remove row from Excel table
 		FileInputStream filePath = new FileInputStream(EXEL_FILE_PATH);
@@ -161,7 +155,4 @@ public class DeleteGroupForm extends JDialog {
 		workbook.close();
 		ConfigManager.writeConfig(config);
 	}
-	//            String formula = "ЕСЛИОШИБКА((InventoryList!G" + (i+1) + ":G" + (i+1) + "<=InventoryList!I" + (i+1) + ":I" + (i+1) + ")*(InventoryList!L" + (i+1) + ":L" + (i+1) + "=\"\")*valHighlight,0)";
-//InventoryList!F" + (i+1) + ":F" + (i+1) + "*InventoryList!G" + (i+1) + ":G" + (i+1) + ")"
-
 }
