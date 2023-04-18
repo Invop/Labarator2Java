@@ -105,8 +105,11 @@ public class AddSupplierForm extends JDialog {
 				newSupplier = JOptionPane.showInputDialog(null, "Group already exists in config file. Please enter a new Group:");
 			}
 		}
-		newSupplier = newSupplier.replaceAll("\\s+", "");
-		if (newSupplier.equals("")) {
+		if(newSupplier!=null) {
+			newSupplier = newSupplier.replaceAll("\\s+", "");
+			NameSupplierField.setText(newSupplier);
+		}
+		if (newSupplier==null || newSupplier.equals("")) {
 			return;
 		}
 		NameSupplierField.setText(newSupplier);

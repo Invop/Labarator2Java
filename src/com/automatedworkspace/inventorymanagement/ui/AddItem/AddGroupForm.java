@@ -105,6 +105,13 @@ public class AddGroupForm extends JDialog {
 				newGroup = JOptionPane.showInputDialog(null, "Group already exists in config file. Please enter a new Group:");
 			}
 		}
+		if (newGroup!=null) {
+			newGroup = newGroup.replaceAll("\\s+", "");
+			NameGroupField.setText(newGroup);
+		}
+		if (newGroup==null||newGroup.equals("")) {
+			return;
+		}
 		NameGroupField.setText(newGroup);
 
 		// Add the new group to the list

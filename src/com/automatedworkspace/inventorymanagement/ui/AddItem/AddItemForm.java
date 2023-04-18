@@ -273,9 +273,7 @@ public class AddItemForm extends JDialog {
 			row++;
 		}
 
-		// Update the config file
-		config.setNotNullRows(row + 1);
-		ConfigManager.writeConfig(config);
+
 
 		// Fill in the row with data
 		Row newRow = sheet.getRow(row);
@@ -288,7 +286,12 @@ public class AddItemForm extends JDialog {
 		}
 		addIDToConfig(AddIDField.getText());
 		String newItemID = AddIDField.getText();
-		newItemID = newItemID.replaceAll("\\s+", "");
+		if(newItemID!=null) {
+			newItemID = newItemID.replaceAll("\\s+", "");
+		}
+		if(newItemID == null || newItemID.equals("")){
+			row--;
+			return;}
 		cell.setCellValue(newItemID);
 
 		cell = newRow.getCell(3);
@@ -297,8 +300,14 @@ public class AddItemForm extends JDialog {
 		}
 		addNameToConfig(AddNameField.getText());
 		String newItemName = AddNameField.getText();
-		newItemName = newItemName.replaceAll("\\s+", "");
+		if(newItemName!=null) {
+		newItemName = newItemName.replaceAll("\\s+", "");}
+		if(newItemName == null || newItemName.equals("")){
+			row--;
+			return;
+		}
 		cell.setCellValue(newItemName);
+
 		cell = newRow.getCell(4);
 		if (cell == null) {
 			cell = newRow.createCell(4);
@@ -332,6 +341,11 @@ public class AddItemForm extends JDialog {
 		}
 		addItemGroupToConfig(AddGroupBox.getSelectedIndex());
 		cell.setCellValue((String) AddGroupBox.getSelectedItem());
+
+
+		// Update the config file
+		config.setNotNullRows(row + 1);
+		ConfigManager.writeConfig(config);
 		// Save the workbook
 		FileOutputStream out = new FileOutputStream(EXEL_FILE_PATH);
 		workbook.write(out);
@@ -357,11 +371,14 @@ public class AddItemForm extends JDialog {
 				newName = JOptionPane.showInputDialog(null, "Name already exists in config file. Please enter a new name:");
 			}
 		}
-		newName = newName.replaceAll("\\s+", "");
-		if (newName.equals("")) {
+		if (newName!=null) {
+			newName = newName.replaceAll("\\s+", "");
+			AddNameField.setText(newName);
+		}
+		if (newName==null||newName.equals("")) {
+			AddNameField.setText(newName);
 			return;
 		}
-		AddNameField.setText(newName);
 
 		// Add the new name to the list
 		nameList.add(newName);
@@ -389,11 +406,14 @@ public class AddItemForm extends JDialog {
 				newID = JOptionPane.showInputDialog(null, "ID already exists in config file. Please enter a new ID:");
 			}
 		}
-		newID = newID.replaceAll("\\s+", "");
-		if (newID.equals("")) {
+		if(newID!=null) {
+			newID = newID.replaceAll("\\s+", "");
+			AddIDField.setText(newID);
+		}
+		if (newID==null||newID.equals("")   ) {
+			AddIDField.setText(newID);
 			return;
 		}
-		AddIDField.setText(newID);
 		// Add the new ID to the list
 		idList.add(newID);
 		config.setIDList(idList);
