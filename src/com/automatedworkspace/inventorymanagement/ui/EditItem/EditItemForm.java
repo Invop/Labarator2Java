@@ -249,8 +249,10 @@ public class EditItemForm extends JDialog {
 				newName = JOptionPane.showInputDialog(null, "Name already exists in config file. Please enter a new name:");
 			}
 		}
-		newName = newName.replaceAll("\\s+", "");
-		if (newName.equals("")) {
+		if(newName!=null) {
+			newName = newName.replaceAll("\\s+", "");
+		}
+		if (newName==null || newName.equals("")) {
 			return;
 		}
 		NameList.set(selectedIndx, newName);

@@ -185,8 +185,11 @@ public class EditGroupForm extends JDialog {
 				newName = JOptionPane.showInputDialog(null, "Group already exists in config file. Please enter a new Group:");
 			}
 		}
-		newName = newName.replaceAll("\\s+", "");
-		if (newName.equals("")) {
+		if(newName!=null) {
+			newName = newName.replaceAll("\\s+", "");
+
+		}
+		if (newName==null || newName.equals("")) {
 			return;
 		}
 		groupList.set(selectedIndx, newName);
