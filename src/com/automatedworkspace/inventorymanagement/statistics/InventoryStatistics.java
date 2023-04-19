@@ -66,6 +66,7 @@ public class InventoryStatistics extends JDialog {
 	 * The Label purchases.
 	 */
 	private JLabel labelPurchases;
+	private JLabel grouplabel;
 
 	/**
 	 * Instantiates a new Inventory statistics.
@@ -158,6 +159,18 @@ public class InventoryStatistics extends JDialog {
 				comboBoxGroupSupplier.addActionListener(e -> {
 					try {
 						showGroupStatOut();
+						Thread thread = new Thread(new Runnable() {
+							public void run() {
+								try {
+									getSumGroup();
+								} catch (IOException ex) {
+									throw new RuntimeException(ex);
+								}
+								Thread.currentThread().interrupt();
+							}
+						});
+
+						thread.start(); // Запускаем поток
 
 					} catch (IOException ex) {
 						throw new RuntimeException(ex);
@@ -475,6 +488,25 @@ public class InventoryStatistics extends JDialog {
 			sum += row.getCell(5).getNumericCellValue() * row.getCell(6).getNumericCellValue();
 		}
 		labelSum.setText("Sum = " + sum);
+		filePath.close();
+		workbook.close();
+	}
+
+	private void getSumGroup() throws IOException{
+		Config config = ConfigManager.readConfig();
+		// Open the Excel workbook
+		FileInputStream filePath = new FileInputStream(EXEL_FILE_PATH);
+		Workbook workbook = WorkbookFactory.create(filePath);
+		Sheet sheet = workbook.getSheetAt(0);
+
+		int sum = 0;
+		for (int i = 3; i < config.getNotNullRows(); i++) {
+			Row row = sheet.getRow(i);
+			if(comboBoxGroupSupplier.getSelectedItem()!=null &&comboBoxGroupSupplier.getSelectedItem().equals(row.getCell(12).getStringCellValue())) {
+				sum += row.getCell(5).getNumericCellValue() * row.getCell(6).getNumericCellValue();
+			}
+		}
+		grouplabel.setText("Group sum = " + sum);
 		filePath.close();
 		workbook.close();
 	}
