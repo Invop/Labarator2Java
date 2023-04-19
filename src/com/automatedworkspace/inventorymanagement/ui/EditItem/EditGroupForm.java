@@ -17,36 +17,14 @@ import java.util.List;
 import static com.automatedworkspace.inventorymanagement.ui.AddItem.AddItemForm.EXEL_FILE_PATH;
 
 
-/**
- * The type Edit group form.
- */
 public class EditGroupForm extends JDialog {
-	/**
-	 * The Main panel.
-	 */
 	private JPanel mainPanel;
-	/**
-	 * The Group combo box.
-	 */
 	private JComboBox<String> groupComboBox;
-	/**
-	 * The Name text field.
-	 */
+	private JLabel nameLabel;
 	private JTextField nameTextField;
-	/**
-	 * The Ok button.
-	 */
 	private JButton okButton;
-	/**
-	 * The Cancel button.
-	 */
 	private JButton cancelButton;
 
-	/**
-	 * Instantiates a new Edit group form.
-	 *
-	 * @param parent the parent
-	 */
 	public EditGroupForm(JFrame parent) {
 		super(parent);
 		setSize(500, 450);
@@ -66,9 +44,6 @@ public class EditGroupForm extends JDialog {
 		CloseApp();
 	}
 
-	/**
-	 * Close app.
-	 */
 	private void CloseApp() {
 		addWindowListener(new WindowAdapter() {
 			@Override
@@ -79,9 +54,6 @@ public class EditGroupForm extends JDialog {
 		});
 	}
 
-	/**
-	 * If ok pressed.
-	 */
 	private void IfOkPressed() {
 		okButton.addActionListener(e -> {
 			try {
@@ -94,9 +66,6 @@ public class EditGroupForm extends JDialog {
 		});
 	}
 
-	/**
-	 * If cancel pressed.
-	 */
 	private void IfCancelPressed() {
 		cancelButton.addActionListener(e -> {
 			dispose();
@@ -105,11 +74,6 @@ public class EditGroupForm extends JDialog {
 
 	}
 
-	/**
-	 * Add groups to combo box.
-	 *
-	 * @throws IOException the io exception
-	 */
 	private void AddGroupsToComboBox() throws IOException {
 		// Read the config file
 		Config config = ConfigManager.readConfig();
@@ -127,9 +91,6 @@ public class EditGroupForm extends JDialog {
 		}
 	}
 
-	/**
-	 * Listener.
-	 */
 	private void Listener() {
 		// create document listener
 		DocumentListener documentListener = new DocumentListener() {
@@ -157,18 +118,10 @@ public class EditGroupForm extends JDialog {
 
 	}
 
-	/**
-	 * Check fields.
-	 */
 	private void checkFields() {
 		okButton.setEnabled(!nameTextField.getText().isEmpty());
 	}
 
-	/**
-	 * Echange group.
-	 *
-	 * @throws IOException the io exception
-	 */
 	private void EchangeGroup() throws IOException {
 		Config config = ConfigManager.readConfig();
 
@@ -176,23 +129,22 @@ public class EditGroupForm extends JDialog {
 		List<String> groupList = config.getGroupList();
 		int selectedIndx = groupComboBox.getSelectedIndex();
 		String prevName = groupList.get(selectedIndx);
-		String newName = nameTextField.getText();
+		String newGroup = nameTextField.getText();
 		//Integer назва = Integer.parse
 
-		if (groupList.contains(newName)) {
+		if (groupList.contains(newGroup)) {
 			// Ask user for a new name if it already exists
-			while (groupList.contains(newName)) {
-				newName = JOptionPane.showInputDialog(null, "Group already exists in config file. Please enter a new Group:");
+			while (groupList.contains(newGroup)) {
+				newGroup = JOptionPane.showInputDialog(null, "Group already exists in config file. Please enter a new Group:");
 			}
 		}
-		if(newName!=null) {
-			newName = newName.replaceAll("\\s+", "");
-
+		if (newGroup != null) {
+			newGroup = newGroup.replaceAll("\\s+", "");
 		}
-		if (newName==null || newName.equals("")) {
+		if (newGroup == null || newGroup.equals("")) {
 			return;
 		}
-		groupList.set(selectedIndx, newName);
+		groupList.set(selectedIndx, newGroup);
 		// Open the Excel workbook
 		FileInputStream filePath = new FileInputStream(EXEL_FILE_PATH);
 		Workbook workbook = WorkbookFactory.create(filePath);
@@ -209,7 +161,7 @@ public class EditGroupForm extends JDialog {
 
 			//якщо є
 			if (cell.getStringCellValue().equals(prevName)) {
-				cell.setCellValue(newName);
+				cell.setCellValue(newGroup);
 			}
 			//cell.getNumericCellValue()==
 		}
@@ -221,6 +173,4 @@ public class EditGroupForm extends JDialog {
 		out.close();
 		workbook.close();
 	}
-
-
 }

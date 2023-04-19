@@ -38,13 +38,25 @@ public class AddToExistingForm extends JDialog {
 	 */
 	private JPanel PanelAddForm;
 	/**
+	 * The Label choose form.
+	 */
+	private JLabel LabelChooseForm;
+	/**
 	 * The Choose combo box.
 	 */
 	private JComboBox<String> ChooseComboBox;
 	/**
+	 * The Label number.
+	 */
+	private JLabel LabelNumber;
+	/**
 	 * The Number field.
 	 */
 	private JTextField NumberField;
+	/**
+	 * The Interval label.
+	 */
+	private JLabel IntervalLabel;
 	/**
 	 * The Ok button.
 	 */
@@ -256,7 +268,8 @@ public class AddToExistingForm extends JDialog {
 			out.close();
 			workbook.close();
 		} else {
-			NumberField.setText(""); // Очищаем поле ввода числа
+			dispose();
+			new InventoryManagementUI(null);
 		}
 	}
 
@@ -304,5 +317,6 @@ public class AddToExistingForm extends JDialog {
 		config.setDeliveries(deliveries);
 		ConfigManager.writeInOut(config);
 	}
+
 
 }

@@ -20,6 +20,10 @@ public class AddGroupForm extends JDialog {
 	 */
 	private JPanel AddGroupPanel;
 	/**
+	 * The Name group label.
+	 */
+	private JLabel NameGroupLabel;
+	/**
 	 * The Name group field.
 	 */
 	private JTextField NameGroupField;
@@ -105,11 +109,10 @@ public class AddGroupForm extends JDialog {
 				newGroup = JOptionPane.showInputDialog(null, "Group already exists in config file. Please enter a new Group:");
 			}
 		}
-		if (newGroup!=null) {
+		if (newGroup != null) {
 			newGroup = newGroup.replaceAll("\\s+", "");
-			NameGroupField.setText(newGroup);
 		}
-		if (newGroup==null||newGroup.equals("")) {
+		if (newGroup == null || newGroup.equals("")) {
 			return;
 		}
 		NameGroupField.setText(newGroup);

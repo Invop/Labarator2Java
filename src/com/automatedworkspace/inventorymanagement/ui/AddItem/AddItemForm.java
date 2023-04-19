@@ -28,25 +28,49 @@ public class AddItemForm extends JDialog {
 	 */
 	private JPanel CreateFormBrand;
 	/**
+	 * The Add id label.
+	 */
+	private JLabel AddIDLabel;
+	/**
 	 * The Add id field.
 	 */
 	private JTextField AddIDField;
+	/**
+	 * The Name label.
+	 */
+	private JLabel NameLabel;
 	/**
 	 * The Add name field.
 	 */
 	private JTextField AddNameField;
 	/**
+	 * The Supplier label.
+	 */
+	private JLabel SupplierLabel;
+	/**
 	 * The Add supplier box.
 	 */
 	private JComboBox<String> AddSupplierBox;
+	/**
+	 * The Price label.
+	 */
+	private JLabel PriceLabel;
 	/**
 	 * The Add price field.
 	 */
 	private JTextField AddPriceField;
 	/**
+	 * The Limit label.
+	 */
+	private JLabel LimitLabel;
+	/**
 	 * The Add limit field.
 	 */
 	private JTextField AddLimitField;
+	/**
+	 * The Group label.
+	 */
+	private JLabel GroupLabel;
 	/**
 	 * The Add group box.
 	 */
@@ -59,6 +83,10 @@ public class AddItemForm extends JDialog {
 	 * The Cancel button.
 	 */
 	private JButton CancelButton;
+	/**
+	 * The Interval label.
+	 */
+	private JLabel IntervalLabel;
 	/**
 	 * The Interval field.
 	 */
@@ -273,7 +301,9 @@ public class AddItemForm extends JDialog {
 			row++;
 		}
 
-
+		// Update the config file
+		config.setNotNullRows(row + 1);
+		ConfigManager.writeConfig(config);
 
 		// Fill in the row with data
 		Row newRow = sheet.getRow(row);
@@ -284,30 +314,31 @@ public class AddItemForm extends JDialog {
 		if (cell == null) {
 			cell = newRow.createCell(2);
 		}
-		addIDToConfig(AddIDField.getText());
-		String newItemID = AddIDField.getText();
-		if(newItemID!=null) {
-			newItemID = newItemID.replaceAll("\\s+", "");
+		String newId = AddIDField.getText();
+		if (newId != null) {
+			newId = newId.replaceAll("\\s+", "");
 		}
-		if(newItemID == null || newItemID.equals("")){
-			row--;
-			return;}
-		cell.setCellValue(newItemID);
+		if (newId == null || newId.equals("")) {
+			return;
+		}
+		addIDToConfig(newId);
+		cell.setCellValue(newId);
 
 		cell = newRow.getCell(3);
+
 		if (cell == null) {
 			cell = newRow.createCell(3);
 		}
-		addNameToConfig(AddNameField.getText());
-		String newItemName = AddNameField.getText();
-		if(newItemName!=null) {
-		newItemName = newItemName.replaceAll("\\s+", "");}
-		if(newItemName == null || newItemName.equals("")){
-			row--;
+		String newName = AddNameField.getText();
+		if (newName != null) {
+			newName = newName.replaceAll("\\s+", "");
+		}
+		if (newName == null || newName.equals("")) {
+			sheet.removeRow(newRow);
 			return;
 		}
-		cell.setCellValue(newItemName);
-
+		addNameToConfig(newName);
+		cell.setCellValue(newName);
 		cell = newRow.getCell(4);
 		if (cell == null) {
 			cell = newRow.createCell(4);
@@ -341,11 +372,6 @@ public class AddItemForm extends JDialog {
 		}
 		addItemGroupToConfig(AddGroupBox.getSelectedIndex());
 		cell.setCellValue((String) AddGroupBox.getSelectedItem());
-
-
-		// Update the config file
-		config.setNotNullRows(row + 1);
-		ConfigManager.writeConfig(config);
 		// Save the workbook
 		FileOutputStream out = new FileOutputStream(EXEL_FILE_PATH);
 		workbook.write(out);
@@ -371,14 +397,7 @@ public class AddItemForm extends JDialog {
 				newName = JOptionPane.showInputDialog(null, "Name already exists in config file. Please enter a new name:");
 			}
 		}
-		if (newName!=null) {
-			newName = newName.replaceAll("\\s+", "");
-			AddNameField.setText(newName);
-		}
-		if (newName==null||newName.equals("")) {
-			AddNameField.setText(newName);
-			return;
-		}
+		AddNameField.setText(newName);
 
 		// Add the new name to the list
 		nameList.add(newName);
@@ -406,14 +425,7 @@ public class AddItemForm extends JDialog {
 				newID = JOptionPane.showInputDialog(null, "ID already exists in config file. Please enter a new ID:");
 			}
 		}
-		if(newID!=null) {
-			newID = newID.replaceAll("\\s+", "");
-			AddIDField.setText(newID);
-		}
-		if (newID==null||newID.equals("")   ) {
-			AddIDField.setText(newID);
-			return;
-		}
+		AddIDField.setText(newID);
 		// Add the new ID to the list
 		idList.add(newID);
 		config.setIDList(idList);

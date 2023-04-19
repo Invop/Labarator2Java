@@ -1,5 +1,5 @@
 {
-  "notNullRows": 14,
+  "notNullRows": 15,
   "namesList": [
     "q3",
     "q11",
@@ -11,7 +11,8 @@
     "item5",
     "item6",
     "item7",
-    "item8"
+    "item8",
+    "id9"
   ],
   "IDsList": [
     "q3",
@@ -24,7 +25,8 @@
     "id5",
     "id6",
     "id7",
-    "id8"
+    "id8",
+    "id9"
   ],
   "GroupList": [
     "Gr1",
@@ -49,9 +51,11 @@
     1,
     1,
     1,
+    1,
     1
   ],
   "IntervalList": [
+    1,
     1,
     1,
     1,
@@ -75,7 +79,8 @@
     1,
     2,
     2,
-    2
+    2,
+    0
   ],
   "ItemSupplierList": [
     3,
@@ -88,6 +93,8 @@
     2,
     0,
     1,
-    2
+    2,
+    0,
+    -1
   ]
 }

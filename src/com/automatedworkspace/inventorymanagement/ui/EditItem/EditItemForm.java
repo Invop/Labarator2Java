@@ -23,52 +23,17 @@ public class EditItemForm extends JDialog {
 	 * The Edit item panel.
 	 */
 	private JPanel EditItemPanel;
-	/**
-	 * The Identificatorcombo box.
-	 */
-	private JComboBox<String> IdentificatorcomboBox;
-	/**
-	 * The Nametext field 1.
-	 */
+	private JComboBox IdentificatorcomboBox;
 	private JTextField NametextField1;
-	/**
-	 * The Suppliercombo box 1.
-	 */
-	private JComboBox<String> SuppliercomboBox1;
-	/**
-	 * The Pricetext field.
-	 */
+	private JComboBox SuppliercomboBox1;
 	private JTextField PricetextField;
-	/**
-	 * The Limittext field.
-	 */
 	private JTextField LimittextField;
-	/**
-	 * The Intervaltext field.
-	 */
 	private JTextField IntervaltextField;
-	/**
-	 * The Groupcombo box.
-	 */
-	private JComboBox<String> GroupcomboBox;
-	/**
-	 * The Okbutton.
-	 */
+	private JComboBox GroupcomboBox;
 	private JButton Okbutton;
-	/**
-	 * The Cancelbutton.
-	 */
 	private JButton Cancelbutton;
-	/**
-	 * The Selected indx.
-	 */
 	private int selectedIndx = 0;
 
-	/**
-	 * Instantiates a new Edit item form.
-	 *
-	 * @param parent the parent
-	 */
 	public EditItemForm(JFrame parent) {
 		super(parent);
 		setSize(500, 450);
@@ -95,9 +60,6 @@ public class EditItemForm extends JDialog {
 		});
 	}
 
-	/**
-	 * If ok pressed.
-	 */
 	private void IfOkPressed() {
 		Okbutton.addActionListener(e -> {
 			try {
@@ -127,9 +89,6 @@ public class EditItemForm extends JDialog {
 		});
 	}
 
-	/**
-	 * Close app.
-	 */
 	private void CloseApp() {
 		addWindowListener(new WindowAdapter() {
 			@Override
@@ -140,9 +99,6 @@ public class EditItemForm extends JDialog {
 		});
 	}
 
-	/**
-	 * If cancel pressed.
-	 */
 	private void IfCancelPressed() {
 		Cancelbutton.addActionListener(e -> {
 			dispose();
@@ -151,11 +107,6 @@ public class EditItemForm extends JDialog {
 
 	}
 
-	/**
-	 * Add id to combo box.
-	 *
-	 * @throws IOException the io exception
-	 */
 	private void AddIDToComboBox() throws IOException {
 		// Read the config file
 		Config config = ConfigManager.readConfig();
@@ -173,11 +124,6 @@ public class EditItemForm extends JDialog {
 		}
 	}
 
-	/**
-	 * Add supplier to combo box.
-	 *
-	 * @throws IOException the io exception
-	 */
 	private void AddSupplierToComboBox() throws IOException {
 		SuppliercomboBox1.removeAllItems();
 		// Read the config file
@@ -185,6 +131,7 @@ public class EditItemForm extends JDialog {
 		// Check if the name already exists in the config file
 		List<String> SupplierList = config.getSupplierList();
 		List<Integer> indexList = config.getItemSupplierList();
+		System.out.println(selectedIndx);
 		if (SupplierList.isEmpty()) {
 			// No items in the list
 			JOptionPane.showMessageDialog(null, "No supplier in the list");
@@ -204,11 +151,6 @@ public class EditItemForm extends JDialog {
 		}
 	}
 
-	/**
-	 * Add group to combo box.
-	 *
-	 * @throws IOException the io exception
-	 */
 	private void AddGroupToComboBox() throws IOException {
 		GroupcomboBox.removeAllItems();
 		// Read the config file
@@ -230,11 +172,6 @@ public class EditItemForm extends JDialog {
 		}
 	}
 
-	/**
-	 * Echange name.
-	 *
-	 * @throws IOException the io exception
-	 */
 	private void EchangeName() throws IOException {
 		Config config = ConfigManager.readConfig();
 		//List<Integer> limitList = config.get();
@@ -249,10 +186,10 @@ public class EditItemForm extends JDialog {
 				newName = JOptionPane.showInputDialog(null, "Name already exists in config file. Please enter a new name:");
 			}
 		}
-		if(newName!=null) {
+		if (newName != null) {
 			newName = newName.replaceAll("\\s+", "");
 		}
-		if (newName==null || newName.equals("")) {
+		if (newName == null || newName.equals("")) {
 			return;
 		}
 		NameList.set(selectedIndx, newName);
@@ -274,11 +211,6 @@ public class EditItemForm extends JDialog {
 		workbook.close();
 	}
 
-	/**
-	 * Esupplier change.
-	 *
-	 * @throws IOException the io exception
-	 */
 	private void EsupplierChange() throws IOException {
 		Config config = ConfigManager.readConfig();
 		List<Integer> ItemSuppList = config.getItemSupplierList();
@@ -290,7 +222,7 @@ public class EditItemForm extends JDialog {
 		Row row = sheet.getRow(selectedIndx + 3);
 		Cell cell = row.getCell(4);
 		cell.setCellValue((String) SuppliercomboBox1.getSelectedItem());
-		ItemSuppList.set(selectedIndx, SuppliercomboBox1.getSelectedIndex() - 1);
+		ItemSuppList.set(selectedIndx, SuppliercomboBox1.getSelectedIndex());
 		// Save the workbook & config
 		FileOutputStream out = new FileOutputStream(EXEL_FILE_PATH);
 		config.setItemSupplierList(ItemSuppList);
@@ -300,11 +232,6 @@ public class EditItemForm extends JDialog {
 		workbook.close();
 	}
 
-	/**
-	 * Egroup change.
-	 *
-	 * @throws IOException the io exception
-	 */
 	private void EgroupChange() throws IOException {
 		Config config = ConfigManager.readConfig();
 		List<Integer> ItemGrList = config.getItemGroupList();
@@ -316,7 +243,7 @@ public class EditItemForm extends JDialog {
 		Row row = sheet.getRow(selectedIndx + 3);
 		Cell cell = row.getCell(12);
 		cell.setCellValue((String) GroupcomboBox.getSelectedItem());
-		ItemGrList.set(selectedIndx, GroupcomboBox.getSelectedIndex() - 1);
+		ItemGrList.set(selectedIndx, GroupcomboBox.getSelectedIndex());
 
 		// Save the workbook & config
 		FileOutputStream out = new FileOutputStream(EXEL_FILE_PATH);
@@ -327,17 +254,12 @@ public class EditItemForm extends JDialog {
 		workbook.close();
 	}
 
-	/**
-	 * E interval edit.
-	 *
-	 * @throws IOException the io exception
-	 */
 	private void EIntervalEdit() throws IOException {
 		Config config = ConfigManager.readConfig();
 
 		List<Integer> intervalList = config.getIntervalList();
 
-		int newInterval = Integer.parseInt(IntervaltextField.getText());
+		Integer newInterval = Integer.parseInt(IntervaltextField.getText());
 		Integer prevInterval = intervalList.get(selectedIndx);
 
 		// Open the Excel workbook
@@ -360,17 +282,12 @@ public class EditItemForm extends JDialog {
 		workbook.close();
 	}
 
-	/**
-	 * E limit edit.
-	 *
-	 * @throws IOException the io exception
-	 */
 	private void ELimitEdit() throws IOException {
 		Config config = ConfigManager.readConfig();
 
 		List<Integer> limitList = config.getLimitList();
 
-		int newLimit = Integer.parseInt(LimittextField.getText());
+		Integer newLimit = Integer.parseInt(LimittextField.getText());
 		Integer prevLimit = limitList.get(selectedIndx);
 
 		// Open the Excel workbook
@@ -393,11 +310,6 @@ public class EditItemForm extends JDialog {
 		workbook.close();
 	}
 
-	/**
-	 * E price edit.
-	 *
-	 * @throws IOException the io exception
-	 */
 	private void EPriceEdit() throws IOException {
 		Config config = ConfigManager.readConfig();
 		// Open the Excel workbook

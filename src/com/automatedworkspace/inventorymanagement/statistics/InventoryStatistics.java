@@ -276,13 +276,13 @@ public class InventoryStatistics extends JDialog {
 				data[i][0] = config.getDeliveriesOut().get(i).getName();
 				data[i][1] = "-" + config.getDeliveriesOut().get(i).getSize();
 				data[i][2] = config.getDeliveriesOut().get(i).getDate();
-				int groupIndex = config.getDeliveries().get(i).getGroupIndex();
+				int groupIndex = config.getDeliveriesOut().get(i).getGroupIndex();
 				String group = null;
 				if (groupIndex >= 0 && groupIndex < configMain.getGroupList().size()) {
 					group = configMain.getGroupList().get(groupIndex);
 				}
 				data[i][3] = group;
-				int suppIndex = config.getDeliveries().get(i).getSupplierIndex();
+				int suppIndex = config.getDeliveriesOut().get(i).getSupplierIndex();
 				String supp = null;
 				if (suppIndex >= 0 && suppIndex < configMain.getSupplierList().size()) {
 					supp = configMain.getSupplierList().get(suppIndex);
@@ -351,13 +351,13 @@ public class InventoryStatistics extends JDialog {
 				data[i][0] = config.getDeliveriesOut().get(i).getName();
 				data[i][1] = "-" + config.getDeliveriesOut().get(i).getSize();
 				data[i][2] = config.getDeliveriesOut().get(i).getDate();
-				int groupIndex = config.getDeliveries().get(i).getGroupIndex();
+				int groupIndex = config.getDeliveriesOut().get(i).getGroupIndex();
 				String group = null;
 				if (groupIndex >= 0 && groupIndex < configMain.getGroupList().size()) {
 					group = configMain.getGroupList().get(groupIndex);
 				}
 				data[i][3] = group;
-				int suppIndex = config.getDeliveries().get(i).getSupplierIndex();
+				int suppIndex = config.getDeliveriesOut().get(i).getSupplierIndex();
 				String supp = null;
 				if (suppIndex >= 0 && suppIndex < configMain.getSupplierList().size()) {
 					supp = configMain.getSupplierList().get(suppIndex);
@@ -420,13 +420,13 @@ public class InventoryStatistics extends JDialog {
 			data[i][0] = config.getDeliveriesOut().get(i).getName();
 			data[i][1] = "-" + config.getDeliveriesOut().get(i).getSize();
 			data[i][2] = config.getDeliveriesOut().get(i).getDate();
-			int groupIndex = config.getDeliveries().get(i).getGroupIndex();
+			int groupIndex = config.getDeliveriesOut().get(i).getGroupIndex();
 			String group = null;
 			if (groupIndex >= 0 && groupIndex < configMain.getGroupList().size()) {
 				group = configMain.getGroupList().get(groupIndex);
 			}
 			data[i][3] = group;
-			int suppIndex = config.getDeliveries().get(i).getSupplierIndex();
+			int suppIndex = config.getDeliveriesOut().get(i).getSupplierIndex();
 			String supp = null;
 			if (suppIndex >= 0 && suppIndex < configMain.getSupplierList().size()) {
 				supp = configMain.getSupplierList().get(suppIndex);
@@ -490,8 +490,10 @@ public class InventoryStatistics extends JDialog {
 		workbook.close();
 	}
 
-	private void getSumGroup() throws IOException{
+	private void getSumGroup() throws IOException {
 		Config config = ConfigManager.readConfig();
+		DeliveryConfig deliveryConfig = ConfigManager.readInOut();
+
 		// Open the Excel workbook
 		FileInputStream filePath = new FileInputStream(EXEL_FILE_PATH);
 		Workbook workbook = WorkbookFactory.create(filePath);
@@ -500,10 +502,12 @@ public class InventoryStatistics extends JDialog {
 		int sum = 0;
 		for (int i = 3; i < config.getNotNullRows(); i++) {
 			Row row = sheet.getRow(i);
-			if(comboBoxGroupSupplier.getSelectedItem()!=null &&comboBoxGroupSupplier.getSelectedItem().equals(row.getCell(12).getStringCellValue())) {
+			if (comboBoxGroupSupplier.getSelectedItem() != null && comboBoxGroupSupplier.getSelectedItem().equals(row.getCell(12).getStringCellValue())) {
 				sum += row.getCell(5).getNumericCellValue() * row.getCell(6).getNumericCellValue();
 			}
+
 		}
+
 		grouplabel.setText("Group sum = " + sum);
 		filePath.close();
 		workbook.close();

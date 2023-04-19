@@ -3,6 +3,8 @@ package com.automatedworkspace.inventorymanagement.ui.DeleteItem;
 
 import com.automatedworkspace.inventorymanagement.statistics.Config;
 import com.automatedworkspace.inventorymanagement.statistics.ConfigManager;
+import com.automatedworkspace.inventorymanagement.statistics.DeliveryConfig;
+import com.automatedworkspace.inventorymanagement.ui.Nomenclature.Delivery;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
@@ -125,6 +127,9 @@ public class DeleteGroupForm extends JDialog {
 		List<String> GroupList = config.getGroupList();
 		int selectedIdx = DeleteGroupComboBox.getSelectedIndex();
 		List<Integer> itemGroupList = config.getItemGroupList();
+		DeliveryConfig deliveryConfig = ConfigManager.readInOut();
+		List<Delivery> deliveriesIn = deliveryConfig.getDeliveries();
+		List<Delivery> deliveriesOut = deliveryConfig.getDeliveriesOut();
 		// Remove row from Excel table
 		FileInputStream filePath = new FileInputStream(EXEL_FILE_PATH);
 		Workbook workbook = WorkbookFactory.create(filePath);
@@ -143,8 +148,24 @@ public class DeleteGroupForm extends JDialog {
 				config.setNotNullRows(config.getNotNullRows() - 1);
 				config.getItemGroupList().remove(i);
 				config.getItemSupplierList().remove(i);
+
 			}
 		}
+		for (Delivery delivery : deliveriesIn) {
+			if (delivery.getGroupIndex() == selectedIdx) {
+				delivery.setGroupIndex(-1);
+				delivery.setName(config.getNamesList().get(selectedIdx) + " Removed");
+			}
+		}
+		for (Delivery delivery : deliveriesOut) {
+			if (delivery.getGroupIndex() == selectedIdx) {
+				delivery.setGroupIndex(-1);
+				delivery.setName(config.getNamesList().get(selectedIdx) + " Removed");
+			}
+		}
+		deliveryConfig.setDeliveriesOut(deliveriesOut);
+		deliveryConfig.setDeliveries(deliveriesIn);
+		ConfigManager.writeInOut(deliveryConfig);
 		workbook.setForceFormulaRecalculation(true);
 		filePath.close();
 		GroupList.remove(selectedIdx);

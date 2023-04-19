@@ -32,13 +32,25 @@ public class WriteOffFromExistingForm extends JDialog {
 	 */
 	private JPanel PanelWriteOffForm;
 	/**
+	 * The Label choose form.
+	 */
+	private JLabel LabelChooseForm;
+	/**
 	 * The Choose combo box.
 	 */
 	private JComboBox<String> ChooseComboBox;
 	/**
+	 * The Label number.
+	 */
+	private JLabel LabelNumber;
+	/**
 	 * The Number field.
 	 */
 	private JTextField NumberField;
+	/**
+	 * The Interval label.
+	 */
+	private JLabel IntervalLabel;
 	/**
 	 * The Ok button.
 	 */
@@ -210,7 +222,7 @@ public class WriteOffFromExistingForm extends JDialog {
 			workbook.close();
 			return;
 		}
-		double currentQuantity = quantityCell.getNumericCellValue();
+		int currentQuantity = (int) quantityCell.getNumericCellValue();
 
 		// Get the input quantity from the NumberField
 		int inputQuantity = Integer.parseInt(NumberField.getText());
@@ -227,12 +239,16 @@ public class WriteOffFromExistingForm extends JDialog {
 			else {
 				JOptionPane.getRootFrame().dispose();
 				break;
-
 			}
+
+
+		}
+		if (inputQuantity < 0 || inputQuantity > currentQuantity) {
+			return;
 		}
 		Date selectedDate = DateChooser.getDate();
 		// Update the Excel sheet with the new quantity
-		double newQuantity = currentQuantity - inputQuantity;
+		int newQuantity = currentQuantity - inputQuantity;
 		newRow.getCell(6).setCellValue(newQuantity);
 		saveDeliveryOut(nameList.get(selectedIdx), inputQuantity, selectedDate, config.getItemGroupList().get(selectedIdx), config.getItemSupplierList().get(selectedIdx));
 		// Save and close the workbook
@@ -265,4 +281,6 @@ public class WriteOffFromExistingForm extends JDialog {
 		config.setDeliveriesOut(deliveriesOut);
 		ConfigManager.writeInOut(config);
 	}
+
+
 }

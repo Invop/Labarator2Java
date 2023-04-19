@@ -31,11 +31,6 @@ public class SelectionEditForm extends JDialog {
 	 */
 	private JButton HomeButton;
 
-	/**
-	 * Instantiates a new Selection edit form.
-	 *
-	 * @param parent the parent
-	 */
 	public SelectionEditForm(JFrame parent) {
 		super(parent);
 		setVisible(true);
@@ -49,9 +44,6 @@ public class SelectionEditForm extends JDialog {
 		CloseApp();
 	}
 
-	/**
-	 * Close app.
-	 */
 	private void CloseApp() {
 		addWindowListener(new WindowAdapter() {
 			@Override
@@ -62,9 +54,6 @@ public class SelectionEditForm extends JDialog {
 		});
 	}
 
-	/**
-	 * Ifhome btn pressed.
-	 */
 	private void IfhomeBtnPressed() {
 		HomeButton.addActionListener(e -> {
 			dispose();
@@ -72,9 +61,6 @@ public class SelectionEditForm extends JDialog {
 		});
 	}
 
-	/**
-	 * If edit group btn pressed.
-	 */
 	private void IfEditGroupBtnPressed() {
 		EditGroupButton.addActionListener(e -> {
 			dispose();
@@ -82,9 +68,6 @@ public class SelectionEditForm extends JDialog {
 		});
 	}
 
-	/**
-	 * If edit supplier btn pressed.
-	 */
 	private void IfEditSupplierBtnPressed() {
 		EditSupplierButton.addActionListener(e -> {
 			dispose();
@@ -92,9 +75,6 @@ public class SelectionEditForm extends JDialog {
 		});
 	}
 
-	/**
-	 * If edit item btn pressed.
-	 */
 	private void IfEditItemBtnPressed() {
 		EditItemButton.addActionListener(e -> {
 			dispose();

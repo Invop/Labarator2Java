@@ -4,73 +4,115 @@
       "name": "q4",
       "size": 222,
       "date": "Apr 26, 2023, 10:40:43 PM",
-      "groupIndex": 4,
-      "supplierIndex": 4
+      "groupIndex": -1,
+      "supplierIndex": -1
     },
     {
       "name": "q2",
       "size": 222,
       "date": "Apr 21, 2023, 10:40:57 PM",
-      "groupIndex": 4,
-      "supplierIndex": 3
+      "groupIndex": -1,
+      "supplierIndex": -1
     },
     {
       "name": "q1",
       "size": 40,
       "date": "Apr 19, 2023, 9:18:37 PM",
-      "groupIndex": 3,
-      "supplierIndex": 3
+      "groupIndex": -1,
+      "supplierIndex": -1
     },
     {
       "name": "q3",
       "size": 25,
       "date": "Apr 21, 2023, 9:19:06 PM",
       "groupIndex": 3,
-      "supplierIndex": 4
+      "supplierIndex": 3
     },
     {
       "name": "q3",
       "size": 10,
       "date": "Apr 27, 2023, 11:29:17 PM",
       "groupIndex": 3,
-      "supplierIndex": 4
+      "supplierIndex": 3
     },
     {
-      "name": "item3",
+      "name": "test1 Removed",
       "size": 200,
-      "date": "Apr 28, 2023, 4:16:07 PM",
-      "groupIndex": 1,
+      "date": "Apr 21, 2023, 12:00:00 AM",
+      "groupIndex": -1,
+      "supplierIndex": -1
+    },
+    {
+      "name": "item2 Removed",
+      "size": 200,
+      "date": "Apr 29, 2023, 8:30:27 PM",
+      "groupIndex": -1,
       "supplierIndex": 0
+    },
+    {
+      "name": "q3",
+      "size": 400,
+      "date": "Apr 28, 2023, 8:56:39 PM",
+      "groupIndex": 3,
+      "supplierIndex": 3
     }
   ],
   "deliveriesOut": [
     {
       "name": "q4",
-      "size": 20,
-      "date": "Apr 28, 2023, 11:04:31 PM",
-      "groupIndex": 4,
-      "supplierIndex": 4
+      "size": 222,
+      "date": "Apr 26, 2023, 10:40:43 PM",
+      "groupIndex": -1,
+      "supplierIndex": -1
+    },
+    {
+      "name": "q2",
+      "size": 222,
+      "date": "Apr 21, 2023, 10:40:57 PM",
+      "groupIndex": -1,
+      "supplierIndex": -1
     },
     {
       "name": "q1",
-      "size": 20,
-      "date": "Apr 30, 2023, 11:27:55 PM",
+      "size": 40,
+      "date": "Apr 19, 2023, 9:18:37 PM",
+      "groupIndex": -1,
+      "supplierIndex": -1
+    },
+    {
+      "name": "q3",
+      "size": 25,
+      "date": "Apr 21, 2023, 9:19:06 PM",
       "groupIndex": 3,
       "supplierIndex": 3
     },
     {
-      "name": "q2",
-      "size": 22,
-      "date": "Apr 27, 2023, 11:28:19 PM",
-      "groupIndex": 4,
+      "name": "q3",
+      "size": 10,
+      "date": "Apr 27, 2023, 11:29:17 PM",
+      "groupIndex": 3,
       "supplierIndex": 3
     },
     {
-      "name": "q4",
-      "size": 20,
-      "date": "Apr 20, 2023, 11:29:43 PM",
-      "groupIndex": 4,
-      "supplierIndex": 4
+      "name": "test1 Removed",
+      "size": 200,
+      "date": "Apr 21, 2023, 12:00:00 AM",
+      "groupIndex": -1,
+      "supplierIndex": -1
+    },
+    {
+      "name": "item2 Removed",
+      "size": 200,
+      "date": "Apr 29, 2023, 8:30:27 PM",
+      "groupIndex": -1,
+      "supplierIndex": 0
+    },
+    {
+      "name": "q3",
+      "size": 300,
+      "date": "Apr 26, 2023, 8:56:49 PM",
+      "groupIndex": 3,
+      "supplierIndex": 3
     }
   ]
 }

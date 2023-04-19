@@ -2,6 +2,8 @@ package com.automatedworkspace.inventorymanagement.ui.DeleteItem;
 
 import com.automatedworkspace.inventorymanagement.statistics.Config;
 import com.automatedworkspace.inventorymanagement.statistics.ConfigManager;
+import com.automatedworkspace.inventorymanagement.statistics.DeliveryConfig;
+import com.automatedworkspace.inventorymanagement.ui.Nomenclature.Delivery;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
@@ -140,6 +142,27 @@ public class DeleteItemForm extends JDialog {
 				workbook.write(out);
 				out.close();
 				workbook.close();
+
+				DeliveryConfig configDel = ConfigManager.readInOut();
+				List<Delivery> deliveriesIN = configDel.getDeliveries();
+				List<Delivery> deliveriesOut = configDel.getDeliveries();
+				for (Delivery delivery : deliveriesOut) {
+					if (delivery.getName().equals(config.getNamesList().get(selectedIdx))) {
+						delivery.setGroupIndex(-1);
+						delivery.setSupplierIndex(-1);
+						delivery.setName(config.getNamesList().get(selectedIdx) + " Removed");
+					}
+				}
+				for (Delivery delivery : deliveriesIN) {
+					if (delivery.getName().equals(config.getNamesList().get(selectedIdx))) {
+						delivery.setGroupIndex(-1);
+						delivery.setSupplierIndex(-1);
+						delivery.setName(config.getNamesList().get(selectedIdx) + " Removed");
+					}
+				}
+				configDel.setDeliveries(deliveriesIN);
+				configDel.setDeliveriesOut(deliveriesOut);
+				ConfigManager.writeInOut(configDel);
 				// remove the item from config
 				config.getNamesList().remove(selectedIdx);
 				config.getLimitList().remove(selectedIdx);
@@ -149,7 +172,6 @@ public class DeleteItemForm extends JDialog {
 				config.getItemGroupList().remove(selectedIdx);
 				ConfigManager.writeConfig(config);
 
-				DeleteItemComboBox.removeItemAt(selectedIdx);
 			}
 		}
 

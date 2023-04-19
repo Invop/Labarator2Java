@@ -2,6 +2,8 @@ package com.automatedworkspace.inventorymanagement.ui.DeleteItem;
 
 import com.automatedworkspace.inventorymanagement.statistics.Config;
 import com.automatedworkspace.inventorymanagement.statistics.ConfigManager;
+import com.automatedworkspace.inventorymanagement.statistics.DeliveryConfig;
+import com.automatedworkspace.inventorymanagement.ui.Nomenclature.Delivery;
 import org.apache.poi.ss.usermodel.*;
 
 import javax.swing.*;
@@ -120,6 +122,9 @@ public class DeleteSupplierForm extends JDialog {
 		Sheet sheet = workbook.getSheetAt(0);
 
 		Config config = ConfigManager.readConfig();
+		DeliveryConfig deliveryConfig = ConfigManager.readInOut();
+		List<Delivery> deliveriesIn = deliveryConfig.getDeliveries();
+		List<Delivery> deliveriesOut = deliveryConfig.getDeliveriesOut();
 		List<String> suppList = config.getSupplierList();
 		List<Integer> itemSuppList = config.getItemSupplierList();
 		int selectedIndx = DeleteSupplierComboBox.getSelectedIndex();
@@ -129,6 +134,7 @@ public class DeleteSupplierForm extends JDialog {
 					itemSuppList.set(i, itemSuppList.get(i) - 1);
 				}
 			} else if (itemSuppList.get(i) != -1 && itemSuppList.get(i) == selectedIndx) {
+
 				itemSuppList.set(i, -1);
 				for (int j = 3; j <= config.getNotNullRows(); j++) {
 					Row row = sheet.getRow(j);
@@ -141,6 +147,19 @@ public class DeleteSupplierForm extends JDialog {
 			}
 
 		}
+		for (Delivery delivery : deliveriesIn) {
+			if (delivery.getSupplierIndex() == selectedIndx) {
+				delivery.setSupplierIndex(-1);
+			}
+		}
+		for (Delivery delivery : deliveriesOut) {
+			if (delivery.getSize() == selectedIndx) {
+				delivery.setSupplierIndex(-1);
+			}
+		}
+		deliveryConfig.setDeliveriesOut(deliveriesOut);
+		deliveryConfig.setDeliveries(deliveriesIn);
+		ConfigManager.writeInOut(deliveryConfig);
 		FileOutputStream out = new FileOutputStream(EXEL_FILE_PATH);
 		workbook.write(out);
 		out.close();
