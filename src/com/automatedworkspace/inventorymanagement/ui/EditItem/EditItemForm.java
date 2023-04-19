@@ -131,7 +131,6 @@ public class EditItemForm extends JDialog {
 		// Check if the name already exists in the config file
 		List<String> SupplierList = config.getSupplierList();
 		List<Integer> indexList = config.getItemSupplierList();
-		System.out.println(selectedIndx);
 		if (SupplierList.isEmpty()) {
 			// No items in the list
 			JOptionPane.showMessageDialog(null, "No supplier in the list");

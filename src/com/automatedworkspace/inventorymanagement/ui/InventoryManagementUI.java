@@ -169,15 +169,15 @@ public class InventoryManagementUI extends JDialog {
 		findButton.addActionListener(e -> {
 			if (byNameRadioButton.isSelected()) {
 				displayInfoInTableNameID(true);
-				System.gc();
+
 			}
 			if (byIdRadioButton.isSelected()) {
 				displayInfoInTableNameID(false);
-				System.gc();
+
 			}
 			if (byPriceFromToRadioButton.isSelected()) {
 				displayInfoInTablePrice();
-				System.gc();
+
 			}
 			if (byGroupRadioButton.isSelected()) {
 				try {
@@ -186,7 +186,7 @@ public class InventoryManagementUI extends JDialog {
 				} catch (IOException ex) {
 					throw new RuntimeException(ex);
 				}
-				System.gc();
+
 			}
 			if (bySupplierRadioButton.isSelected()) {
 				try {
@@ -194,7 +194,7 @@ public class InventoryManagementUI extends JDialog {
 				} catch (IOException ex) {
 					throw new RuntimeException(ex);
 				}
-				System.gc();
+
 			}
 		});
 	}

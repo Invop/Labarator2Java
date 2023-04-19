@@ -129,7 +129,7 @@ public class InventoryStatistics extends JDialog {
 		radioButtons.stream().filter(r -> !r.equals(selectedRadioButton)).forEach(r -> r.setSelected(false));
 
 		if (selectedRadioButton.equals(radioButtonAllStatistic)) {
-			System.gc();
+
 			comboBoxGroupSupplier.removeAllItems();
 			try {
 				showAllStatOut();
@@ -147,7 +147,7 @@ public class InventoryStatistics extends JDialog {
 			}
 			if (selectedRadioButton.equals(radioButtonByGroup)) {
 
-				System.gc();
+
 				List<String> groupList = config.getGroupList();
 				ActionListener[] listeners = comboBoxGroupSupplier.getActionListeners();
 				for (ActionListener listener : listeners) {
@@ -175,7 +175,7 @@ public class InventoryStatistics extends JDialog {
 					}
 				});
 			} else {
-				System.gc();
+
 				List<String> supplierList = config.getSupplierList();
 				ActionListener[] listeners = comboBoxGroupSupplier.getActionListeners();
 				for (ActionListener listener : listeners) {
