@@ -159,15 +159,13 @@ public class InventoryStatistics extends JDialog {
 				comboBoxGroupSupplier.addActionListener(e -> {
 					try {
 						showGroupStatOut();
-						Thread thread = new Thread(new Runnable() {
-							public void run() {
-								try {
-									getSumGroup();
-								} catch (IOException ex) {
-									throw new RuntimeException(ex);
-								}
-								Thread.currentThread().interrupt();
+						Thread thread = new Thread(() -> {
+							try {
+								getSumGroup();
+							} catch (IOException ex) {
+								throw new RuntimeException(ex);
 							}
+							Thread.currentThread().interrupt();
 						});
 
 						thread.start(); // Запускаем поток
@@ -250,8 +248,8 @@ public class InventoryStatistics extends JDialog {
 				data[i][3] = group;
 				int suppIndex = config.getDeliveries().get(i).getSupplierIndex();
 				String supp = null;
-				if (suppIndex >= 0 && suppIndex < configMain.getGroupList().size()) {
-					supp = configMain.getGroupList().get(suppIndex);
+				if (suppIndex >= 0 && suppIndex < configMain.getSupplierList().size()) {
+					supp = configMain.getSupplierList().get(suppIndex);
 				}
 				data[i][4] = supp;
 			}
@@ -286,8 +284,8 @@ public class InventoryStatistics extends JDialog {
 				data[i][3] = group;
 				int suppIndex = config.getDeliveries().get(i).getSupplierIndex();
 				String supp = null;
-				if (suppIndex >= 0 && suppIndex < configMain.getGroupList().size()) {
-					supp = configMain.getGroupList().get(suppIndex);
+				if (suppIndex >= 0 && suppIndex < configMain.getSupplierList().size()) {
+					supp = configMain.getSupplierList().get(suppIndex);
 				}
 				data[i][4] = supp;
 			}
@@ -326,8 +324,8 @@ public class InventoryStatistics extends JDialog {
 				data[i][3] = group;
 				int suppIndex = config.getDeliveries().get(i).getSupplierIndex();
 				String supp = null;
-				if (suppIndex >= 0 && suppIndex < configMain.getGroupList().size()) {
-					supp = configMain.getGroupList().get(suppIndex);
+				if (suppIndex >= 0 && suppIndex < configMain.getSupplierList().size()) {
+					supp = configMain.getSupplierList().get(suppIndex);
 				}
 				data[i][4] = supp;
 			}
@@ -361,8 +359,8 @@ public class InventoryStatistics extends JDialog {
 				data[i][3] = group;
 				int suppIndex = config.getDeliveries().get(i).getSupplierIndex();
 				String supp = null;
-				if (suppIndex >= 0 && suppIndex < configMain.getGroupList().size()) {
-					supp = configMain.getGroupList().get(suppIndex);
+				if (suppIndex >= 0 && suppIndex < configMain.getSupplierList().size()) {
+					supp = configMain.getSupplierList().get(suppIndex);
 				}
 				data[i][4] = supp;
 			}
@@ -397,8 +395,8 @@ public class InventoryStatistics extends JDialog {
 			data[i][3] = group;
 			int suppIndex = config.getDeliveries().get(i).getSupplierIndex();
 			String supp = null;
-			if (suppIndex >= 0 && suppIndex < configMain.getGroupList().size()) {
-				supp = configMain.getGroupList().get(suppIndex);
+			if (suppIndex >= 0 && suppIndex < configMain.getSupplierList().size()) {
+				supp = configMain.getSupplierList().get(suppIndex);
 			}
 			data[i][4] = supp;
 		}
@@ -430,8 +428,8 @@ public class InventoryStatistics extends JDialog {
 			data[i][3] = group;
 			int suppIndex = config.getDeliveries().get(i).getSupplierIndex();
 			String supp = null;
-			if (suppIndex >= 0 && suppIndex < configMain.getGroupList().size()) {
-				supp = configMain.getGroupList().get(suppIndex);
+			if (suppIndex >= 0 && suppIndex < configMain.getSupplierList().size()) {
+				supp = configMain.getSupplierList().get(suppIndex);
 			}
 			data[i][4] = supp;
 		}

@@ -34,6 +34,13 @@
       "date": "Apr 27, 2023, 11:29:17 PM",
       "groupIndex": 3,
       "supplierIndex": 4
+    },
+    {
+      "name": "item3",
+      "size": 200,
+      "date": "Apr 28, 2023, 4:16:07 PM",
+      "groupIndex": 1,
+      "supplierIndex": 0
     }
   ],
   "deliveriesOut": [
