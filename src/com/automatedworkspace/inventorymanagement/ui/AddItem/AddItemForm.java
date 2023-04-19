@@ -319,6 +319,8 @@ public class AddItemForm extends JDialog {
 			newId = newId.replaceAll("\\s+", "");
 		}
 		if (newId == null || newId.equals("")) {
+			config.setNotNullRows(row);
+			ConfigManager.writeConfig(config);
 			return;
 		}
 		addIDToConfig(newId);
@@ -334,6 +336,9 @@ public class AddItemForm extends JDialog {
 			newName = newName.replaceAll("\\s+", "");
 		}
 		if (newName == null || newName.equals("")) {
+			// Update the config file
+			config.setNotNullRows(row);
+			ConfigManager.writeConfig(config);
 			sheet.removeRow(newRow);
 			return;
 		}
